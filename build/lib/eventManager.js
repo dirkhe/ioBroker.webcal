@@ -38,7 +38,6 @@ const _Event = class {
     this.name = config.name;
     this.id = this.name.replace(/[^a-z0-9_-]/gi, "");
     this.regEx = new RegExp(config.regEx || (0, import_regex_escape.default)(config.name), "i");
-    _Event.namespace = adapter.namespace + "." + _Event.namespace;
   }
   checkCalendarContent(content) {
     return this.regEx.test(content);
@@ -58,7 +57,7 @@ const _Event = class {
         values.push(days[day]);
       }
     }
-    adapter.log.debug("days for event: " + JSON.stringify(this.stateValues));
+    adapter.log.debug("days for event " + this.name + ": " + JSON.stringify(this.stateValues));
     if (days[0]) {
       if (this.nowFlag && days[0] != i18n["all day"]) {
         if (!this.nowFlag.allDay) {
@@ -174,6 +173,7 @@ class EventManager {
     adapter = adapterInstance;
     i18n = i18nInstance;
     this.events = {};
+    Event.namespace = adapter.namespace + "." + Event.namespace;
   }
   init(config) {
     adapter.log.info("init events");

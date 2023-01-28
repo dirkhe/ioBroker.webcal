@@ -24,7 +24,6 @@ export class Event {
 		this.name = config.name;
 		this.id = this.name.replace(/[^a-z0-9_-]/gi, "");
 		this.regEx = new RegExp(config.regEx || RegExpEscape(config.name), "i");
-		Event.namespace = adapter.namespace + "." + Event.namespace;
 	}
 
 	checkCalendarContent(content: string): boolean {
@@ -46,7 +45,7 @@ export class Event {
 				values.push(days[day]);
 			}
 		}
-		adapter.log.debug("days for event: " + JSON.stringify(this.stateValues));
+		adapter.log.debug("days for event " + this.name + ": " + JSON.stringify(this.stateValues));
 		if (days[0]) {
 			// we have a hit today
 			if (this.nowFlag && days[0] != i18n["all day"]) {
@@ -174,6 +173,7 @@ export class EventManager {
 		adapter = adapterInstance;
 		i18n = i18nInstance;
 		this.events = {};
+		Event.namespace = adapter.namespace + "." + Event.namespace;
 	}
 
 	init(config: ioBroker.AdapterConfig): void {

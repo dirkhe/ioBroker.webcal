@@ -1,0 +1,35 @@
+{
+  // Verwendet IntelliSense zum Ermitteln möglicher Attribute.
+  // Zeigen Sie auf vorhandene Attribute, um die zugehörigen Beschreibungen anzuzeigen.
+  // Weitere Informationen finden Sie unter https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    { // start auf Server: node --inspect=0.0.0.0:9229 iobroker.webcal/ --logs --force
+      "type": "node",
+      "request": "attach",
+      "name": "attach to localhost-ioBroker",
+      "address": "127.0.0.1",
+      "port": 9229,
+      "localRoot": "${workspaceFolder}",
+      "remoteRoot": "${workspaceFolder}/.dev-server/default/node_modules/${workspaceFolderBasename}",
+      "smartStep": true,
+      "skipFiles": [
+        "<node_internals>/**"
+      ]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch ioBroker.webcal Adapter - auf consoloe dev-server watch --noStart ausführen",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "args": [
+        "--debug",
+        "0"
+      ],
+      "program": "node_modules/${workspaceFolderBasename}/build/main.js",
+      "cwd": "${workspaceFolder}/.dev-server/default"
+   }
+  ]
+}

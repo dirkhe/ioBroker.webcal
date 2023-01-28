@@ -16,6 +16,26 @@ with this ioBroker adapter you can
 - fetch events from WEBDAV, CALDAV or CARDDAV Calendar.
 - add new Calendar items based on events
 
+### Calendar Accounts
+**Nextcloud**
+use basic auth and following Url (you can get it by shared link)
+
+`https://<domain>/<optional basePath>/remote.php/dav/calendars/<username>/<optional displaName>`
+
+**Google**
+todo
+
+### Datapoints
+**add new Event**
+
+you can add a new Calender Entry based on the Event. Please use the following Syntax:
+
+`relDays[@calendar] | date|datetime[ - date|datetime][@calendar]`
+
+	relDays - number of days from today
+	or date/datetime as parsable date or datetime
+	@calendar is optional the name of the calendar, default is first defined calendar
+
 ### DISCLAIMER
 This project uses the following components:
 - [tsDav](https://github.com/natelindev/tsdav)

@@ -147,42 +147,12 @@
 						},
 						{
 							"type": "text",
-							"attr": "tokenUrl",
-							"width": "20%",
-							"title": "token Url",
-							"filter": false,
-							"sort": false,
-							"default": "https://",
-							"hidden": "!data.authMethod != 'Basic'"
-						},
-						{
-							"type": "text",
-							"attr": "refreshToken",
-							"width": "8%",
-							"title": "refreshToken width calDav permission",
-							"filter": false,
-							"sort": false,
-							"default": "https://",
-							"hidden": "!data.authMethod != 'Basic'"
-						},
-						{
-							"type": "text",
 							"attr": "username",
 							"width": "10%",
 							"title": "User name",
 							"filter": false,
 							"sort": false,
 							"default": ""
-						},
-						{
-							"type": "text",
-							"attr": "clientId",
-							"width": "10%",
-							"title": "clientId",
-							"filter": false,
-							"sort": false,
-							"default": "",
-							"hidden": "!data.authMethod != 'Basic'"
 						},
 						{
 							"type": "password",
@@ -194,6 +164,36 @@
 							"filter": false,
 							"sort": false,
 							"default": false
+						},
+						{
+							"type": "text",
+							"attr": "tokenUrl",
+							"width": "20%",
+							"title": "token Url",
+							"filter": false,
+							"sort": false,
+							"default": "https://",
+							"hidden": "data.authMethod != 'Oauth'"
+						},
+						{
+							"type": "text",
+							"attr": "refreshToken",
+							"width": "8%",
+							"title": "refreshToken width calDav permission",
+							"filter": false,
+							"sort": false,
+							"default": "",
+							"hidden": "data.authMethod != 'Oauth'"
+						},
+						{
+							"type": "text",
+							"attr": "clientId",
+							"width": "10%",
+							"title": "clientId",
+							"filter": false,
+							"sort": false,
+							"default": "",
+							"hidden": "data.authMethod != 'Oauth'"
 						},
 						{
 							"type": "checkbox",
@@ -208,7 +208,7 @@
 							"type": "sendTo",
 							"command": "testCalendar",
 							"label": "test",
-							"jsonData": "{\"calData\":{\"authMethod\":\"${data.authMethod}\",\"serverUrl\":\"${data.serverUrl}\",\"tokenUrl\":\"${data.tokenUrl}\",\"refreshToken\": \"${data.refreshToken}\",\"username\": \"${data.username}\",\"clientId\": \"${data.clientId}\",\"password\": \"${data.password}\",\"ignoreSSL\": \"${data.ignoreSSL}\"}}",
+							"jsonData": "{\"calData\":{\"authMethod\":\"${data.authMethod}\",\"serverUrl\":\"${data.serverUrl}\",\"tokenUrl\":\"${data.tokenUrl}\",\"refreshToken\": \"${data.refreshToken}\",\"username\": \"${data.username}\",\"clientId\": \"${data.clientId}\",\"password\": \"${data.password}\",\"ignoreSSL\": ${data.ignoreSSL}}}",
 							"width": "10%",
 							"title": "test settings",
 							"showProcess": true

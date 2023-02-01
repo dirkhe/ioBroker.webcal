@@ -51,6 +51,7 @@ This project uses the following components:
 
 ### **WORK IN PROGRESS**
 * (dirkhe) initial release
+* (dirkhe) fix not shown times with daysPast 
 
 ## License
 MIT License

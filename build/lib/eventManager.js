@@ -49,7 +49,7 @@ const _Event = class {
     let values;
     for (const d in days) {
       const day = d;
-      if (day >= _Event.daysPast && day <= _Event.daysFuture) {
+      if (day >= -_Event.daysPast && day <= _Event.daysFuture) {
         values = this.stateValues[day];
         if (!values) {
           values = this.stateValues[day] = [];

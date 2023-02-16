@@ -25,101 +25,27 @@ var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: tru
 var calendarManager_exports = {};
 __export(calendarManager_exports, {
   CalendarEvent: () => CalendarEvent,
-  CalendarManager: () => CalendarManager
+  CalendarManager: () => CalendarManager,
+  localTimeZone: () => localTimeZone
 });
 module.exports = __toCommonJS(calendarManager_exports);
 var import_dayjs = __toESM(require("dayjs"));
 var import_timezone = __toESM(require("dayjs/plugin/timezone"));
 var import_utc = __toESM(require("dayjs/plugin/utc"));
-var import_tsdav = require("./tsdav");
-var import_ical = __toESM(require("ical.js"));
 import_dayjs.default.extend(import_timezone.default);
 import_dayjs.default.extend(import_utc.default);
 const localTimeZone = import_dayjs.default.tz.guess();
 import_dayjs.default.tz.setDefault(localTimeZone);
-import_ical.default.Timezone.localTimezone = new import_ical.default.Timezone({ tzID: localTimeZone });
 let adapter;
 let i18n = {};
 const _CalendarEvent = class {
-  constructor(calendarEventData, startDate, endDate) {
-    this.maxUnixTime = endDate.unix();
-    try {
-      adapter.log.debug("parse calendar data:\n" + calendarEventData.replace(/\s*([:;=])\s*/gm, "$1"));
-      const jcalData = import_ical.default.parse(calendarEventData);
-      const comp = new import_ical.default.Component(jcalData);
-      const calTimezone = comp.getFirstSubcomponent("vtimezone");
-      if (calTimezone) {
-        this.timezone = new import_ical.default.Timezone(calTimezone);
-      }
-      this.icalEvent = new import_ical.default.Event(comp.getFirstSubcomponent("vevent"));
-      if (this.icalEvent.isRecurring()) {
-        if (!["HOURLY", "SECONDLY", "MINUTELY"].includes(this.icalEvent.getRecurrenceTypes())) {
-          const timeObj = this.getNextTimeObj(true);
-          if (timeObj) {
-            const startTime = import_ical.default.Time.fromData({
-              year: startDate.year(),
-              month: startDate.month() + 1,
-              day: startDate.date(),
-              hour: timeObj.start.hour(),
-              minute: timeObj.start.minute(),
-              timezone: calTimezone
-            });
-            this.recurIterator = this.icalEvent.iterator(startTime);
-          }
-        }
-      }
-    } catch (error) {
-      adapter.log.error("could not read calendar Event: " + error);
-      adapter.log.debug(calendarEventData);
-      this.icalEvent = null;
-    }
-  }
-  getNextTimeObj(isFirstCall) {
-    let start;
-    let end;
-    if (this.recurIterator) {
-      start = this.recurIterator.next();
-      if (start) {
-        if (this.timezone) {
-          start = start.convertToZone(this.timezone);
-        }
-        if (start.toUnixTime() > this.maxUnixTime) {
-          return null;
-        }
-        try {
-          end = this.icalEvent.getOccurrenceDetails(start).endDate;
-        } catch (error) {
-          return null;
-        }
-      } else {
-        return null;
-      }
-    } else if (isFirstCall) {
-      start = this.icalEvent.startDate;
-      if (this.timezone) {
-        start = start.convertToZone(this.timezone);
-      }
-      end = this.icalEvent.endDate;
-    } else {
-      return null;
-    }
-    if (this.timezone) {
-      end = end.convertToZone(this.timezone);
-    }
-    return {
-      start: (0, import_dayjs.default)(start.toJSDate()),
-      end: (0, import_dayjs.default)(end.toJSDate())
-    };
+  constructor(endDate) {
+    this.maxUnixTime = (0, import_dayjs.default)(endDate).unix();
   }
   searchForEvents(events) {
-    if (!this.icalEvent) {
-      return;
-    }
-    const content = (this.icalEvent.summary || "") + (this.icalEvent.description || "");
+    const content = (this.summary || "") + (this.description || "");
     if (content.length) {
-      adapter.log.debug(
-        "check calendar event " + (this.icalEvent.summary || "") + " " + (this.icalEvent.description || "")
-      );
+      adapter.log.debug("check calendar event " + (this.summary || "") + " " + (this.description || ""));
       const eventHits = [];
       for (const evID in events) {
         const event = events[evID];
@@ -131,9 +57,13 @@ const _CalendarEvent = class {
       if (eventHits.length > 0) {
         let timeObj = this.getNextTimeObj(true);
         while (timeObj) {
-          const days = this.calcDays(timeObj);
+          const evTimeObj = {
+            start: (0, import_dayjs.default)(timeObj.startDate),
+            end: (0, import_dayjs.default)(timeObj.endDate)
+          };
+          const days = this.calcDays(evTimeObj);
           for (let e = 0; e < eventHits.length; e++) {
-            eventHits[e].addCalendarEvent(timeObj, days);
+            eventHits[e].addCalendarEvent(evTimeObj, days);
           }
           timeObj = this.getNextTimeObj(false);
         }
@@ -147,11 +77,11 @@ const _CalendarEvent = class {
         timeObj.start.startOf("D").diff(_CalendarEvent.todayMidnight, "d"),
         -_CalendarEvent.daysPast
       );
-      const lastDay = Math.min(
-        timeObj.end.startOf("D").diff(_CalendarEvent.todayMidnight, "d"),
-        _CalendarEvent.daysFuture
-      );
-      if (lastDay > firstDay) {
+      if (!timeObj.start.isSame(timeObj.end)) {
+        const lastDay = Math.min(
+          timeObj.end.startOf("D").diff(_CalendarEvent.todayMidnight, "d"),
+          _CalendarEvent.daysFuture
+        );
         let d = firstDay;
         let time = timeObj.start.format(" HH:mm");
         if (time != " 00:00") {
@@ -164,7 +94,7 @@ const _CalendarEvent = class {
         if (time == " 23:59") {
           days[lastDay] = i18n["all day"];
         } else if (time != " 00:00") {
-          days[lastDay] = i18n["until"] + " -" + time;
+          days[lastDay] = days[lastDay] + " " + i18n["until"] + " " + time;
         }
       } else {
         days[firstDay] = timeObj.start.format("HH:mm");
@@ -219,22 +149,13 @@ const _CalendarEvent = class {
         dateTimeObj.year += 2e3;
       }
     }
-    return import_ical.default.Time.fromData(dateTimeObj);
+    return dateTimeObj;
   }
-  static createIcalEventString(data) {
-    const cal = new import_ical.default.Component(["vcalendar", [], []]);
-    cal.updatePropertyWithValue("prodid", "-//ioBroker.webCal");
-    const vevent = new import_ical.default.Component("vevent");
-    const event = new import_ical.default.Event(vevent);
-    event.summary = data.summary;
-    event.description = "ioBroker webCal";
-    event.uid = new Date().getTime().toString();
-    event.startDate = typeof data.startDate == "string" ? import_ical.default.Time.fromString(data.startDate) : data.startDate;
-    if (data.endDate) {
-      event.endDate = typeof data.endDate == "string" ? import_ical.default.Time.fromString(data.endDate) : data.endDate;
+  static getDateTimeISOStringFromEventDateTime(date) {
+    if (!date.isDate) {
+      return new Date(date.year, date.month - 1, date.day, date.hour, date.minute, date.second).toISOString();
     }
-    cal.addSubcomponent(vevent);
-    return cal.toString();
+    return new String("20" + date.year).slice(-4).concat("-", new String("0" + date.month).slice(-2), "-", new String("0" + date.day).slice(-2));
   }
 };
 let CalendarEvent = _CalendarEvent;
@@ -251,61 +172,23 @@ class CalendarManager {
   init(config) {
     CalendarEvent.daysFuture = Math.max(config.daysEventFuture || 0, config.daysJSONFuture || 0);
     CalendarEvent.daysPast = Math.max(config.daysEventPast || 0, config.daysJSONPast || 0);
-    if (config.calendars) {
-      for (let c = 0; c < config.calendars.length; c++) {
-        const davCal = CalendarManager.createDavCalFromConfig(config.calendars[c]);
-        if (davCal) {
-          this.calendars[config.calendars[c].name] = davCal;
-          if (!this.defaultCalendar) {
-            this.defaultCalendar = davCal;
-          }
-        }
+  }
+  addCalendar(cal, name) {
+    if (cal) {
+      this.calendars[name] = cal;
+      if (!this.defaultCalendar) {
+        this.defaultCalendar = cal;
       }
     }
-    return this.defaultCalendar != null;
-  }
-  static createDavCalFromConfig(calConfig) {
-    if (calConfig.serverUrl) {
-      const credentials = calConfig.authMethod == "Oauth" ? {
-        tokenUrl: calConfig.tokenUrl,
-        username: calConfig.username,
-        refreshToken: calConfig.refreshToken,
-        clientId: calConfig.clientId,
-        clientSecret: calConfig.password
-      } : {
-        username: calConfig.username,
-        password: calConfig.password
-      };
-      return new import_tsdav.DavCal(
-        {
-          serverUrl: calConfig.serverUrl,
-          credentials,
-          authMethod: calConfig.authMethod,
-          defaultAccountType: "caldav"
-        },
-        calConfig.ignoreSSL
-      );
-    }
-    return null;
   }
   async fetchCalendars() {
     CalendarEvent.todayMidnight = (0, import_dayjs.default)().startOf("D");
     const calEvents = [];
-    const startDate = CalendarEvent.todayMidnight.add(-CalendarEvent.daysPast, "d");
-    const endDate = CalendarEvent.todayMidnight.add(CalendarEvent.daysFuture, "d").endOf("D");
+    const startDate = CalendarEvent.todayMidnight.add(-CalendarEvent.daysPast, "d").toDate();
+    const endDate = CalendarEvent.todayMidnight.add(CalendarEvent.daysFuture, "d").endOf("D").toDate();
     for (const c in this.calendars) {
-      try {
-        const calendarObjects = await this.calendars[c].getEvents(
-          startDate.toISOString(),
-          endDate.toISOString()
-        );
-        if (calendarObjects) {
-          adapter.log.info("found " + calendarObjects.length + " calendar objects");
-          for (const i in calendarObjects) {
-            calEvents.push(new CalendarEvent(calendarObjects[i].data, startDate, endDate));
-          }
-        }
-      } catch (error) {
+      const error = await this.calendars[c].loadEvents(calEvents, startDate, endDate);
+      if (error) {
         adapter.log.error("could not fetch Calendar " + c + ": " + error);
       }
     }
@@ -314,16 +197,16 @@ class CalendarManager {
   async addEvent(data, calendarName) {
     const calendar = calendarName ? this.calendars[calendarName] : this.defaultCalendar;
     if (!calendar) {
-      return { statusText: i18n["could not found calendar for"] + calendarName, errNo: 1, ok: false };
+      return { message: i18n["could not found calendar for"] + calendarName, errNo: 1, ok: false };
     }
-    adapter.log.debug("add Event " + JSON.stringify(data));
-    const calendarEventData = CalendarEvent.createIcalEventString(data);
-    return calendar.addEvent(calendarEventData);
+    adapter.log.debug("add Event to " + calendar.name + ": " + JSON.stringify(data));
+    return calendar.addEvent(data);
   }
 }
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
   CalendarEvent,
-  CalendarManager
+  CalendarManager,
+  localTimeZone
 });
 //# sourceMappingURL=calendarManager.js.map

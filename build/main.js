@@ -19,8 +19,10 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
 ));
 var utils = __toESM(require("@iobroker/adapter-core"));
 var import_fs = __toESM(require("fs"));
+var import_calDav = require("./lib/calDav");
 var import_calendarManager = require("./lib/calendarManager");
 var import_eventManager = require("./lib/eventManager");
+var import_google = require("./lib/google");
 let adapter;
 const i18n = {
   "all day": "all day",
@@ -54,7 +56,16 @@ class Webcal extends utils.Adapter {
   async onReady() {
     await this.initLocales();
     this.eventManager.init(this.config);
-    if (this.calendarManager.init(this.config)) {
+    this.calendarManager.init(this.config);
+    (0, import_calDav.initLib)(this, import_calendarManager.localTimeZone);
+    (0, import_google.initLib)(this, import_calendarManager.localTimeZone);
+    if (this.config.calendars) {
+      for (let c = 0; c < this.config.calendars.length; c++) {
+        this.calendarManager.addCalendar(
+          this.createCalendarFromConfig(this.config.calendars[c]),
+          this.config.calendars[c].name
+        );
+      }
       this.fetchCalendars();
       if (this.config.intervall > 0) {
         adapter.log.info("fetch calendar data all " + this.config.intervall + " minutes");
@@ -76,11 +87,21 @@ class Webcal extends utils.Adapter {
       this.eventManager.syncFlags();
     });
   }
+  createCalendarFromConfig(calConfig) {
+    if (calConfig.password) {
+      if (calConfig.authMethod == "google") {
+        return new import_google.GoogleCalendar(calConfig);
+      } else {
+        return new import_calDav.DavCalCalendar(calConfig);
+      }
+    }
+    return null;
+  }
   async addEvent(expression, summary) {
     adapter.log.debug("add event to calender: " + expression);
     let terms = expression.split("@", 2);
     expression = " " + expression;
-    const calendarName = terms.length > 1 ? terms[2] : void 0;
+    const calendarName = terms.length > 1 ? terms[1] : void 0;
     const eventData = {
       summary,
       startDate: ""
@@ -111,7 +132,7 @@ class Webcal extends utils.Adapter {
     if (result.ok) {
       return { statusText: i18n["successfully added"] + expression, errNo: 0 };
     } else {
-      return { statusText: result.statusText + " " + expression, errNo: 5 };
+      return { statusText: result.message + " " + expression, errNo: 5 };
     }
   }
   async initLocales() {
@@ -178,17 +199,21 @@ class Webcal extends utils.Adapter {
     if (typeof obj === "object" && obj.message) {
       if (obj.command === "testCalendar") {
         if (obj.callback) {
-          const davCal = import_calendarManager.CalendarManager.createDavCalFromConfig(obj.message.calData);
-          if (davCal) {
-            davCal.getEvents(
-              new Date().toISOString(),
-              new Date(new Date().setDate(new Date().getDate() + 15)).toISOString()
-            ).then(() => {
+          const calObj = this.createCalendarFromConfig(obj.message.calData);
+          if (calObj) {
+            const error = calObj.loadEvents(
+              [],
+              new Date(),
+              new Date(new Date().setDate(new Date().getDate() + 15))
+            );
+            if (error) {
+              this.sendTo(obj.from, obj.command, { result: error }, obj.callback);
+            } else {
               this.sendTo(obj.from, obj.command, { result: "success" }, obj.callback);
-            }).catch((err) => {
-              this.sendTo(obj.from, obj.command, { result: err.message }, obj.callback);
-            });
+            }
           }
+        } else {
+          this.sendTo(obj.from, obj.command, { result: "could not create Calendar" }, obj.callback);
         }
       }
     }

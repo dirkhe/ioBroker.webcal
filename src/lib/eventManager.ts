@@ -27,7 +27,7 @@ export class Event {
 	}
 
 	checkCalendarContent(content: string): boolean {
-		return this.regEx.test(content);
+		return this.regEx.test(content) || content.indexOf(this.name) >= 0;
 	}
 
 	addCalendarEvent(timeObj: webcal.IEventTimeRangObj, days: Record<number, string>): void {

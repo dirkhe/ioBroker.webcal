@@ -130,7 +130,8 @@
 							"title": "authorization method",
 							"options": [
 								{ "label": "Basic", "value": "Basic" },
-								{ "label": "Oauth", "value": "Oauth" }
+								{ "label": "Oauth", "value": "Oauth" },
+								{ "label": "google", "value": "google" }
 							],
 							"filter": false,
 							"sort": false,
@@ -143,7 +144,8 @@
 							"title": "Calendar URL",
 							"filter": false,
 							"sort": false,
-							"default": "https://"
+							"default": "https://",
+							"hidden": "data.authMethod == 'google'"
 						},
 						{
 							"type": "text",
@@ -152,7 +154,8 @@
 							"title": "User name",
 							"filter": false,
 							"sort": false,
-							"default": ""
+							"default": "",
+							"hidden": "data.authMethod == 'google'"
 						},
 						{
 							"type": "password",
@@ -183,7 +186,7 @@
 							"filter": false,
 							"sort": false,
 							"default": "",
-							"hidden": "data.authMethod != 'Oauth'"
+							"hidden": "data.authMethod == 'Basic'"
 						},
 						{
 							"type": "text",
@@ -193,7 +196,7 @@
 							"filter": false,
 							"sort": false,
 							"default": "",
-							"hidden": "data.authMethod != 'Oauth'"
+							"hidden": "data.authMethod == 'Basic'"
 						},
 						{
 							"type": "checkbox",
@@ -202,13 +205,14 @@
 							"title": "Ignore SSL errors",
 							"filter": false,
 							"sort": false,
-							"default": false
+							"default": false,
+							"hidden": "data.authMethod == 'google'"
 						},
 						{
 							"type": "sendTo",
 							"command": "testCalendar",
 							"label": "test",
-							"jsonData": "{\"calData\":{\"authMethod\":\"${data.authMethod}\",\"serverUrl\":\"${data.serverUrl}\",\"tokenUrl\":\"${data.tokenUrl}\",\"refreshToken\": \"${data.refreshToken}\",\"username\": \"${data.username}\",\"clientId\": \"${data.clientId}\",\"password\": \"${data.password}\",\"ignoreSSL\": ${data.ignoreSSL}}}",
+							"jsonData": "{\"name\":\"${data.name}\",\"calData\":{\"authMethod\":\"${data.authMethod}\",\"serverUrl\":\"${data.serverUrl}\",\"tokenUrl\":\"${data.tokenUrl}\",\"refreshToken\": \"${data.refreshToken}\",\"username\": \"${data.username}\",\"clientId\": \"${data.clientId}\",\"password\": \"${data.password}\",\"ignoreSSL\": ${data.ignoreSSL}}}",
 							"width": "10%",
 							"title": "test settings",
 							"showProcess": true

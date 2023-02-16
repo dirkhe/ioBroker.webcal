@@ -14,7 +14,7 @@ declare global {
 			name: string;
 			serverUrl: string;
 			username: string;
-			authMethod: "Basic" | "Oauth" | undefined;
+			authMethod: "Basic" | "Oauth" | "google";
 			tokenUrl: string;
 			refreshToken: string;
 			clientId: string;
@@ -25,10 +25,43 @@ declare global {
 			start: Dayjs;
 			end: Dayjs;
 		}
-		interface ICalEventData {
+		interface IEventDateTime {
+			year: number;
+			month: number;
+			day: number;
+			hour: number = 0;
+			minute: number = 0;
+			second: number = 0;
+			isDate: boolean = false;
+		}
+		interface ICalendarEventData {
 			summary: string;
-			startDate: ICAL.Time | string;
-			endDate?: ICAL.Time | string;
+			startDate: string | IEventDateTime;
+			endDate?: string | IEventDateTime;
+		}
+
+		interface ICalendarEventBase {
+			maxUnixTime: number;
+			summary?: string;
+			description?: string;
+		}
+
+		interface ICalendarBase {
+			name: string;
+			/**
+			 * fetch Events form Calendar and pushed them to calEvents Array
+			 * @param calEvents target Array of ICalendarEventBase
+			 * @param startDate as date object
+			 * @param endDate as date object
+			 * @returns null or errorstring
+			 */
+			loadEvents(calEvents: webcal.ICalendarEventBase[], startDate: Date, endDate: Date): Promise<null | string>;
+			/**
+			 * add Event to Calendar
+			 * @param data event data
+			 * @returns Server response, like {ok:boolen}
+			 */
+			addEvent(calEvent: ICalendarEventData): Promise<any>;
 		}
 	}
 	namespace ioBroker {

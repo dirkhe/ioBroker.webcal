@@ -40,7 +40,7 @@ const _Event = class {
     this.regEx = new RegExp(config.regEx || (0, import_regex_escape.default)(config.name), "i");
   }
   checkCalendarContent(content) {
-    return this.regEx.test(content);
+    return this.regEx.test(content) || content.indexOf(this.name) >= 0;
   }
   addCalendarEvent(timeObj, days) {
     if (!timeObj.start) {

@@ -74,8 +74,7 @@ This project uses the following components:
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
-
-### **WORK IN PROGRESS**
+### 0.1.0 (2023-02-16)
 * (dirkhe) initial release
 * (dirkhe) fix not shown times with daysPast 
 * (dirkhe) complete rework and implement Google

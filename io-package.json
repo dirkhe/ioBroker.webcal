@@ -1,138 +1,151 @@
 {
-    "common": {
-        "name": "webcal",
-        "version": "0.0.1",
-        "news": {
-            "0.0.1": {
-                "en": "initial release",
-                "de": "Erstveröffentlichung",
-                "ru": "Начальная версия",
-                "pt": "lançamento inicial",
-                "nl": "Eerste uitgave",
-                "fr": "Première version",
-                "it": "Versione iniziale",
-                "es": "Versión inicial",
-                "pl": "Pierwsze wydanie",
-                "zh-cn": "首次出版",
-                "uk": "початковий випуск"
-            }
-        },
-        "title": "fetch events from WEBDAV, CALDAV, CARDDAV Calendar",
-        "titleLang": {
-            "en": "fetch events from WEBDAV, CALDAV or CARDDAV Calendar",
-            "de": "WEBDAV, CALDAV, CARDDAV",
-            "ru": "ВЕБДАВ, КАЛДАВ, КАРДАВ",
-            "pt": "WEBDAV, CALDAV, CARDDAV",
-            "nl": "WEBDAV, CALDAV, CARDDAV",
-            "fr": "WEBDAV, CALDAV, CARDDAV",
-            "it": "WEBDAV, CALDAV, CARDDAV",
-            "es": "WEBDAV, CALDAV, CARDDAV",
-            "pl": "WEBDAV, CALDAV, CARDDAV",
-            "zh-cn": "WEBDAV、CALDAV、CARDDAV",
-            "uk": "WEBDAV, CALDAV, CARDDAV"
-        },
-        "desc": {
-            "en": "webcal",
-            "de": "webcal",
-            "ru": "вебкаль",
-            "pt": "webcal",
-            "nl": "webcal",
-            "fr": "webcal",
-            "it": "webcal",
-            "es": "webcal",
-            "pl": "webcal",
-            "zh-cn": "网络电话",
-            "uk": "webcal"
-        },
-        "authors": [
-            "dirkhe"
-        ],
-        "keywords": [
-            "ioBroker",
-            "template",
-            "Smart Home",
-            "home automation"
-        ],
-        "license": "MIT",
-        "platform": "Javascript/Node.js",
-        "main": "build/main.js",
-        "icon": "webcal.png",
-        "enabled": true,
-        "extIcon": "https://raw.githubusercontent.com/dirkhe/ioBroker.webcal/main/admin/webcal.png",
-        "readme": "https://github.com/dirkhe/ioBroker.webcal/blob/main/README.md",
-        "loglevel": "info",
-        "mode": "daemon",
-        "type": "date-and-time",
-        "compact": true,
-        "connectionType": "cloud",
-        "dataSource": "poll",
-        "messagebox": true,
-        "subscribe": "messagebox",
-        "adminUI": {
-            "config": "json"
-        },
-        "dependencies": [
-            {
-                "js-controller": ">=3.3.22"
-            }
-        ],
-        "globalDependencies": [
-            {
-                "admin": ">=5.1.13"
-            }
-        ]
+  "common": {
+    "name": "webcal",
+    "version": "0.1.0",
+    "news": {
+      "0.1.0": {
+        "en": "initial release\nfix not shown times with daysPast \ncomplete rework and implement Google",
+        "de": "erstausstrahlung\nnicht gezeigte Zeiten mit Tagen beheben Vergangenheit\nkomplette Nacharbeit und Implementierung Google",
+        "ru": "начальный выпуск\nисправить не показанное время с днями Прошлое\nполная работа и реализация Google",
+        "pt": "lançamento inicial\ncorrigir tempos não mostrados com dias Passado\ncompleta retrabalho e implementação Google - Serviço técnico para computadores",
+        "nl": "niet\n_ Vertaling:\nvolledig werk en implementatie Google",
+        "fr": "initial release\nfixer les temps non indiqués avec les jours Past\nretravail complet et mise en œuvre Google",
+        "it": "rilascio iniziale\nfissare tempi non mostrati con giorni Passato\nrilavoro completo e implementazione Google",
+        "es": "liberación inicial\nfijar tiempos no mostrados con días Pasado\ncompleta labor y aplicación Google",
+        "pl": "pierwsze wydanie\nnie pokazane czasy Pasta\nprzepracowanie i realizowanie Google",
+        "uk": "початковий реліз\nвиправити не показаний час з днями Список\nповний ремонт і реалізація Українська",
+        "zh-cn": "初步释放\nfix 没有显示时间 修 士\n全面调整和执行 谷歌"
+      },
+      "0.0.1": {
+        "en": "initial release",
+        "de": "Erstveröffentlichung",
+        "ru": "Начальная версия",
+        "pt": "lançamento inicial",
+        "nl": "Eerste uitgave",
+        "fr": "Première version",
+        "it": "Versione iniziale",
+        "es": "Versión inicial",
+        "pl": "Pierwsze wydanie",
+        "zh-cn": "首次出版",
+        "uk": "початковий випуск"
+      }
     },
-    "native": {
-        "daysEventFuture": 2,
-        "daysJSONFuture": 10,
-        "daysEventPast": 0,
-        "daysJSONPast": 0,
-        "intervall": 60,
-        "calendars": [],
-        "events": []
+    "title": "fetch events from WEBDAV, CALDAV, CARDDAV Calendar",
+    "titleLang": {
+      "en": "fetch events from WEBDAV, CALDAV or CARDDAV Calendar",
+      "de": "WEBDAV, CALDAV, CARDDAV",
+      "ru": "ВЕБДАВ, КАЛДАВ, КАРДАВ",
+      "pt": "WEBDAV, CALDAV, CARDDAV",
+      "nl": "WEBDAV, CALDAV, CARDDAV",
+      "fr": "WEBDAV, CALDAV, CARDDAV",
+      "it": "WEBDAV, CALDAV, CARDDAV",
+      "es": "WEBDAV, CALDAV, CARDDAV",
+      "pl": "WEBDAV, CALDAV, CARDDAV",
+      "zh-cn": "WEBDAV、CALDAV、CARDDAV",
+      "uk": "WEBDAV, CALDAV, CARDDAV"
     },
-    "objects": [],
-    "instanceObjects": [
-        {
-            "_id": "",
-            "type": "meta",
-            "common": {
-                "name": {
-                    "en": "user files and images for background",
-                    "de": "Benutzerdateien und Bilder für den Hintergrund",
-                    "ru": "пользовательские файлы и изображения для фона",
-                    "pt": "arquivos e imagens do usuário para plano de fundo",
-                    "nl": "gebruikersbestanden en afbeeldingen voor achtergrond",
-                    "fr": "fichiers utilisateur et images pour l'arrière-plan",
-                    "it": "file utente e immagini per lo sfondo",
-                    "es": "archivos de usuario e imágenes para el fondo",
-                    "pl": "pliki użytkownika i obrazy w tle",
-                    "zh-cn": "背景的用户文件和图像"
-                },
-                "type": "meta.user"
-            },
-            "native": {}
-        },
-        {
-            "_id": "fetchCal",
-            "type": "state",
-            "common": {
-                "role": "button",
-                "name": "Fetch calendar data",
-                "def": false,
-                "type": "boolean",
-                "read": true,
-                "write": true
-            },
-            "native": {}
-        },
-        {
-            "_id": "events",
-            "type": "group",
-            "common": {
-                "name": "fetched events from calendar"
-            },
-            "native": {}
-        }
+    "desc": {
+      "en": "webcal",
+      "de": "webcal",
+      "ru": "вебкаль",
+      "pt": "webcal",
+      "nl": "webcal",
+      "fr": "webcal",
+      "it": "webcal",
+      "es": "webcal",
+      "pl": "webcal",
+      "zh-cn": "网络电话",
+      "uk": "webcal"
+    },
+    "authors": [
+      "dirkhe"
+    ],
+    "keywords": [
+      "ioBroker",
+      "template",
+      "Smart Home",
+      "home automation"
+    ],
+    "license": "MIT",
+    "platform": "Javascript/Node.js",
+    "main": "build/main.js",
+    "icon": "webcal.png",
+    "enabled": true,
+    "extIcon": "https://raw.githubusercontent.com/dirkhe/ioBroker.webcal/main/admin/webcal.png",
+    "readme": "https://github.com/dirkhe/ioBroker.webcal/blob/main/README.md",
+    "loglevel": "info",
+    "mode": "daemon",
+    "type": "date-and-time",
+    "compact": true,
+    "connectionType": "cloud",
+    "dataSource": "poll",
+    "messagebox": true,
+    "subscribe": "messagebox",
+    "adminUI": {
+      "config": "json"
+    },
+    "dependencies": [
+      {
+        "js-controller": ">=3.3.22"
+      }
+    ],
+    "globalDependencies": [
+      {
+        "admin": ">=5.1.13"
+      }
     ]
+  },
+  "native": {
+    "daysEventFuture": 2,
+    "daysJSONFuture": 10,
+    "daysEventPast": 0,
+    "daysJSONPast": 0,
+    "intervall": 60,
+    "calendars": [],
+    "events": []
+  },
+  "objects": [],
+  "instanceObjects": [
+    {
+      "_id": "",
+      "type": "meta",
+      "common": {
+        "name": {
+          "en": "user files and images for background",
+          "de": "Benutzerdateien und Bilder für den Hintergrund",
+          "ru": "пользовательские файлы и изображения для фона",
+          "pt": "arquivos e imagens do usuário para plano de fundo",
+          "nl": "gebruikersbestanden en afbeeldingen voor achtergrond",
+          "fr": "fichiers utilisateur et images pour l'arrière-plan",
+          "it": "file utente e immagini per lo sfondo",
+          "es": "archivos de usuario e imágenes para el fondo",
+          "pl": "pliki użytkownika i obrazy w tle",
+          "zh-cn": "背景的用户文件和图像"
+        },
+        "type": "meta.user"
+      },
+      "native": {}
+    },
+    {
+      "_id": "fetchCal",
+      "type": "state",
+      "common": {
+        "role": "button",
+        "name": "Fetch calendar data",
+        "def": false,
+        "type": "boolean",
+        "read": true,
+        "write": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "events",
+      "type": "group",
+      "common": {
+        "name": "fetched events from calendar"
+      },
+      "native": {}
+    }
+  ]
 }

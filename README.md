@@ -74,7 +74,7 @@ This project uses the following components:
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 0.2.0 (2023-02-21)
 * (dirkhe) add next event and json data
 * (dirkhe) add Iqontrol format to addEvent DP
 

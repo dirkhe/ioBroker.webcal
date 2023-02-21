@@ -29,5 +29,9 @@
     "Calendar URL": "URL-адреса календаря",
     "User name": "Ім'я користувача",
     "Password": "Пароль",
-    "Ignore SSL errors": "Ігноруйте помилки SSL"
+    "Ignore SSL errors": "Ігноруйте помилки SSL",
+    "Tomorrow": "завтра",
+    "inXDays": "через %d днів",
+    "dateOrPeriod": "дата або період часу",
+    "next Event": "наступна подія"
 }

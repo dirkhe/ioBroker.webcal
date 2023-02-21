@@ -29,5 +29,9 @@
     "Calendar URL": "URL du calendrier",
     "User name": "Nom d'utilisateur",
     "Password": "Mot de passe",
-    "Ignore SSL errors": "Ignorer les erreurs SSL"
+    "Ignore SSL errors": "Ignorer les erreurs SSL",
+    "Tomorrow": "Demain",
+    "inXDays": "dans %d jours",
+    "dateOrPeriod": "date ou période",
+    "next Event": "prochain événement"
 }

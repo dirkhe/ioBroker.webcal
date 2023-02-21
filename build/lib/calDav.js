@@ -38,8 +38,8 @@ function initLib(adapterInstance, localTimeZone) {
   import_ical.default.Timezone.localTimezone = new import_ical.default.Timezone({ tzID: localTimeZone });
 }
 class IcalCalendarEvent extends import_calendarManager.CalendarEvent {
-  constructor(calendarEventData, startDate, endDate) {
-    super(endDate);
+  constructor(calendarEventData, calendarName, startDate, endDate) {
+    super(endDate, calendarName);
     try {
       adapter.log.debug("parse calendar data:\n" + calendarEventData.replace(/\s*([:;=])\s*/gm, "$1"));
       const jcalData = import_ical.default.parse(calendarEventData);
@@ -208,7 +208,7 @@ class DavCalCalendar {
       if (calendarObjects) {
         adapter.log.info("found " + calendarObjects.length + " calendar objects");
         for (const i in calendarObjects) {
-          calEvents.push(new IcalCalendarEvent(calendarObjects[i].data, startDate, endDate));
+          calEvents.push(new IcalCalendarEvent(calendarObjects[i].data, this.name, startDate, endDate));
         }
       }
       return null;

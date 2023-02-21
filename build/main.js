@@ -37,7 +37,11 @@ const i18n = {
   "create new Event in calendar, see Readme": "create new Event in calendar, see Readme",
   "could not found calendar for": "could not found calendar for",
   "invalid date": "invalid date",
-  "successfully added": "successfully added"
+  "successfully added": "successfully added",
+  Tomorrow: "Tomorrow",
+  inXDays: "in %d days",
+  dateOrPeriod: "date or time period",
+  "next Event": "next Event"
 };
 class Webcal extends utils.Adapter {
   constructor(options = {}) {
@@ -188,6 +192,9 @@ class Webcal extends utils.Adapter {
             this.addEvent(state.val, obj == null ? void 0 : obj.common.name).then((result) => {
               this.setStateAsync(id, result.statusText, true);
               this.fetchCalendars();
+              this.setTimeout(() => {
+                this.setStateAsync(id, "", true);
+              }, 6e4);
             });
           });
         }

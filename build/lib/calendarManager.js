@@ -26,6 +26,7 @@ var calendarManager_exports = {};
 __export(calendarManager_exports, {
   CalendarEvent: () => CalendarEvent,
   CalendarManager: () => CalendarManager,
+  jsonEvent: () => jsonEvent,
   localTimeZone: () => localTimeZone
 });
 module.exports = __toCommonJS(calendarManager_exports);
@@ -38,8 +39,24 @@ const localTimeZone = import_dayjs.default.tz.guess();
 import_dayjs.default.tz.setDefault(localTimeZone);
 let adapter;
 let i18n = {};
+class jsonEvent {
+  constructor(calendarName, date, summary, startTime, endTime) {
+    this.calendarName = calendarName;
+    this.summary = summary;
+    this.date = date;
+    this.startTime = startTime;
+    this.endTime = endTime;
+  }
+  toString() {
+    return this.isAllday() ? i18n["all day"] : i18n["from"] + " " + this.startTime + (this.endTime ? " " + i18n["until"] + " " + this.endTime : "");
+  }
+  isAllday() {
+    return !this.startTime && !this.endTime;
+  }
+}
 const _CalendarEvent = class {
-  constructor(endDate) {
+  constructor(endDate, calendarName) {
+    this.calendarName = calendarName;
     this.maxUnixTime = (0, import_dayjs.default)(endDate).unix();
   }
   searchForEvents(events) {
@@ -63,7 +80,7 @@ const _CalendarEvent = class {
           };
           const days = this.calcDays(evTimeObj);
           for (let e = 0; e < eventHits.length; e++) {
-            eventHits[e].addCalendarEvent(evTimeObj, days);
+            eventHits[e].addCalendarEvent(days);
           }
           timeObj = this.getNextTimeObj(false);
         }
@@ -83,21 +100,26 @@ const _CalendarEvent = class {
           _CalendarEvent.daysFuture
         );
         let d = firstDay;
-        let time = timeObj.start.format(" HH:mm");
-        if (time != " 00:00") {
-          days[d++] = i18n["from"] + time;
+        let time = timeObj.start.format("HH:mm");
+        if (time != "00:00") {
+          days[d++] = new jsonEvent(this.calendarName, timeObj.start.toDate(), this.summary, time);
         }
         for (; d < lastDay; d++) {
-          days[d] = i18n["all day"];
+          days[d] = new jsonEvent(this.calendarName, timeObj.start.add(d, "d").toDate(), this.summary);
         }
-        time = timeObj.end.format(" HH:mm");
-        if (time == " 23:59") {
-          days[lastDay] = i18n["all day"];
-        } else if (time != " 00:00") {
-          days[lastDay] = days[lastDay] + " " + i18n["until"] + " " + time;
+        time = timeObj.end.format("HH:mm");
+        if (time == "23:59") {
+          days[lastDay] = new jsonEvent(this.calendarName, timeObj.end.toDate(), this.summary);
+        } else if (time != "00:00") {
+          days[lastDay].endTime = time;
         }
       } else {
-        days[firstDay] = timeObj.start.format("HH:mm");
+        days[firstDay] = new jsonEvent(
+          this.calendarName,
+          timeObj.start.toDate(),
+          this.summary,
+          timeObj.start.format("HH:mm")
+        );
       }
       adapter.log.debug("days for calendar event(" + JSON.stringify(timeObj) + "): " + JSON.stringify(days));
     }
@@ -207,6 +229,7 @@ class CalendarManager {
 0 && (module.exports = {
   CalendarEvent,
   CalendarManager,
+  jsonEvent,
   localTimeZone
 });
 //# sourceMappingURL=calendarManager.js.map

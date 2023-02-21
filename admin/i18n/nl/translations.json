@@ -29,5 +29,9 @@
     "Calendar URL": "Agenda-URL",
     "User name": "Gebruikersnaam",
     "Password": "Wachtwoord",
-    "Ignore SSL errors": "Negeer SSL-fouten"
+    "Ignore SSL errors": "Negeer SSL-fouten",
+    "Tomorrow": "Morgen",
+    "inXDays": "over %d dagen",
+    "dateOrPeriod": "datum of periode",
+    "next Event": "volgende gebeurtenis"
 }

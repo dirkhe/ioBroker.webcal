@@ -28,8 +28,11 @@ const i18n = {
 	"could not found calendar for": "could not found calendar for",
 	"invalid date": "invalid date",
 	"successfully added": "successfully added",
+	Tomorrow: "Tomorrow",
+	inXDays: "in %d days",
+	dateOrPeriod: "date or time period",
+	"next Event": "next Event",
 };
-
 class Webcal extends utils.Adapter {
 	eventManager: EventManager;
 	calendarManager: CalendarManager;
@@ -241,6 +244,9 @@ class Webcal extends utils.Adapter {
 						this.addEvent(state.val as string, obj?.common.name as string).then((result) => {
 							this.setStateAsync(id, result.statusText, true);
 							this.fetchCalendars();
+							this.setTimeout(() => {
+								this.setStateAsync(id, "", true);
+							}, 60000);
 						});
 					});
 				}

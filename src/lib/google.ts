@@ -13,8 +13,8 @@ export function initLib(adapterInstance: AdapterInstance, adapterLocalTimeZone: 
 
 export class GoogleCalendarEvent extends CalendarEvent {
 	googleEvent: calendar_v3.Schema$Event | null;
-	constructor(googleEvent: calendar_v3.Schema$Event, startDate: Date, endDate: Date) {
-		super(endDate);
+	constructor(googleEvent: calendar_v3.Schema$Event, calendarName: string, endDate: Date) {
+		super(endDate, calendarName);
 		this.googleEvent = googleEvent;
 		try {
 			this.summary = googleEvent.summary || "";
@@ -144,7 +144,7 @@ export class GoogleCalendar implements webcal.ICalendarBase {
 				if (calendarObjects) {
 					adapter.log.info("found " + calendarObjects.length + " calendar objects");
 					for (const i in calendarObjects) {
-						calEvents.push(new GoogleCalendarEvent(calendarObjects[i], startDate, endDate));
+						calEvents.push(new GoogleCalendarEvent(calendarObjects[i], this.name, endDate));
 					}
 				}
 				return null;

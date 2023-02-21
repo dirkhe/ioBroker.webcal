@@ -28,6 +28,7 @@ __export(eventManager_exports, {
   EventManager: () => EventManager
 });
 module.exports = __toCommonJS(eventManager_exports);
+var import_dayjs = __toESM(require("dayjs"));
 var import_regex_escape = __toESM(require("regex-escape"));
 let adapter;
 let i18n = {};
@@ -42,10 +43,7 @@ const _Event = class {
   checkCalendarContent(content) {
     return this.regEx.test(content) || content.indexOf(this.name) >= 0;
   }
-  addCalendarEvent(timeObj, days) {
-    if (!timeObj.start) {
-      return;
-    }
+  addCalendarEvent(days) {
     let values;
     for (const d in days) {
       const day = d;
@@ -58,27 +56,28 @@ const _Event = class {
       }
     }
     adapter.log.debug("days for event " + this.name + ": " + JSON.stringify(this.stateValues));
-    if (days[0]) {
-      if (this.nowFlag && days[0] != i18n["all day"]) {
+    const today = days[0];
+    if (today) {
+      if (this.nowFlag && today.startTime) {
         if (!this.nowFlag.allDay) {
           let curTime = null;
           for (let i = 0; curTime == null && i < this.nowFlag.times.length; i++) {
             curTime = this.nowFlag.times[i];
-            if (timeObj.start.isBefore(curTime.start)) {
-              if (timeObj.end.isBefore(curTime.start)) {
+            if (today.startTime < curTime.start) {
+              if (today.endTime && curTime.start > today.endTime) {
                 this.nowFlag.times.splice(i, 0, {
-                  start: timeObj.start,
-                  end: timeObj.end
+                  start: today.startTime,
+                  end: today.endTime
                 });
               } else {
-                curTime.start = timeObj.start;
-                if (timeObj.end.isAfter(curTime.end)) {
-                  curTime.end = timeObj.end;
+                curTime.start = today.startTime;
+                if (today.endTime && today.endTime > curTime.end) {
+                  curTime.end = today.endTime;
                 }
               }
-            } else if (timeObj.start.isSame(curTime.start) || timeObj.start.isBefore(curTime.end)) {
-              if (timeObj.end.isAfter(curTime.end)) {
-                curTime.end = timeObj.end;
+            } else if (today.startTime == curTime.start || today.startTime < curTime.end) {
+              if (today.endTime && today.endTime > curTime.end) {
+                curTime.end = today.endTime;
               }
             } else {
               curTime = null;
@@ -86,8 +85,8 @@ const _Event = class {
           }
           if (curTime == null) {
             this.nowFlag.times.push({
-              start: timeObj.start,
-              end: timeObj.end
+              start: today.startTime,
+              end: today.endTime
             });
           }
         }
@@ -95,10 +94,10 @@ const _Event = class {
         this.nowFlag = {
           times: [],
           timerID: null,
-          allDay: days[0] == i18n["all day"]
+          allDay: today.isAllday()
         };
         if (!this.nowFlag.allDay) {
-          this.nowFlag.times.push({ start: timeObj.start, end: timeObj.end });
+          this.nowFlag.times.push({ start: today.startTime, end: today.endTime });
         }
       }
     }
@@ -121,6 +120,28 @@ const _Event = class {
         }
       }
     });
+    const jsonData = [];
+    let next = new Date("9999-12-31");
+    const now = new Date();
+    for (const d in this.stateValues) {
+      const times = this.stateValues[d];
+      for (const i in times) {
+        const time = {
+          ...times[i],
+          timeText: times[i].toString()
+        };
+        jsonData.push(time);
+        if (time.date > now && time.date < next) {
+          next = time.date;
+        }
+      }
+    }
+    adapter.setStateChangedAsync(_Event.namespace + this.id + ".data", JSON.stringify(jsonData), true);
+    adapter.setStateChangedAsync(
+      _Event.namespace + this.id + ".next",
+      next.getFullYear() < 9999 ? next.toISOString() : "",
+      true
+    );
     this.updateNowFlag();
   }
   updateNowFlag() {
@@ -134,10 +155,11 @@ const _Event = class {
         stateText = i18n["all day"];
       } else {
         for (let i = 0; i < this.nowFlag.times.length; i++) {
-          const timeUntilStart = this.nowFlag.times[i].start.diff();
-          const timerUntilStop = this.nowFlag.times[i].end.diff();
+          const todayStr = (0, import_dayjs.default)().format("YYYY-MM-DDT");
+          const timeUntilStart = (0, import_dayjs.default)(todayStr + this.nowFlag.times[i].start).diff();
+          const timerUntilStop = (0, import_dayjs.default)(todayStr + this.nowFlag.times[i].end).diff();
           if (timeUntilStart <= 0 && timerUntilStop > 0) {
-            stateText = this.nowFlag.times[i].start.format("HH:mm");
+            stateText = this.nowFlag.times[i].start;
             this.nowFlag.timerID = setTimeout(
               function(event) {
                 event.updateNowFlag();
@@ -193,6 +215,8 @@ class EventManager {
     const eventFlags = {
       now: i18n["now"],
       addEvent: i18n["add Event"],
+      next: i18n["next Event"],
+      data: "data",
       "0": i18n["today"]
     };
     for (let d = 1; d <= Event.daysPast; d++) {
@@ -245,7 +269,7 @@ class EventManager {
     });
   }
   addEventFlagObject(id, name) {
-    adapter.setObjectNotExistsAsync(id, {
+    const obj = {
       type: "state",
       common: {
         name,
@@ -254,10 +278,37 @@ class EventManager {
         read: true,
         write: false,
         def: "",
-        desc: id.endsWith("addEvent") ? i18n["create new Event in calendar, see Readme"] : i18n["starttime"]
+        desc: i18n["starttime"]
       },
-      native: {}
-    });
+      native: {},
+      _id: id
+    };
+    if (id.endsWith("addEvent")) {
+      obj.common.write = true;
+      obj.common.desc = i18n["create new Event in calendar, see Readme"];
+      obj.common.custom = {
+        "iqontrol.0": {
+          enabled: true,
+          statesAddInput: true,
+          statesAddInputCaption: i18n.dateOrPeriod,
+          showOnlyTargetValues: false,
+          type: "string",
+          role: "text",
+          states: {
+            "0": i18n.today,
+            "1": i18n.Tomorrow,
+            "2": i18n.inXDays.replace("%d", "2"),
+            "3": i18n.inXDays.replace("%d", "3"),
+            "4": i18n.inXDays.replace("%d", "4"),
+            "5": i18n.inXDays.replace("%d", "5")
+          }
+        }
+      };
+    } else if (id.endsWith("data")) {
+      obj.common.desc = "data as JSON";
+      obj.common.role = "json";
+    }
+    adapter.setObjectNotExistsAsync(id, obj);
   }
   syncFlags() {
     for (const evID in this.events) {

@@ -33,8 +33,8 @@ function initLib(adapterInstance, adapterLocalTimeZone) {
   localTimeZone = adapterLocalTimeZone;
 }
 class GoogleCalendarEvent extends import_calendarManager.CalendarEvent {
-  constructor(googleEvent, startDate, endDate) {
-    super(endDate);
+  constructor(googleEvent, calendarName, endDate) {
+    super(endDate, calendarName);
     this.googleEvent = googleEvent;
     try {
       this.summary = googleEvent.summary || "";
@@ -135,7 +135,7 @@ class GoogleCalendar {
       if (calendarObjects) {
         adapter.log.info("found " + calendarObjects.length + " calendar objects");
         for (const i in calendarObjects) {
-          calEvents.push(new GoogleCalendarEvent(calendarObjects[i], startDate, endDate));
+          calEvents.push(new GoogleCalendarEvent(calendarObjects[i], this.name, endDate));
         }
       }
       return null;

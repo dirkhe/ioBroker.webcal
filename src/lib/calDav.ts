@@ -18,8 +18,8 @@ export class IcalCalendarEvent extends CalendarEvent {
 	timezone?: ICAL.Timezone;
 	recurIterator?: ICAL.RecurExpansion;
 
-	constructor(calendarEventData: string, startDate: Date, endDate: Date) {
-		super(endDate);
+	constructor(calendarEventData: string, calendarName: string, startDate: Date, endDate: Date) {
+		super(endDate, calendarName);
 		try {
 			adapter.log.debug("parse calendar data:\n" + calendarEventData.replace(/\s*([:;=])\s*/gm, "$1"));
 			const jcalData = ICAL.parse(calendarEventData);
@@ -244,7 +244,7 @@ export class DavCalCalendar implements webcal.ICalendarBase {
 										}
 					*/
 					for (const i in calendarObjects) {
-						calEvents.push(new IcalCalendarEvent(calendarObjects[i].data, startDate, endDate));
+						calEvents.push(new IcalCalendarEvent(calendarObjects[i].data, this.name, startDate, endDate));
 					}
 				}
 				return null;

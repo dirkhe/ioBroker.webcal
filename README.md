@@ -13,7 +13,7 @@
 ## webcal adapter for ioBroker
 
 with this ioBroker adapter you can 
-- fetch events from WEBDAV, CALDAV or CARDDAV Calendar.
+- fetch events from WEBDAV, CALDAV, CARDDAV or Google Calendar.
 - add new Calendar items based on events
 
 ### Calendar Accounts
@@ -74,6 +74,10 @@ This project uses the following components:
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+* (dirkhe) add next event and json data
+* (dirkhe) add Iqontrol format to addEvent DP
+
 ### 0.1.0 (2023-02-16)
 * (dirkhe) initial release
 * (dirkhe) fix not shown times with daysPast 

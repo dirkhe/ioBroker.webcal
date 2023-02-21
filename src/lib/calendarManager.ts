@@ -16,15 +16,42 @@ export interface ICalendarTimeRangObj {
 	startDate: Date;
 	endDate: Date;
 }
+
+export class jsonEvent {
+	date: Date;
+	startTime?: string;
+	endTime?: string;
+	calendarName: string;
+	summary?: string;
+
+	constructor(calendarName: string, date: Date, summary?: string, startTime?: string, endTime?: string) {
+		this.calendarName = calendarName;
+		this.summary = summary;
+		this.date = date;
+		this.startTime = startTime;
+		this.endTime = endTime;
+	}
+
+	toString(): string {
+		return this.isAllday()
+			? i18n["all day"]
+			: i18n["from"] + " " + this.startTime + (this.endTime ? " " + i18n["until"] + " " + this.endTime : "");
+	}
+	isAllday(): boolean {
+		return !this.startTime && !this.endTime;
+	}
+}
 export abstract class CalendarEvent implements webcal.ICalendarEventBase {
 	static daysFuture = 3;
 	static daysPast = 0;
 	static todayMidnight: Dayjs = dayjs().startOf("d");
+	calendarName: string;
 	maxUnixTime: number;
 	summary?: string;
 	description?: string;
 
-	constructor(endDate: Date) {
+	constructor(endDate: Date, calendarName: string) {
+		this.calendarName = calendarName;
 		this.maxUnixTime = dayjs(endDate).unix();
 	}
 
@@ -49,9 +76,9 @@ export abstract class CalendarEvent implements webcal.ICalendarEventBase {
 						start: dayjs(timeObj.startDate),
 						end: dayjs(timeObj.endDate),
 					};
-					const days: Record<number, string> = this.calcDays(evTimeObj);
+					const days: Record<number, jsonEvent> = this.calcDays(evTimeObj);
 					for (let e = 0; e < eventHits.length; e++) {
-						eventHits[e].addCalendarEvent(evTimeObj, days);
+						eventHits[e].addCalendarEvent(days);
 					}
 					timeObj = this.getNextTimeObj(false);
 				}
@@ -59,8 +86,8 @@ export abstract class CalendarEvent implements webcal.ICalendarEventBase {
 		}
 	}
 
-	calcDays(timeObj: webcal.IEventTimeRangObj): Record<number, string> {
-		const days: Record<number, string> = {};
+	calcDays(timeObj: webcal.IEventTimeRangObj): Record<number, jsonEvent> {
+		const days: Record<number, jsonEvent> = {};
 		if (timeObj) {
 			const firstDay = Math.max(
 				timeObj.start.startOf("D").diff(CalendarEvent.todayMidnight, "d"),
@@ -74,21 +101,26 @@ export abstract class CalendarEvent implements webcal.ICalendarEventBase {
 				);
 				// event is at least next day
 				let d: number = firstDay;
-				let time = timeObj.start.format(" HH:mm");
-				if (time != " 00:00") {
-					days[d++] = i18n["from"] + time;
+				let time = timeObj.start.format("HH:mm");
+				if (time != "00:00") {
+					days[d++] = new jsonEvent(this.calendarName, timeObj.start.toDate(), this.summary, time);
 				}
 				for (; d < lastDay; d++) {
-					days[d] = i18n["all day"];
+					days[d] = new jsonEvent(this.calendarName, timeObj.start.add(d, "d").toDate(), this.summary);
 				}
-				time = timeObj.end.format(" HH:mm");
-				if (time == " 23:59") {
-					days[lastDay] = i18n["all day"];
-				} else if (time != " 00:00") {
-					days[lastDay] = days[lastDay] + " " + i18n["until"] + " " + time;
+				time = timeObj.end.format("HH:mm");
+				if (time == "23:59") {
+					days[lastDay] = new jsonEvent(this.calendarName, timeObj.end.toDate(), this.summary);
+				} else if (time != "00:00") {
+					days[lastDay].endTime = time;
 				}
 			} else {
-				days[firstDay] = timeObj.start.format("HH:mm");
+				days[firstDay] = new jsonEvent(
+					this.calendarName,
+					timeObj.start.toDate(),
+					this.summary,
+					timeObj.start.format("HH:mm"),
+				);
 			}
 			adapter.log.debug("days for calendar event(" + JSON.stringify(timeObj) + "): " + JSON.stringify(days));
 		}

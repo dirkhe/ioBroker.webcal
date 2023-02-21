@@ -29,5 +29,9 @@
     "Calendar URL": "日历网址",
     "User name": "用户名",
     "Password": "密码",
-    "Ignore SSL errors": "忽略 SSL 错误"
+    "Ignore SSL errors": "忽略 SSL 错误",
+    "Tomorrow": "明天",
+    "inXDays": "在 %d 天内",
+    "dateOrPeriod": "日期或时间段",
+    "next Event": "下一个事件"
 }

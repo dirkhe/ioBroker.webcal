@@ -1,7 +1,9 @@
 import { AdapterInstance } from "@iobroker/adapter-core";
+import dayjs from "dayjs";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import RegExpEscape from "regex-escape";
+import { jsonEvent } from "./calendarManager";
 
 let adapter: AdapterInstance;
 let i18n: Record<string, string> = {};
@@ -13,7 +15,7 @@ export class Event {
 	id: string;
 	name: string;
 	regEx: RegExp;
-	stateValues: Record<number, Array<string>> = {};
+	stateValues: Record<number, Array<jsonEvent>> = {};
 	nowFlag: {
 		times: Array<webcal.IEventTimeRangObj>;
 		timerID: NodeJS.Timeout | null;
@@ -30,10 +32,7 @@ export class Event {
 		return this.regEx.test(content) || content.indexOf(this.name) >= 0;
 	}
 
-	addCalendarEvent(timeObj: webcal.IEventTimeRangObj, days: Record<number, string>): void {
-		if (!timeObj.start) {
-			return;
-		}
+	addCalendarEvent(days: Record<number, jsonEvent>): void {
 		let values;
 		for (const d in days) {
 			const day: number = d as unknown as number;
@@ -46,32 +45,33 @@ export class Event {
 			}
 		}
 		adapter.log.debug("days for event " + this.name + ": " + JSON.stringify(this.stateValues));
-		if (days[0]) {
+		const today = days[0];
+		if (today) {
 			// we have a hit today
-			if (this.nowFlag && days[0] != i18n["all day"]) {
+			if (this.nowFlag && today.startTime) {
 				if (!this.nowFlag.allDay) {
 					let curTime = null;
 					for (let i = 0; curTime == null && i < this.nowFlag.times.length; i++) {
 						curTime = this.nowFlag.times[i];
-						if (timeObj.start.isBefore(curTime.start)) {
-							if (timeObj.end.isBefore(curTime.start)) {
+						if (today.startTime < curTime.start) {
+							if (today.endTime && curTime.start > today.endTime) {
 								// hole timeframe is befor cur timeframe, so we insert it as new item
 								this.nowFlag.times.splice(i, 0, {
-									start: timeObj.start,
-									end: timeObj.end,
+									start: today.startTime,
+									end: today.endTime,
 								});
 							} else {
 								// we will start earlier
-								curTime.start = timeObj.start;
-								if (timeObj.end.isAfter(curTime.end)) {
+								curTime.start = today.startTime;
+								if (today.endTime && today.endTime > curTime.end) {
 									// the endtime is later then cur timeframe, so we stopps later
-									curTime.end = timeObj.end;
+									curTime.end = today.endTime;
 								}
 							}
-						} else if (timeObj.start.isSame(curTime.start) || timeObj.start.isBefore(curTime.end)) {
-							if (timeObj.end.isAfter(curTime.end)) {
+						} else if (today.startTime == curTime.start || today.startTime < curTime.end) {
+							if (today.endTime && today.endTime > curTime.end) {
 								// the endtime is later then cur timeframe, so we stopps later
-								curTime.end = timeObj.end;
+								curTime.end = today.endTime;
 							}
 						} else {
 							curTime = null;
@@ -80,8 +80,8 @@ export class Event {
 
 					if (curTime == null) {
 						this.nowFlag.times.push({
-							start: timeObj.start,
-							end: timeObj.end,
+							start: today.startTime,
+							end: today.endTime,
 						});
 					}
 				}
@@ -90,10 +90,10 @@ export class Event {
 				this.nowFlag = {
 					times: [],
 					timerID: null,
-					allDay: days[0] == i18n["all day"],
+					allDay: today.isAllday(),
 				};
 				if (!this.nowFlag.allDay) {
-					this.nowFlag.times.push({ start: timeObj.start, end: timeObj.end });
+					this.nowFlag.times.push({ start: today.startTime, end: today.endTime });
 				}
 			}
 		}
@@ -119,6 +119,28 @@ export class Event {
 				}
 			}
 		});
+		const jsonData = [];
+		let next = new Date("9999-12-31");
+		const now = new Date();
+		for (const d in this.stateValues) {
+			const times = this.stateValues[d];
+			for (const i in times) {
+				const time = {
+					...times[i],
+					timeText: times[i].toString(),
+				};
+				jsonData.push(time);
+				if (time.date > now && time.date < next) {
+					next = time.date;
+				}
+			}
+		}
+		adapter.setStateChangedAsync(Event.namespace + this.id + ".data", JSON.stringify(jsonData), true);
+		adapter.setStateChangedAsync(
+			Event.namespace + this.id + ".next",
+			next.getFullYear() < 9999 ? next.toISOString() : "",
+			true,
+		);
 		this.updateNowFlag();
 	}
 
@@ -133,11 +155,12 @@ export class Event {
 				stateText = i18n["all day"];
 			} else {
 				for (let i = 0; i < this.nowFlag.times.length; i++) {
-					const timeUntilStart = this.nowFlag.times[i].start.diff();
-					const timerUntilStop = this.nowFlag.times[i].end.diff();
+					const todayStr = dayjs().format("YYYY-MM-DDT");
+					const timeUntilStart = dayjs(todayStr + this.nowFlag.times[i].start).diff();
+					const timerUntilStop = dayjs(todayStr + this.nowFlag.times[i].end).diff();
 					if (timeUntilStart <= 0 && timerUntilStop > 0) {
 						// starttime is in the past and endTime is in the future
-						stateText = this.nowFlag.times[i].start.format("HH:mm");
+						stateText = this.nowFlag.times[i].start;
 						this.nowFlag.timerID = setTimeout(
 							function (event) {
 								event.updateNowFlag();
@@ -200,6 +223,8 @@ export class EventManager {
 		const eventFlags: Record<string, string> = {
 			now: i18n["now"],
 			addEvent: i18n["add Event"],
+			next: i18n["next Event"],
+			data: "data",
 			"0": i18n["today"],
 		};
 		for (let d = 1; d <= Event.daysPast; d++) {
@@ -256,7 +281,7 @@ export class EventManager {
 		});
 	}
 	addEventFlagObject(id: string, name: string): void {
-		adapter.setObjectNotExistsAsync(id, {
+		const obj: ioBroker.StateObject = {
 			type: "state",
 			common: {
 				name: name,
@@ -265,10 +290,37 @@ export class EventManager {
 				read: true,
 				write: false,
 				def: "",
-				desc: id.endsWith("addEvent") ? i18n["create new Event in calendar, see Readme"] : i18n["starttime"],
+				desc: i18n["starttime"],
 			},
 			native: {},
-		});
+			_id: id,
+		};
+		if (id.endsWith("addEvent")) {
+			obj.common.write = true;
+			obj.common.desc = i18n["create new Event in calendar, see Readme"];
+			obj.common.custom = {
+				"iqontrol.0": {
+					enabled: true,
+					statesAddInput: true,
+					statesAddInputCaption: i18n.dateOrPeriod,
+					showOnlyTargetValues: false,
+					type: "string",
+					role: "text",
+					states: {
+						"0": i18n.today,
+						"1": i18n.Tomorrow,
+						"2": i18n.inXDays.replace("%d", "2"),
+						"3": i18n.inXDays.replace("%d", "3"),
+						"4": i18n.inXDays.replace("%d", "4"),
+						"5": i18n.inXDays.replace("%d", "5"),
+					},
+				},
+			};
+		} else if (id.endsWith("data")) {
+			obj.common.desc = "data as JSON";
+			obj.common.role = "json";
+		}
+		adapter.setObjectNotExistsAsync(id, obj);
 	}
 
 	syncFlags(): void {

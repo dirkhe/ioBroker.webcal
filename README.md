@@ -74,7 +74,12 @@ This project uses the following components:
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
-### 0.2.0 (2023-02-21)
+### **WORK IN PROGRESS**
+* (dirkhe) add Calendar Inactive
+* (dirkhe) fix calc for jsonEvent and next
+* (dirkhe) add dateText to jsonEvent
+
+#### 0.2.0 (2023-02-21)
 * (dirkhe) add next event and json data
 * (dirkhe) add Iqontrol format to addEvent DP
 

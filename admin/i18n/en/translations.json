@@ -31,6 +31,8 @@
 	"Password": "Password",
 	"Ignore SSL errors": "Ignore SSL errors",
 	"Tomorrow": "Tomorrow",
+	"Yesterday": "Yesterday",
+	"xDaysAgo": "%d days ago",
 	"inXDays": "in %d days",
 	"dateOrPeriod": "date or time period",
 	"next Event": "next Event"

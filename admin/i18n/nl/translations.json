@@ -33,5 +33,7 @@
     "Tomorrow": "Morgen",
     "inXDays": "over %d dagen",
     "dateOrPeriod": "datum of periode",
-    "next Event": "volgende gebeurtenis"
+    "next Event": "volgende gebeurtenis",
+    "Yesterday": "Gisteren",
+    "xDaysAgo": "%d dagen geleden"
 }

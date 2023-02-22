@@ -123,11 +123,25 @@ export class Event {
 		let next = new Date("9999-12-31");
 		const now = new Date();
 		for (const d in this.stateValues) {
+			const dInt = parseInt(d, 10);
+			const dateText =
+				dInt < -1
+					? i18n.xDaysAgo.replace("%d", Math.abs(dInt).toString())
+					: dInt == -1
+					? i18n.yesterday
+					: dInt == 0
+					? i18n.today
+					: dInt == 1
+					? i18n.Tomorrow
+					: dInt > 1
+					? i18n.inXDays.replace("%d", d)
+					: "";
 			const times = this.stateValues[d];
 			for (const i in times) {
 				const time = {
 					...times[i],
 					timeText: times[i].toString(),
+					dateText,
 				};
 				jsonData.push(time);
 				if (time.date > now && time.date < next) {

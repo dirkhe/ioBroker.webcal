@@ -33,5 +33,7 @@
     "Tomorrow": "Domani",
     "inXDays": "tra %d giorni",
     "dateOrPeriod": "data o periodo di tempo",
-    "next Event": "prossimo Evento"
+    "next Event": "prossimo Evento",
+    "Yesterday": "Ieri",
+    "xDaysAgo": "%d giorni fa"
 }

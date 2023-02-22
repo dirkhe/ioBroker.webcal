@@ -33,5 +33,7 @@
     "Tomorrow": "明天",
     "inXDays": "在 %d 天内",
     "dateOrPeriod": "日期或时间段",
-    "next Event": "下一个事件"
+    "next Event": "下一个事件",
+    "Yesterday": "昨天",
+    "xDaysAgo": "%d 天前"
 }

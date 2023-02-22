@@ -11,6 +11,7 @@ declare global {
 			stateValues: Record<string | number, string>;
 		}
 		interface IConfigCalendar {
+			inactive: boolean;
 			name: string;
 			serverUrl: string;
 			username: string;

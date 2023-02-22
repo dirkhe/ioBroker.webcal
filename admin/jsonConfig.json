@@ -115,9 +115,18 @@
 					"helpLink": "https://tsdav.vercel.app/docs/intro",
 					"items": [
 						{
+							"type": "checkbox",
+							"attr": "inactive",
+							"width": "2%",
+							"title": "inactive",
+							"filter": false,
+							"sort": false,
+							"default": false
+						},
+						{
 							"type": "text",
 							"attr": "name",
-							"width": "5%",
+							"width": "10%",
 							"title": "name",
 							"filter": false,
 							"sort": true,
@@ -171,7 +180,7 @@
 						{
 							"type": "text",
 							"attr": "tokenUrl",
-							"width": "20%",
+							"width": "15%",
 							"title": "token Url",
 							"filter": false,
 							"sort": false,
@@ -201,7 +210,7 @@
 						{
 							"type": "checkbox",
 							"attr": "ignoreSSL",
-							"width": "5%",
+							"width": "2%",
 							"title": "Ignore SSL errors",
 							"filter": false,
 							"sort": false,

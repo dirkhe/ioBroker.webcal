@@ -29,6 +29,8 @@ const i18n = {
 	"invalid date": "invalid date",
 	"successfully added": "successfully added",
 	Tomorrow: "Tomorrow",
+	Yesterday: "Yesterday",
+	xDaysAgo: "%d days ago",
 	inXDays: "in %d days",
 	dateOrPeriod: "date or time period",
 	"next Event": "next Event",
@@ -96,7 +98,7 @@ class Webcal extends utils.Adapter {
 	}
 
 	createCalendarFromConfig(calConfig: webcal.IConfigCalendar): webcal.ICalendarBase | null {
-		if (calConfig.password) {
+		if (calConfig.password && !calConfig.inactive) {
 			if (calConfig.authMethod == "google") {
 				return new GoogleCalendar(calConfig);
 			} else {

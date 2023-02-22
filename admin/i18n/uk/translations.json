@@ -33,5 +33,7 @@
     "Tomorrow": "завтра",
     "inXDays": "через %d днів",
     "dateOrPeriod": "дата або період часу",
-    "next Event": "наступна подія"
+    "next Event": "наступна подія",
+    "Yesterday": "вчора",
+    "xDaysAgo": "%d днів тому"
 }

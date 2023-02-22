@@ -106,7 +106,11 @@ export abstract class CalendarEvent implements webcal.ICalendarEventBase {
 					days[d++] = new jsonEvent(this.calendarName, timeObj.start.toDate(), this.summary, time);
 				}
 				for (; d < lastDay; d++) {
-					days[d] = new jsonEvent(this.calendarName, timeObj.start.add(d, "d").toDate(), this.summary);
+					days[d] = new jsonEvent(
+						this.calendarName,
+						timeObj.start.add(d - firstDay, "d").toDate(),
+						this.summary,
+					);
 				}
 				time = timeObj.end.format("HH:mm");
 				if (time == "23:59") {

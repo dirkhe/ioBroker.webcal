@@ -74,7 +74,7 @@ This project uses the following components:
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 0.4.0 (2023-03-05)
 * (dirkhe) add Event default Calendar
 * (dirkhe) add iQontrol options for addEvent
 

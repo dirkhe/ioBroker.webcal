@@ -15,7 +15,7 @@ import { GoogleCalendar, initLib as googleInit } from "./lib/google";
 let adapter: Webcal;
 
 const i18n: Record<string, string> = {
-	"all day": "all day",
+	allDay: "all day",
 	from: "from",
 	until: "until",
 	now: "now",
@@ -23,17 +23,17 @@ const i18n: Record<string, string> = {
 	day: "day",
 	days: "days",
 	starttime: "starttime",
-	"add Event": "add Event",
-	"create new Event in calendar, see Readme": "create new Event in calendar, see Readme",
-	"could not found calendar for": "could not found calendar for",
-	"invalid date": "invalid date",
-	"successfully added": "successfully added",
+	addEvent: "add Event",
+	createNewEvent: "create new Event in calendar, see Readme",
+	couldNotFoundCalendar: "could not found calendar for",
+	invalidDate: "invalid date",
+	successfullyAdded: "successfully added",
 	Tomorrow: "Tomorrow",
 	Yesterday: "Yesterday",
 	xDaysAgo: "%d days ago",
 	inXDays: "in %d days",
 	dateOrPeriod: "date or time period",
-	"next Event": "next Event",
+	nextEvent: "next Event",
 	weekDaysFull0: "Sunday",
 	weekDaysFull1: "Monday",
 	weekDaysFull2: "Tuesday",
@@ -137,26 +137,26 @@ class Webcal extends utils.Adapter {
 					.toISOString()
 					.substring(0, 10);
 			} else {
-				return { statusText: i18n["invalid date"] + expression, errNo: 4 };
+				return { statusText: i18n.invalidDate + expression, errNo: 4 };
 			}
 		} else {
 			terms = terms[0].split(" - ");
 			let date = CalendarEvent.parseDateTime(terms[0]);
 			if (!date.year) {
-				return { statusText: i18n["invalid date"] + expression, errNo: 2 };
+				return { statusText: i18n.invalidDate + expression, errNo: 2 };
 			}
 			eventData.startDate = date;
 			if (terms[1]) {
 				date = CalendarEvent.parseDateTime(terms[1]);
 				if (!date.year) {
-					return { statusText: i18n["invalid date"] + expression, errNo: 3 };
+					return { statusText: i18n.invalidDate + expression, errNo: 3 };
 				}
 				eventData.endDate = date;
 			}
 		}
 		const result = await this.calendarManager.addEvent(eventData, calendarName);
 		if (result.ok) {
-			return { statusText: i18n["successfully added"] + expression, errNo: 0 };
+			return { statusText: i18n.successfullyAdded + expression, errNo: 0 };
 		} else {
 			return { statusText: result.message + " " + expression, errNo: 5 };
 		}

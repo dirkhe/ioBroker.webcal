@@ -48,7 +48,7 @@ class jsonEvent {
     this.endTime = endTime;
   }
   toString() {
-    return this.isAllday() ? i18n["all day"] : i18n["from"] + " " + this.startTime + (this.endTime ? " " + i18n["until"] + " " + this.endTime : "");
+    return this.isAllday() ? i18n.allDay : i18n["from"] + " " + this.startTime + (this.endTime ? " " + i18n["until"] + " " + this.endTime : "");
   }
   isAllday() {
     return !this.startTime && !this.endTime;

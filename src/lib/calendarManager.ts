@@ -34,7 +34,7 @@ export class jsonEvent {
 
 	toString(): string {
 		return this.isAllday()
-			? i18n["all day"]
+			? i18n.allDay
 			: i18n["from"] + " " + this.startTime + (this.endTime ? " " + i18n["until"] + " " + this.endTime : "");
 	}
 	isAllday(): boolean {
@@ -246,7 +246,7 @@ export class CalendarManager {
 	): Promise<{ ok: boolean; message: string; errNo: number }> {
 		const calendar = calendarName ? this.calendars[calendarName] : this.defaultCalendar;
 		if (!calendar) {
-			return { message: i18n["could not found calendar for"] + calendarName, errNo: 1, ok: false };
+			return { message: i18n.couldNotFoundCalendar + calendarName, errNo: 1, ok: false };
 		}
 		adapter.log.debug("add Event to " + calendar.name + ": " + JSON.stringify(data));
 		return calendar.addEvent(data);

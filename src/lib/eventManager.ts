@@ -170,7 +170,7 @@ export class Event {
 				this.nowFlag.timerID = null;
 			}
 			if (this.nowFlag.allDay) {
-				stateText = i18n["all day"];
+				stateText = i18n.allDay;
 			} else {
 				for (let i = 0; i < this.nowFlag.times.length; i++) {
 					const todayStr = dayjs().format("YYYY-MM-DDT");
@@ -241,8 +241,8 @@ export class EventManager {
 
 		const eventFlags: Record<string, string> = {
 			now: i18n["now"],
-			addEvent: i18n["add Event"],
-			next: i18n["next Event"],
+			addEvent: i18n.addEvent,
+			next: i18n.nextEvent,
 			data: "data",
 			"0": i18n["today"],
 		};
@@ -317,7 +317,7 @@ export class EventManager {
 		};
 		if (id.endsWith("addEvent")) {
 			obj.common.write = true;
-			obj.common.desc = i18n["create new Event in calendar, see Readme"];
+			obj.common.desc = i18n.createNewEvent;
 			const idTerms = id.split(".");
 			if (this.events[idTerms[idTerms.length - 2]].useIQontrol) {
 				obj.common.custom = {

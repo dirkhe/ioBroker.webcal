@@ -35,5 +35,12 @@
     "dateOrPeriod": "datum of periode",
     "next Event": "volgende gebeurtenis",
     "Yesterday": "Gisteren",
-    "xDaysAgo": "%d dagen geleden"
+    "xDaysAgo": "%d dagen geleden",
+    "Sunday": "Zondag",
+    "Monday": "Maandag",
+    "Tuesday": "Dinsdag",
+    "Wednesday": "Woensdag",
+    "Thursday": "Donderdag",
+    "Friday": "Vrijdag",
+    "Saturday": "Zaterdag"
 }

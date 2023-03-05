@@ -35,5 +35,12 @@
     "dateOrPeriod": "дата или период времени",
     "next Event": "следующее событие",
     "Yesterday": "Вчера",
-    "xDaysAgo": "%д дней назад"
+    "xDaysAgo": "%д дней назад",
+    "Sunday": "Воскресенье",
+    "Monday": "Понедельник",
+    "Tuesday": "Вторник",
+    "Wednesday": "Среда",
+    "Thursday": "Четверг",
+    "Friday": "Пятница",
+    "Saturday": "Суббота"
 }

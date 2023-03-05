@@ -6,6 +6,8 @@ declare global {
 		interface IConfigEvent {
 			name: string;
 			regEx?: string;
+			defaultCalendar?: string;
+			useIQontrol?: boolean;
 		}
 		interface IInternalEvent extends IConfigEvent {
 			stateValues: Record<string | number, string>;

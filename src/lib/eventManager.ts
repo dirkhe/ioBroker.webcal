@@ -15,6 +15,8 @@ export class Event {
 	id: string;
 	name: string;
 	regEx: RegExp;
+	defaultCalendar?: string;
+	useIQontrol: boolean;
 	stateValues: Record<number, Array<jsonEvent>> = {};
 	nowFlag: {
 		times: Array<webcal.IEventTimeRangObj>;
@@ -26,6 +28,8 @@ export class Event {
 		this.name = config.name;
 		this.id = this.name.replace(/[^a-z0-9_-]/gi, "");
 		this.regEx = new RegExp(config.regEx || RegExpEscape(config.name), "i");
+		this.defaultCalendar = config.defaultCalendar;
+		this.useIQontrol = !!config.useIQontrol;
 	}
 
 	checkCalendarContent(content: string): boolean {
@@ -205,6 +209,7 @@ export class Event {
 
 export class EventManager {
 	events: Record<string, Event>;
+	iQontrolTimerID?: NodeJS.Timeout;
 
 	constructor(adapterInstance: AdapterInstance, i18nInstance: any) {
 		adapter = adapterInstance;
@@ -293,6 +298,7 @@ export class EventManager {
 				});
 			}
 		});
+		setTimeout(this.syncIQontrolStates.bind(this), 2000);
 	}
 	addEventFlagObject(id: string, name: string): void {
 		const obj: ioBroker.StateObject = {
@@ -312,29 +318,59 @@ export class EventManager {
 		if (id.endsWith("addEvent")) {
 			obj.common.write = true;
 			obj.common.desc = i18n["create new Event in calendar, see Readme"];
-			obj.common.custom = {
-				"iqontrol.0": {
-					enabled: true,
-					statesAddInput: true,
-					statesAddInputCaption: i18n.dateOrPeriod,
-					showOnlyTargetValues: false,
-					type: "string",
-					role: "text",
-					states: {
-						"0": i18n.today,
-						"1": i18n.Tomorrow,
-						"2": i18n.inXDays.replace("%d", "2"),
-						"3": i18n.inXDays.replace("%d", "3"),
-						"4": i18n.inXDays.replace("%d", "4"),
-						"5": i18n.inXDays.replace("%d", "5"),
+			const idTerms = id.split(".");
+			if (this.events[idTerms[idTerms.length - 2]].useIQontrol) {
+				obj.common.custom = {
+					"iqontrol.0": {
+						enabled: true,
+						statesAddInput: true,
+						statesAddInputCaption: i18n.dateOrPeriod,
+						showOnlyTargetValues: false,
+						type: "string",
+						role: "text",
 					},
-				},
-			};
+				};
+			}
 		} else if (id.endsWith("data")) {
 			obj.common.desc = "data as JSON";
 			obj.common.role = "json";
 		}
-		adapter.setObjectNotExistsAsync(id, obj);
+		adapter.setObjectAsync(id, obj);
+	}
+
+	syncIQontrolStates(): void {
+		if (this.iQontrolTimerID) {
+			clearTimeout(this.iQontrolTimerID);
+		}
+		const iqontrolStates: Record<string, string> = {
+			"0": i18n.today,
+			"1": i18n.Tomorrow,
+		};
+		const d = new Date().getDay();
+		for (let i = 2; i < 7; i++) {
+			iqontrolStates[i.toString()] =
+				i18n["weekDaysFull" + new String((d + i) % 7)] + " " + i18n.inXDays.replace("%d", i.toString());
+		}
+		for (const id in this.events) {
+			if (this.events[id].useIQontrol) {
+				adapter.getObjectAsync(Event.namespace + id + ".addEvent").then((eventObj) => {
+					if (eventObj && eventObj.common.custom && eventObj.common.custom["iqontrol.0"]) {
+						// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+						// @ts-ignore
+						eventObj.common.custom["iqontrol.0"]["states"] = iqontrolStates;
+						adapter.setObject(eventObj._id, eventObj);
+					}
+				});
+			}
+		}
+
+		const midNight = new Date();
+		midNight.setDate(midNight.getDate() + 1);
+		midNight.setHours(0, 0, 0);
+		this.iQontrolTimerID = setTimeout(
+			this.syncIQontrolStates.bind(this),
+			midNight.getTime() - new Date().getTime(),
+		);
 	}
 
 	syncFlags(): void {
@@ -344,6 +380,9 @@ export class EventManager {
 	}
 
 	resetAll(): void {
+		if (this.iQontrolTimerID) {
+			clearTimeout(this.iQontrolTimerID);
+		}
 		for (const evID in this.events) {
 			this.events[evID].reset();
 		}

@@ -35,5 +35,12 @@
     "dateOrPeriod": "data o periodo di tempo",
     "next Event": "prossimo Evento",
     "Yesterday": "Ieri",
-    "xDaysAgo": "%d giorni fa"
+    "xDaysAgo": "%d giorni fa",
+    "Sunday": "Domenica",
+    "Monday": "Lunedi",
+    "Tuesday": "Martedì",
+    "Wednesday": "Mercoledì",
+    "Thursday": "Giovedì",
+    "Friday": "Venerdì",
+    "Saturday": "Sabato"
 }

@@ -43,7 +43,14 @@ const i18n = {
   xDaysAgo: "%d days ago",
   inXDays: "in %d days",
   dateOrPeriod: "date or time period",
-  "next Event": "next Event"
+  "next Event": "next Event",
+  weekDaysFull0: "Sunday",
+  weekDaysFull1: "Monday",
+  weekDaysFull2: "Tuesday",
+  weekDaysFull3: "Wednesday",
+  weekDaysFull4: "Thursday",
+  weekDaysFull5: "Friday",
+  weekDaysFull6: "Saturday"
 };
 class Webcal extends utils.Adapter {
   constructor(options = {}) {
@@ -51,7 +58,6 @@ class Webcal extends utils.Adapter {
       ...options,
       name: "webcal"
     });
-    this.fetchCalendarIntervallTimerID = null;
     this.on("ready", this.onReady.bind(this));
     this.on("stateChange", this.onStateChange.bind(this));
     this.on("message", this.onMessage.bind(this));
@@ -75,14 +81,12 @@ class Webcal extends utils.Adapter {
       this.fetchCalendars();
       if (this.config.intervall > 0) {
         adapter.log.info("fetch calendar data all " + this.config.intervall + " minutes");
-        this.fetchCalendarIntervallTimerID = setInterval(
-          this.fetchCalendars.bind(this),
-          this.config.intervall * 6e4
-        );
+        this.setInterval(this.fetchCalendars.bind(this), this.config.intervall * 6e4);
       }
     }
     this.subscribeStates("fetchCal");
     this.subscribeStates("events.*.addEvent");
+    this.setInterval;
   }
   fetchCalendars() {
     this.eventManager.resetAll();
@@ -104,10 +108,11 @@ class Webcal extends utils.Adapter {
     return null;
   }
   async addEvent(expression, summary) {
+    var _a;
     adapter.log.debug("add event to calender: " + expression);
     let terms = expression.split("@", 2);
     expression = " " + expression;
-    const calendarName = terms.length > 1 ? terms[1] : void 0;
+    const calendarName = terms.length > 1 ? terms[1] : ((_a = this.eventManager.events[summary]) == null ? void 0 : _a.defaultCalendar) || void 0;
     const eventData = {
       summary,
       startDate: ""
@@ -151,8 +156,8 @@ class Webcal extends utils.Adapter {
           try {
             const trans = JSON.parse(data.toString());
             for (const key in i18n) {
-              if (trans[key]) {
-                i18n[key] = trans[key];
+              if (trans[i18n[key]]) {
+                i18n[key] = trans[i18n[key]];
               }
             }
           } catch (error) {
@@ -166,9 +171,6 @@ class Webcal extends utils.Adapter {
   }
   onUnload(callback) {
     try {
-      if (this.fetchCalendarIntervallTimerID) {
-        clearInterval(this.fetchCalendarIntervallTimerID);
-      }
       this.eventManager.resetAll();
       callback();
     } catch (e) {
@@ -205,9 +207,9 @@ class Webcal extends utils.Adapter {
   }
   onMessage(obj) {
     this.log.info(JSON.stringify(obj));
-    if (typeof obj === "object" && obj.message) {
+    if (typeof obj === "object") {
       if (obj.command === "testCalendar") {
-        if (obj.callback) {
+        if (obj.callback && obj.message) {
           const calObj = this.createCalendarFromConfig(obj.message.calData);
           if (calObj) {
             const error = calObj.loadEvents(
@@ -223,6 +225,16 @@ class Webcal extends utils.Adapter {
           }
         } else {
           this.sendTo(obj.from, obj.command, { result: "could not create Calendar" }, obj.callback);
+        }
+      } else if (obj.command === "getCalendars") {
+        if (obj.callback) {
+          const calendars = [];
+          for (let c = 0; c < this.config.calendars.length; c++) {
+            calendars.push({ label: this.config.calendars[c].name, value: this.config.calendars[c].name });
+          }
+          this.sendTo(obj.from, obj.command, calendars, obj.callback);
+        } else {
+          this.sendTo(obj.from, obj.command, [{ label: "No calendar found", value: "" }], obj.callback);
         }
       }
     }

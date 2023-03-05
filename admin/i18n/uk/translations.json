@@ -35,5 +35,12 @@
     "dateOrPeriod": "дата або період часу",
     "next Event": "наступна подія",
     "Yesterday": "вчора",
-    "xDaysAgo": "%d днів тому"
+    "xDaysAgo": "%d днів тому",
+    "Sunday": "неділя",
+    "Monday": "понеділок",
+    "Tuesday": "вівторок",
+    "Wednesday": "Середа",
+    "Thursday": "четвер",
+    "Friday": "П'ятниця",
+    "Saturday": "Субота"
 }

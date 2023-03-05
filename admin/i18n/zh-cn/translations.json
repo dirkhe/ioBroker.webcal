@@ -35,5 +35,12 @@
     "dateOrPeriod": "日期或时间段",
     "next Event": "下一个事件",
     "Yesterday": "昨天",
-    "xDaysAgo": "%d 天前"
+    "xDaysAgo": "%d 天前",
+    "Sunday": "星期日",
+    "Monday": "周一",
+    "Tuesday": "周二",
+    "Wednesday": "周三",
+    "Thursday": "周四",
+    "Friday": "星期五",
+    "Saturday": "周六"
 }

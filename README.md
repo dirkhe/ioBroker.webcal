@@ -73,7 +73,10 @@ This project uses the following components:
 <!--
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
+	* () 
 -->
+### **WORK IN PROGRESS**
+* (dirkhe) publish to npm 
 ### 1.0.0 (2023-04-07)
 * (dirkhe) rework i18n
 

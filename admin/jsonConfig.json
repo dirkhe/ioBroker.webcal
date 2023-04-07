@@ -2,14 +2,6 @@
 	"i18n": true,
 	"type": "tabs",
 	"items": {
-		"test": {
-			"i18n": false,
-			"type": "cus__tom",
-			"newLine": true,
-			"hidden": true,
-			"url": "custom/ConfigCustomHooks.js",
-			"name": "AdminComponentHooks/Components/ConfigCustomHooks"
-		},
 		"_Settings": {
 			"type": "panel",
 			"label": "common",
@@ -129,7 +121,7 @@
 					"lg": 12,
 					"label": "Calendar list",
 					"help": "Here you can define your calendar accounts",
-					"helpLink": "https://tsdav.vercel.app/docs/intro",
+					"helpLink": "https://github.com/dirkhe/ioBroker.webcal",
 					"items": [
 						{
 							"type": "checkbox",

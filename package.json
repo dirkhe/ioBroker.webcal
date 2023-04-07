@@ -10,9 +10,12 @@
   "license": "MIT",
   "keywords": [
     "ioBroker",
-    "template",
+    "Calendar",
     "Smart Home",
-    "home automation"
+    "home automation",
+    "WEBDAV",
+    "CALDAV",
+    "Google Calendar"
   ],
   "repository": {
     "type": "git",

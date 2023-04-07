@@ -75,8 +75,9 @@ This project uses the following components:
 	### **WORK IN PROGRESS**
 	* () 
 -->
-### **WORK IN PROGRESS**
+### 1.0.2 (2023-04-07)
 * (dirker) publish to npm
+
 ### 1.0.0 (2023-04-07)
 * (dirkhe) rework i18n
 

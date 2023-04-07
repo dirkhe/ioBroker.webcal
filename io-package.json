@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "webcal",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "news": {
+      "1.0.2": {
+        "en": "publish to npm",
+        "de": "veröffentlichen bis npm",
+        "ru": "публиковать в npm",
+        "pt": "publicar a npm",
+        "nl": "_",
+        "fr": "publier à npm",
+        "it": "pubblicare a npm",
+        "es": "publicar a npm",
+        "pl": "publikować",
+        "uk": "опублікувати npm",
+        "zh-cn": "出版"
+      },
       "1.0.1": {
         "en": "publish to npm",
         "de": "veröffentlichen bis npm",
@@ -80,19 +93,6 @@
         "pl": "pierwsze wydanie\nnie pokazane czasy Pasta\nprzepracowanie i realizowanie Google",
         "uk": "початковий реліз\nвиправити не показаний час з днями Список\nповний ремонт і реалізація Українська",
         "zh-cn": "初步释放\nfix 没有显示时间 修 士\n全面调整和执行 谷歌"
-      },
-      "0.0.1": {
-        "en": "initial release",
-        "de": "Erstveröffentlichung",
-        "ru": "Начальная версия",
-        "pt": "lançamento inicial",
-        "nl": "Eerste uitgave",
-        "fr": "Première version",
-        "it": "Versione iniziale",
-        "es": "Versión inicial",
-        "pl": "Pierwsze wydanie",
-        "zh-cn": "首次出版",
-        "uk": "початковий випуск"
       }
     },
     "title": "fetch events from WEBDAV, CALDAV, CARDDAV Calendar or Google Calendar",

@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "webcal",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "news": {
+      "1.0.1": {
+        "en": "publish to npm",
+        "de": "veröffentlichen bis npm",
+        "ru": "публиковать в npm",
+        "pt": "publicar a npm",
+        "nl": "_",
+        "fr": "publier à npm",
+        "it": "pubblicare a npm",
+        "es": "publicar a npm",
+        "pl": "publikować",
+        "uk": "опублікувати npm",
+        "zh-cn": "出版"
+      },
       "1.0.0": {
         "en": "rework i18n",
         "de": "rework i18n",

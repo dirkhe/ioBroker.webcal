@@ -223,7 +223,7 @@ class CalendarManager {
   async addEvent(data, calendarName) {
     const calendar = calendarName ? this.calendars[calendarName] : this.defaultCalendar;
     if (!calendar) {
-      return { message: i18n["could not found calendar for"] + calendarName, errNo: 1, ok: false };
+      return { message: i18n.couldNotFoundCalendar + calendarName, errNo: 1, ok: false };
     }
     adapter.log.debug("add Event to " + calendar.name + ": " + JSON.stringify(data));
     return calendar.addEvent(data);

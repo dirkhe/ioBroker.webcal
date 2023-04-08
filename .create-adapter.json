@@ -26,7 +26,7 @@
 	"authorEmail": "rechne@freenet.de",
 	"gitRemoteProtocol": "HTTPS",
 	"gitCommit": "no",
-	"defaultBranch": "main",
+	"defaultBranch": "master",
 	"license": "MIT License",
 	"dependabot": "yes",
 	"creatorVersion": "2.3.0"

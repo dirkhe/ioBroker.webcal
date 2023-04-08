@@ -75,7 +75,7 @@ This project uses the following components:
 	### **WORK IN PROGRESS**	* ()
 
 -->
-### **WORK IN PROGRESS**
+### 1.0.4 (2023-04-08)
 * (dirkhe) fix environment setup
 
 ### 1.0.2 (2023-04-07)

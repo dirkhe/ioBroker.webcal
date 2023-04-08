@@ -86,7 +86,6 @@ class Webcal extends utils.Adapter {
     }
     this.subscribeStates("fetchCal");
     this.subscribeStates("events.*.addEvent");
-    this.setInterval;
   }
   fetchCalendars() {
     this.eventManager.resetAll();

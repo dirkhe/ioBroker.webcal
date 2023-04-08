@@ -72,11 +72,14 @@ This project uses the following components:
 ## Changelog
 <!--
 	Placeholder for the next version (at the beginning of the line):
-	### **WORK IN PROGRESS**
-	* () 
+	### **WORK IN PROGRESS**	* ()
+
 -->
+### **WORK IN PROGRESS**	
+* (dirkhe) fix environment setup
+
 ### 1.0.2 (2023-04-07)
-* (dirker) publish to npm
+* (dirkhe) publish to npm
 
 ### 1.0.0 (2023-04-07)
 * (dirkhe) rework i18n

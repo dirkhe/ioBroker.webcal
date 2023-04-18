@@ -75,6 +75,8 @@ This project uses the following components:
 	### **WORK IN PROGRESS**	* ()
 
 -->
+### **WORK IN PROGRESS**	
+* (dirkhe) set update addEvent-states to 00:10
 ### 1.0.4 (2023-04-08)
 * (dirkhe) fix environment setup
 

@@ -342,6 +342,7 @@ export class EventManager {
 		if (this.iQontrolTimerID) {
 			clearTimeout(this.iQontrolTimerID);
 		}
+		adapter.log.debug("update addEvent-states");
 		const iqontrolStates: Record<string, string> = {
 			"0": i18n.today,
 			"1": i18n.Tomorrow,
@@ -366,7 +367,7 @@ export class EventManager {
 
 		const midNight = new Date();
 		midNight.setDate(midNight.getDate() + 1);
-		midNight.setHours(0, 0, 0);
+		midNight.setHours(0, 10, 0);
 		this.iQontrolTimerID = setTimeout(
 			this.syncIQontrolStates.bind(this),
 			midNight.getTime() - new Date().getTime(),

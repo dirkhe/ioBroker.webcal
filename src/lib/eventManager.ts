@@ -40,13 +40,13 @@ export class Event {
 		let values;
 		for (const d in days) {
 			const day: number = d as unknown as number;
-			if (day >= -Event.daysPast && day <= Event.daysFuture) {
-				values = this.stateValues[day];
-				if (!values) {
-					values = this.stateValues[day] = [];
-				}
-				values.push(days[day]);
+			//if (day >= -Event.daysPast && day <= Event.daysFuture) {
+			values = this.stateValues[day];
+			if (!values) {
+				values = this.stateValues[day] = [];
 			}
+			values.push(days[day]);
+			//}
 		}
 		adapter.log.debug("days for event " + this.name + ": " + JSON.stringify(this.stateValues));
 		const today = days[0];

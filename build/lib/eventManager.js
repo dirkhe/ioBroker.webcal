@@ -49,13 +49,11 @@ const _Event = class {
     let values;
     for (const d in days) {
       const day = d;
-      if (day >= -_Event.daysPast && day <= _Event.daysFuture) {
-        values = this.stateValues[day];
-        if (!values) {
-          values = this.stateValues[day] = [];
-        }
-        values.push(days[day]);
+      values = this.stateValues[day];
+      if (!values) {
+        values = this.stateValues[day] = [];
       }
+      values.push(days[day]);
     }
     adapter.log.debug("days for event " + this.name + ": " + JSON.stringify(this.stateValues));
     const today = days[0];
@@ -315,6 +313,7 @@ class EventManager {
     if (this.iQontrolTimerID) {
       clearTimeout(this.iQontrolTimerID);
     }
+    adapter.log.debug("update addEvent-states");
     const iqontrolStates = {
       "0": i18n.today,
       "1": i18n.Tomorrow
@@ -335,7 +334,7 @@ class EventManager {
     }
     const midNight = new Date();
     midNight.setDate(midNight.getDate() + 1);
-    midNight.setHours(0, 0, 0);
+    midNight.setHours(0, 10, 0);
     this.iQontrolTimerID = setTimeout(
       this.syncIQontrolStates.bind(this),
       midNight.getTime() - new Date().getTime()

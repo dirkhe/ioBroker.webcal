@@ -5,6 +5,7 @@
 		"_Settings": {
 			"type": "panel",
 			"label": "common",
+			"xs": 12,
 			"sm": 12,
 			"md": 12,
 			"lg": 12,
@@ -16,6 +17,10 @@
 					"max": 30,
 					"step": 1,
 					"default": 3,
+					"xs": 12,
+					"sm": 8,
+					"md": 6,
+					"lg": 3,
 					"newLine": true
 				},
 				"daysEventPast": {
@@ -24,7 +29,10 @@
 					"min": 0,
 					"max": 30,
 					"step": 1,
-					"width": "50%",
+					"xs": 12,
+					"sm": 8,
+					"md": 6,
+					"lg": 3,
 					"default": 0
 				},
 				"daysJSONFuture": {
@@ -33,7 +41,10 @@
 					"min": 0,
 					"max": 30,
 					"step": 1,
-					"width": "50%",
+					"xs": 12,
+					"sm": 8,
+					"md": 6,
+					"lg": 3,
 					"default": 5,
 					"newLine": true
 				},
@@ -43,15 +54,21 @@
 					"min": 0,
 					"max": 30,
 					"step": 1,
-					"default": 0,
-					"width": "50%"
+					"xs": 12,
+					"sm": 8,
+					"md": 6,
+					"lg": 3,
+					"default": 0
 				},
 				"intervall": {
 					"type": "number",
 					"label": "update intervall in minutes",
 					"min": 10,
 					"step": 10,
-					"width": "50%",
+					"xs": 12,
+					"sm": 8,
+					"md": 6,
+					"lg": 3,
 					"default": 60,
 					"newLine": true
 				}

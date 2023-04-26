@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "webcal",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "news": {
+      "1.0.5": {
+        "en": "set update addEvent-states to 00:10\nfix timeframe for JSON data\nfix layout for config",
+        "de": "set update addEvent-states to 00:10\nzeitrahmen für JSON-Daten festlegen\nfixlayout für config",
+        "ru": "установить обновление addEvent-states до 00:10\nисправить таймфрейм для данных JSON\nfix макет для config",
+        "pt": "set update addEvent-states to 00:10\ntempo de correção para dados JSON\nlayout de correção para configuração",
+        "nl": "vertaling:\nvertaling:\nvertaling:",
+        "fr": "set update addEvent-states to 00:10\nfix timeframe pour les données JSON\ncorrection de la configuration",
+        "it": "set update addEvent-states a 00:10\nfissare il tempo per i dati JSON\nfix layout per config",
+        "es": "set update addEvent-states to 00:10\nfijar el plazo para los datos JSON\ndiseño de fijación para configuración",
+        "pl": "adaptacja dodarzyła się o 0:10\noprogramowanie JSON\nulepszenie konfiguracji",
+        "uk": "встановити оновлення addEvent-states до 00:10\nфіксувати часові рамки для даних JSON\nфіксувати макет для налаштування",
+        "zh-cn": "为00年增建新国家:10\nf 联合办数据的固定时间框架\nf 混凝土"
+      },
       "1.0.4": {
         "en": "fix environment setup",
         "de": "einstellung der umgebung",
@@ -80,19 +93,6 @@
         "pl": "dodać Oficjalna strona programu\ndodać opcje iQontrol",
         "uk": "додати Календар подій\nadd iQontrol параметри для addEvent",
         "zh-cn": "增 编 违约事件\nb. 增加补充发明的选项"
-      },
-      "0.3.0": {
-        "en": "* add Calendar Inactive\n* fix calc for jsonEvent and next\n* add dateText to jsonEvent\n\n#### 0.2.0 (2023-02-21)\n* add next event and json data\n* add Iqontrol format to addEvent DP",
-        "de": "* Kalender inaktiv hinzufügen\n* Fix calc für json Veranstaltung und nächste\n* Datum hinzufügenText von jsonEvent\n\n0,2,0 (2023-02-21)\n* nächste ereignis- und json-daten hinzufügen\n* Fügen Sie Iqontrol Format hinzuEvent DP",
-        "ru": "* добавить календарь Неактивный\n* исправить calc для json Событие и следующее\n* добавить датуText в jsonEvent\n\n##### 0.2.0 (2023-02-21)\n* добавить следующее событие и данные json\n* добавить формат Iqontrol для добавленияEvent DP",
-        "pt": "* Adicionar Calendário Inativo\n* fixar calc para json Evento e próximo\n* Adicionar dataTexto ao jsonEvent\n\n### 0,2.0 (2023-02-21)\n* adicionar o próximo evento e dados json\n* adicione o formato Iqontrol para adicionarEvent DP",
-        "nl": "Quality over Quantity (QoQ) Releases Vertaling:\n♪ fix calc for Json De volgende\nVertaling:\n\n0.2.0 (2023-02-21)\nvertaling:\n♪ voeg Iqontrol format to tellEvent DP",
-        "fr": "* ajouter Calendrier Inactif\n* Fixer calc pour json Événement et prochain\n* ajouter dateText à jsonEvent\n\n### 0.2.0 (2023-02-21)\n* ajouter les données de l'événement suivant et json\n* ajouter le format Iqontrol pour ajouterEvent DP",
-        "it": "* Aggiungi Calendario Inattivo\n* Corretto il vitello per json Evento e prossimo\n* aggiungere dataTesto a jsonEvent\n\n### 0.2.0 (2023-02-21)\n* aggiungere il prossimo evento e dati json\n* aggiungere formato Iqontrol per aggiungereEvent DP",
-        "es": "* añadir Calendario Inactivo\n* fijado calc for json Evento y próximo\n* add dateText to jsonEvent\n\n#### 0.2.0 (2023-02-21)\n* añadir el próximo evento y datos json\n* añadir formato Iqontrol para añadirEvent DP",
-        "pl": "* dodaje do nieczynnego kalendarza\n* naprawić json. i dalej\n* dodaje datę jsonEvent\n\n#### 0.2.0 (2023-02-21) (ang.)\n* dodaje następne zdarzenie i dane jsonów\n* dodaje format Iqontrol do dodania Event DP",
-        "uk": "* Додати календар Неактивний\n* Закріпити кальку для json Події та події\n* додати датуText в jsonEvent\n\n##### 0.2.0 (2023-02-21)\n* додати наступний захід та дані json\n* додати формат Iqontrol для додаванняEvent DP",
-        "zh-cn": "* 补充数字说明\n页:1 下一次活动\n* 增编日期\n\n第0.2.0号行动(2023-02-21)\n* 增加下一次活动,增加季节数据\n* 增加Iqontrol格式,以增加DPvent。"
       }
     },
     "titleLang": {

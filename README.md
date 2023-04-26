@@ -75,7 +75,7 @@ This project uses the following components:
 	### **WORK IN PROGRESS**	* ()
 
 -->
-### **WORK IN PROGRESS**	
+### 1.0.5 (2023-04-26)	
 * (dirkhe) set update addEvent-states to 00:10
 * (dirkhe) fix timeframe for JSON data
 * (dirkhe) fix layout for config

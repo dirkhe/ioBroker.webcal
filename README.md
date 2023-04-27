@@ -23,28 +23,7 @@ use basic auth and following Url (you can get it by shared link)
 `https://<domain>/<optional basePath>/remote.php/dav/calendars/<username>/<optional displaName>`
 
 **Google**   
-see https://developers.google.com/calendar/caldav/v2/guide
-- SignIn on https://console.developers.google.com/projectselector/apis/credentials
-- Click on create a project
-- Configure consent screen 
-	- UserType external
-	- for Application Name use `ioBroker.webCal` 
-	- Set publishing to production
-- Click on Credentials and add new OAuth Client ID
-	- type Webapplication
-	- name `ioBroker.webCal`
-	- Authorized redirect URIs:	`https://developers.google.com/oauthplayground`
-	- Create and than Download JSON
-- Click Library on the side menu, search for webDAV and click on it, Click Enable to enable the Gmail API.
-- Open [OAuth 2.0 Playground](https://developers.google.com/oauthplayground/) 
-	- click OAuth 2.0 Configuration button in the Right top corner.
- 	- Select `Use your own OAuth credentials` in the bottom and provide the Client ID and Client Secret values from JSON file.
-	- Under Step 1 on left side search for Google Calendar and click on  
-		`https://www.googleapis.com/auth/calendar` and `https://www.googleapis.com/auth/calendar.events` 
-	- click on Authorize API's
-		- now you have to accept and trust yourself.... (perhaps you have to click on advanced)
-	- Click `Button Exchange authorization code for tokens` on Step 2
-	- here we need the refresh-token
+  see [using Google API](doc/google.md)
 - Use the following settings in ioBroker
 	- auth Methold = google
 	- Secret = Client Secret
@@ -75,6 +54,9 @@ This project uses the following components:
 	### **WORK IN PROGRESS**	* ()
 
 -->
+### **WORK IN PROGRESS**	
+* (dirkhe) add pictured Google API documentation
+
 ### 1.0.5 (2023-04-26)	
 * (dirkhe) set update addEvent-states to 00:10
 * (dirkhe) fix timeframe for JSON data

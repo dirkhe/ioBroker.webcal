@@ -298,7 +298,7 @@ export class EventManager {
 				});
 			}
 		});
-		setTimeout(this.syncIQontrolStates.bind(this), 2000);
+		adapter.setTimeout(this.syncIQontrolStates.bind(this), 2000);
 	}
 	addEventFlagObject(id: string, name: string): void {
 		const obj: ioBroker.StateObject = {

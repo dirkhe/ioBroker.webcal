@@ -154,7 +154,6 @@ class DavCalCalendar {
     this.ignoreSSL = !!calConfig.ignoreSSL;
   }
   async getCalendar(displayName) {
-    var _a;
     if (!this.calendar) {
       if (!this.client.account) {
         await this.client.login();
@@ -163,7 +162,7 @@ class DavCalCalendar {
       if (displayName) {
         const displayNameLowerCase = displayName.toLocaleLowerCase();
         for (let i = 0; i < calendars.length; i++) {
-          if (((_a = calendars[i].displayName) == null ? void 0 : _a.toLowerCase()) == displayNameLowerCase) {
+          if (calendars[i].displayName && typeof calendars[i].displayName === "string" && calendars[i].displayName.toLowerCase() == displayNameLowerCase) {
             this.calendar = calendars[i];
             break;
           }

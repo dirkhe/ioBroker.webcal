@@ -166,12 +166,16 @@ export class DavCalCalendar implements webcal.ICalendarBase {
 			if (!this.client.account) {
 				await this.client.login();
 			}
-			const calendars = await this.client.fetchCalendars();
+			const calendars: Array<DAVCalendar> = await this.client.fetchCalendars();
 			//console.log(calendars)
 			if (displayName) {
 				const displayNameLowerCase = displayName.toLocaleLowerCase();
 				for (let i = 0; i < calendars.length; i++) {
-					if (calendars[i].displayName?.toLowerCase() == displayNameLowerCase) {
+					if (
+						calendars[i].displayName &&
+						typeof calendars[i].displayName === "string" &&
+						(calendars[i].displayName as string).toLowerCase() == displayNameLowerCase
+					) {
 						this.calendar = calendars[i];
 						break;
 					}

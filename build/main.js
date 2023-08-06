@@ -58,6 +58,8 @@ class Webcal extends utils.Adapter {
       ...options,
       name: "webcal"
     });
+    this.updateCalenderIntervall = null;
+    this.actionEvents = [];
     this.on("ready", this.onReady.bind(this));
     this.on("stateChange", this.onStateChange.bind(this));
     this.on("message", this.onMessage.bind(this));
@@ -81,7 +83,10 @@ class Webcal extends utils.Adapter {
       this.fetchCalendars();
       if (this.config.intervall > 0) {
         adapter.log.info("fetch calendar data all " + this.config.intervall + " minutes");
-        this.setInterval(this.fetchCalendars.bind(this), this.config.intervall * 6e4);
+        this.updateCalenderIntervall = this.setInterval(
+          this.fetchCalendars.bind(this),
+          this.config.intervall * 6e4
+        );
       }
     }
     this.subscribeStates("fetchCal");
@@ -170,7 +175,11 @@ class Webcal extends utils.Adapter {
   }
   onUnload(callback) {
     try {
+      this.updateCalenderIntervall && this.clearInterval(this.updateCalenderIntervall);
       this.eventManager.resetAll();
+      for (let i = 0; i < this.actionEvents.length; i++) {
+        this.clearTimeout(this.actionEvents[i]);
+      }
       callback();
     } catch (e) {
       callback();
@@ -195,13 +204,27 @@ class Webcal extends utils.Adapter {
             this.addEvent(state.val, obj == null ? void 0 : obj.common.name).then((result) => {
               this.setStateAsync(id, result.statusText, true);
               this.fetchCalendars();
-              this.setTimeout(() => {
-                this.setStateAsync(id, "", true);
-              }, 6e4);
+              const timerID = this.addTimer(
+                adapter.setTimeout(() => {
+                  this.setStateAsync(id, "", true);
+                  this.clearTimer(timerID);
+                }, 6e4)
+              );
             });
           });
         }
         break;
+    }
+  }
+  addTimer(timerID) {
+    this.actionEvents.push(timerID);
+    return timerID;
+  }
+  clearTimer(timerID) {
+    for (let i = 0; i < this.actionEvents.length; i++) {
+      if (this.actionEvents[i] == timerID) {
+        delete this.actionEvents[i];
+      }
     }
   }
   onMessage(obj) {

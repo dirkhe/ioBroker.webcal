@@ -1,215 +1,208 @@
 {
-  "common": {
-    "name": "webcal",
-    "version": "1.0.5",
-    "news": {
-      "1.0.5": {
-        "en": "set update addEvent-states to 00:10\nfix timeframe for JSON data\nfix layout for config",
-        "de": "set update addEvent-states to 00:10\nzeitrahmen für JSON-Daten festlegen\nfixlayout für config",
-        "ru": "установить обновление addEvent-states до 00:10\nисправить таймфрейм для данных JSON\nfix макет для config",
-        "pt": "set update addEvent-states to 00:10\ntempo de correção para dados JSON\nlayout de correção para configuração",
-        "nl": "vertaling:\nvertaling:\nvertaling:",
-        "fr": "set update addEvent-states to 00:10\nfix timeframe pour les données JSON\ncorrection de la configuration",
-        "it": "set update addEvent-states a 00:10\nfissare il tempo per i dati JSON\nfix layout per config",
-        "es": "set update addEvent-states to 00:10\nfijar el plazo para los datos JSON\ndiseño de fijación para configuración",
-        "pl": "adaptacja dodarzyła się o 0:10\noprogramowanie JSON\nulepszenie konfiguracji",
-        "uk": "встановити оновлення addEvent-states до 00:10\nфіксувати часові рамки для даних JSON\nфіксувати макет для налаштування",
-        "zh-cn": "为00年增建新国家:10\nf 联合办数据的固定时间框架\nf 混凝土"
-      },
-      "1.0.4": {
-        "en": "fix environment setup",
-        "de": "einstellung der umgebung",
-        "ru": "исправление установки среды",
-        "pt": "configuração do ambiente de correção",
-        "nl": "de omgeving opgezet",
-        "fr": "fixation de l ' environnement",
-        "it": "impostazione ambiente",
-        "es": "configuración del entorno",
-        "pl": "seta środowiskowa",
-        "uk": "налаштування середовища",
-        "zh-cn": "固定环境"
-      },
-      "1.0.3": {
-        "en": "fix environment setup",
-        "de": "einstellung der umgebung",
-        "ru": "исправление установки среды",
-        "pt": "configuração do ambiente de correção",
-        "nl": "de omgeving opgezet",
-        "fr": "fixation de l ' environnement",
-        "it": "impostazione ambiente",
-        "es": "configuración del entorno",
-        "pl": "seta środowiskowa",
-        "uk": "налаштування середовища",
-        "zh-cn": "固定环境"
-      },
-      "1.0.2": {
-        "en": "publish to npm",
-        "de": "veröffentlichen bis npm",
-        "ru": "публиковать в npm",
-        "pt": "publicar a npm",
-        "nl": "_",
-        "fr": "publier à npm",
-        "it": "pubblicare a npm",
-        "es": "publicar a npm",
-        "pl": "publikować",
-        "uk": "опублікувати npm",
-        "zh-cn": "出版"
-      },
-      "1.0.1": {
-        "en": "publish to npm",
-        "de": "veröffentlichen bis npm",
-        "ru": "публиковать в npm",
-        "pt": "publicar a npm",
-        "nl": "_",
-        "fr": "publier à npm",
-        "it": "pubblicare a npm",
-        "es": "publicar a npm",
-        "pl": "publikować",
-        "uk": "опублікувати npm",
-        "zh-cn": "出版"
-      },
-      "1.0.0": {
-        "en": "rework i18n",
-        "de": "rework i18n",
-        "ru": "переработка i18n",
-        "pt": "retrabalho i18n",
-        "nl": "i18n",
-        "fr": "retravail i18n",
-        "it": "rework i18n",
-        "es": "rework i18n",
-        "pl": "przeróbek i18",
-        "uk": "ремесла i18n",
-        "zh-cn": "b. 重新计算"
-      },
-      "0.4.0": {
-        "en": "add Event default Calendar\nadd iQontrol options for addEvent",
-        "de": "hinzufügen Event default Kalender\niQontrol Optionen für addEvent hinzufügen",
-        "ru": "добавить Календарь событий по умолчанию\nдобавить опции iQontrol для addEvent",
-        "pt": "adicionar Calendário padrão do evento\nadicionar opções iQontrol para addEvent",
-        "nl": "_ Event defensie Calendar\nvoeg iQontrol opties toe voor toevoeging",
-        "fr": "ajouter Event default Calendar\najouter des options iQontrol pour addEvent",
-        "it": "aggiungere Calendario predefinito evento\naggiungere opzioni iQontrol per addEvent",
-        "es": "añadir Calendario predeterminado del evento\nañadir opciones iQontrol para addEvent",
-        "pl": "dodać Oficjalna strona programu\ndodać opcje iQontrol",
-        "uk": "додати Календар подій\nadd iQontrol параметри для addEvent",
-        "zh-cn": "增 编 违约事件\nb. 增加补充发明的选项"
-      }
-    },
-    "titleLang": {
-      "en": "fetch events from WEBDAV, CALDAV, CARDDAV Calendar or Google Calendar",
-      "de": "Abrufen von Ereignissen aus WEBDAV, CALDAV, CARDDAV Calendar oder Google Calendar",
-      "ru": "получать события из календаря WEBDAV, CALDAV, CARDDAV или Google Calendar",
-      "pt": "buscar eventos do WEBDAV, CALDAV, CARDDAV Calendar ou Google Calendar",
-      "nl": "evenementen ophalen van WEBDAV, CALDAV, CARDDAV Calendar of Google Calendar",
-      "fr": "récupérer des événements depuis WEBDAV, CALDAV, CARDDAV Calendar ou Google Calendar",
-      "it": "recuperare eventi da WEBDAV, CALDAV, CARDDAV Calendar o Google Calendar",
-      "es": "obtener eventos de WEBDAV, CALDAV, CARDDAV Calendar o Google Calendar",
-      "pl": "pobierać wydarzenia z WEBDAV, CALDAV, CARDDAV Calendar lub Google Calendar",
-      "uk": "отримувати події з календаря WEBDAV, CALDAV, CARDDAV або календаря Google",
-      "zh-cn": "从 WEBDAV、CALDAV、CARDDAV 日历或 Google 日历中获取事件"
-    },
-    "desc": {
-      "en": "webcal",
-      "de": "webcal",
-      "ru": "вебкаль",
-      "pt": "webcal",
-      "nl": "webcal",
-      "fr": "webcal",
-      "it": "webcal",
-      "es": "webcal",
-      "pl": "webcal",
-      "zh-cn": "网络电话",
-      "uk": "webcal"
-    },
-    "authors": [
-      "dirkhe"
-    ],
-    "keywords": [
-      "Calendar",
-      "WEBDAV",
-      "CALDAV",
-      "Google Calendar"
-    ],
-    "license": "MIT",
-    "platform": "Javascript/Node.js",
-    "main": "build/main.js",
-    "icon": "webcal.png",
-    "enabled": true,
-    "extIcon": "https://raw.githubusercontent.com/dirkhe/ioBroker.webcal/master/admin/webcal.png",
-    "readme": "https://github.com/dirkhe/ioBroker.webcal/blob/master/README.md",
-    "loglevel": "info",
-    "mode": "daemon",
-    "type": "date-and-time",
-    "compact": true,
-    "connectionType": "cloud",
-    "dataSource": "poll",
-    "messagebox": true,
-    "subscribe": "messagebox",
-    "adminUI": {
-      "config": "json"
-    },
-    "dependencies": [
-      {
-        "js-controller": ">=3.3.22"
-      }
-    ],
-    "globalDependencies": [
-      {
-        "admin": ">=5.1.13"
-      }
-    ]
-  },
-  "native": {
-    "daysEventFuture": 2,
-    "daysJSONFuture": 10,
-    "daysEventPast": 0,
-    "daysJSONPast": 0,
-    "intervall": 60,
-    "calendars": [],
-    "events": []
-  },
-  "objects": [],
-  "instanceObjects": [
-    {
-      "_id": "",
-      "type": "meta",
-      "common": {
-        "name": {
-          "en": "user files and images for background",
-          "de": "Benutzerdateien und Bilder für den Hintergrund",
-          "ru": "пользовательские файлы и изображения для фона",
-          "pt": "arquivos e imagens do usuário para plano de fundo",
-          "nl": "gebruikersbestanden en afbeeldingen voor achtergrond",
-          "fr": "fichiers utilisateur et images pour l'arrière-plan",
-          "it": "file utente e immagini per lo sfondo",
-          "es": "archivos de usuario e imágenes para el fondo",
-          "pl": "pliki użytkownika i obrazy w tle",
-          "zh-cn": "背景的用户文件和图像"
-        },
-        "type": "meta.user"
-      },
-      "native": {}
-    },
-    {
-      "_id": "fetchCal",
-      "type": "state",
-      "common": {
-        "role": "button",
-        "name": "Fetch calendar data",
-        "def": false,
-        "type": "boolean",
-        "read": true,
-        "write": true
-      },
-      "native": {}
-    },
-    {
-      "_id": "events",
-      "type": "group",
-      "common": {
-        "name": "fetched events from calendar"
-      },
-      "native": {}
-    }
-  ]
+	"common": {
+		"name": "webcal",
+		"version": "1.0.5",
+		"news": {
+			"1.0.5": {
+				"en": "set update addEvent-states to 00:10\nfix timeframe for JSON data\nfix layout for config",
+				"de": "set update addEvent-states to 00:10\nzeitrahmen für JSON-Daten festlegen\nfixlayout für config",
+				"ru": "установить обновление addEvent-states до 00:10\nисправить таймфрейм для данных JSON\nfix макет для config",
+				"pt": "set update addEvent-states to 00:10\ntempo de correção para dados JSON\nlayout de correção para configuração",
+				"nl": "vertaling:\nvertaling:\nvertaling:",
+				"fr": "set update addEvent-states to 00:10\nfix timeframe pour les données JSON\ncorrection de la configuration",
+				"it": "set update addEvent-states a 00:10\nfissare il tempo per i dati JSON\nfix layout per config",
+				"es": "set update addEvent-states to 00:10\nfijar el plazo para los datos JSON\ndiseño de fijación para configuración",
+				"pl": "adaptacja dodarzyła się o 0:10\noprogramowanie JSON\nulepszenie konfiguracji",
+				"uk": "встановити оновлення addEvent-states до 00:10\nфіксувати часові рамки для даних JSON\nфіксувати макет для налаштування",
+				"zh-cn": "为00年增建新国家:10\nf 联合办数据的固定时间框架\nf 混凝土"
+			},
+			"1.0.4": {
+				"en": "fix environment setup",
+				"de": "einstellung der umgebung",
+				"ru": "исправление установки среды",
+				"pt": "configuração do ambiente de correção",
+				"nl": "de omgeving opgezet",
+				"fr": "fixation de l ' environnement",
+				"it": "impostazione ambiente",
+				"es": "configuración del entorno",
+				"pl": "seta środowiskowa",
+				"uk": "налаштування середовища",
+				"zh-cn": "固定环境"
+			},
+			"1.0.3": {
+				"en": "fix environment setup",
+				"de": "einstellung der umgebung",
+				"ru": "исправление установки среды",
+				"pt": "configuração do ambiente de correção",
+				"nl": "de omgeving opgezet",
+				"fr": "fixation de l ' environnement",
+				"it": "impostazione ambiente",
+				"es": "configuración del entorno",
+				"pl": "seta środowiskowa",
+				"uk": "налаштування середовища",
+				"zh-cn": "固定环境"
+			},
+			"1.0.2": {
+				"en": "publish to npm",
+				"de": "veröffentlichen bis npm",
+				"ru": "публиковать в npm",
+				"pt": "publicar a npm",
+				"nl": "_",
+				"fr": "publier à npm",
+				"it": "pubblicare a npm",
+				"es": "publicar a npm",
+				"pl": "publikować",
+				"uk": "опублікувати npm",
+				"zh-cn": "出版"
+			},
+			"1.0.1": {
+				"en": "publish to npm",
+				"de": "veröffentlichen bis npm",
+				"ru": "публиковать в npm",
+				"pt": "publicar a npm",
+				"nl": "_",
+				"fr": "publier à npm",
+				"it": "pubblicare a npm",
+				"es": "publicar a npm",
+				"pl": "publikować",
+				"uk": "опублікувати npm",
+				"zh-cn": "出版"
+			},
+			"1.0.0": {
+				"en": "rework i18n",
+				"de": "rework i18n",
+				"ru": "переработка i18n",
+				"pt": "retrabalho i18n",
+				"nl": "i18n",
+				"fr": "retravail i18n",
+				"it": "rework i18n",
+				"es": "rework i18n",
+				"pl": "przeróbek i18",
+				"uk": "ремесла i18n",
+				"zh-cn": "b. 重新计算"
+			},
+			"0.4.0": {
+				"en": "add Event default Calendar\nadd iQontrol options for addEvent",
+				"de": "hinzufügen Event default Kalender\niQontrol Optionen für addEvent hinzufügen",
+				"ru": "добавить Календарь событий по умолчанию\nдобавить опции iQontrol для addEvent",
+				"pt": "adicionar Calendário padrão do evento\nadicionar opções iQontrol para addEvent",
+				"nl": "_ Event defensie Calendar\nvoeg iQontrol opties toe voor toevoeging",
+				"fr": "ajouter Event default Calendar\najouter des options iQontrol pour addEvent",
+				"it": "aggiungere Calendario predefinito evento\naggiungere opzioni iQontrol per addEvent",
+				"es": "añadir Calendario predeterminado del evento\nañadir opciones iQontrol para addEvent",
+				"pl": "dodać Oficjalna strona programu\ndodać opcje iQontrol",
+				"uk": "додати Календар подій\nadd iQontrol параметри для addEvent",
+				"zh-cn": "增 编 违约事件\nb. 增加补充发明的选项"
+			}
+		},
+		"titleLang": {
+			"en": "fetch events from WEBDAV, CALDAV, CARDDAV Calendar or Google Calendar",
+			"de": "Abrufen von Ereignissen aus WEBDAV, CALDAV, CARDDAV Calendar oder Google Calendar",
+			"ru": "получать события из календаря WEBDAV, CALDAV, CARDDAV или Google Calendar",
+			"pt": "buscar eventos do WEBDAV, CALDAV, CARDDAV Calendar ou Google Calendar",
+			"nl": "evenementen ophalen van WEBDAV, CALDAV, CARDDAV Calendar of Google Calendar",
+			"fr": "récupérer des événements depuis WEBDAV, CALDAV, CARDDAV Calendar ou Google Calendar",
+			"it": "recuperare eventi da WEBDAV, CALDAV, CARDDAV Calendar o Google Calendar",
+			"es": "obtener eventos de WEBDAV, CALDAV, CARDDAV Calendar o Google Calendar",
+			"pl": "pobierać wydarzenia z WEBDAV, CALDAV, CARDDAV Calendar lub Google Calendar",
+			"uk": "отримувати події з календаря WEBDAV, CALDAV, CARDDAV або календаря Google",
+			"zh-cn": "从 WEBDAV、CALDAV、CARDDAV 日历或 Google 日历中获取事件"
+		},
+		"desc": {
+			"en": "webcal",
+			"de": "webcal",
+			"ru": "вебкаль",
+			"pt": "webcal",
+			"nl": "webcal",
+			"fr": "webcal",
+			"it": "webcal",
+			"es": "webcal",
+			"pl": "webcal",
+			"zh-cn": "网络电话",
+			"uk": "webcal"
+		},
+		"authors": ["dirkhe"],
+		"keywords": ["Calendar", "WEBDAV", "CALDAV", "Google Calendar"],
+		"license": "MIT",
+		"platform": "Javascript/Node.js",
+		"main": "build/main.js",
+		"icon": "webcal.png",
+		"enabled": true,
+		"extIcon": "https://raw.githubusercontent.com/dirkhe/ioBroker.webcal/master/admin/webcal.png",
+		"readme": "https://github.com/dirkhe/ioBroker.webcal/blob/master/README.md",
+		"loglevel": "info",
+		"mode": "daemon",
+		"type": "date-and-time",
+		"compact": true,
+		"connectionType": "cloud",
+		"dataSource": "poll",
+		"messagebox": true,
+		"subscribe": "messagebox",
+		"adminUI": {
+			"config": "json"
+		},
+		"dependencies": [
+			{
+				"js-controller": ">=3.3.22"
+			}
+		],
+		"globalDependencies": [
+			{
+				"admin": ">=5.1.13"
+			}
+		]
+	},
+	"native": {
+		"daysEventFuture": 2,
+		"daysJSONFuture": 10,
+		"daysEventPast": 0,
+		"daysJSONPast": 0,
+		"intervall": 60,
+		"calendars": [],
+		"events": []
+	},
+	"objects": [],
+	"instanceObjects": [
+		{
+			"_id": "",
+			"type": "meta",
+			"common": {
+				"name": {
+					"en": "user files and images for background",
+					"de": "Benutzerdateien und Bilder für den Hintergrund",
+					"ru": "пользовательские файлы и изображения для фона",
+					"pt": "arquivos e imagens do usuário para plano de fundo",
+					"nl": "gebruikersbestanden en afbeeldingen voor achtergrond",
+					"fr": "fichiers utilisateur et images pour l'arrière-plan",
+					"it": "file utente e immagini per lo sfondo",
+					"es": "archivos de usuario e imágenes para el fondo",
+					"pl": "pliki użytkownika i obrazy w tle",
+					"zh-cn": "背景的用户文件和图像"
+				},
+				"type": "meta.user"
+			},
+			"native": {}
+		},
+		{
+			"_id": "fetchCal",
+			"type": "state",
+			"common": {
+				"role": "button",
+				"name": "Fetch calendar data",
+				"def": false,
+				"type": "boolean",
+				"read": false,
+				"write": true
+			},
+			"native": {}
+		},
+		{
+			"_id": "events",
+			"type": "group",
+			"common": {
+				"name": "fetched events from calendar"
+			},
+			"native": {}
+		}
+	]
 }

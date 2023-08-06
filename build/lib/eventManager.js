@@ -270,7 +270,7 @@ class EventManager {
         });
       }
     });
-    setTimeout(this.syncIQontrolStates.bind(this), 2e3);
+    adapter.setTimeout(this.syncIQontrolStates.bind(this), 2e3);
   }
   addEventFlagObject(id, name) {
     const obj = {

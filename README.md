@@ -56,6 +56,9 @@ This project uses the following components:
 -->
 ### **WORK IN PROGRESS**	
 * (dirkhe) add pictured Google API documentation
+* (dirkhe) fix property of button
+* (dirkhe) add housekeeping for setInterval/setTimeout
+* (dirkhe) check updateinterval for minimum of 10 minutes
 
 ### 1.0.5 (2023-04-26)	
 * (dirkhe) set update addEvent-states to 00:10

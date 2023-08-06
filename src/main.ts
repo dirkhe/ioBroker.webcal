@@ -45,6 +45,8 @@ const i18n: Record<string, string> = {
 class Webcal extends utils.Adapter {
 	eventManager: EventManager;
 	calendarManager: CalendarManager;
+	private updateCalenderIntervall: ioBroker.Interval | null = null;
+	private actionEvents: Array<ioBroker.Timeout> = []; // we save this for internal housekeeping to fullfill PR addintg to iobroker repository
 
 	public constructor(options: Partial<utils.AdapterOptions> = {}) {
 		super({
@@ -79,8 +81,15 @@ class Webcal extends utils.Adapter {
 			}
 			this.fetchCalendars();
 			if (this.config.intervall > 0) {
+				if (this.config.intervall < 10) {
+					this.config.intervall = 10;
+					adapter.log.info("minimum fetching time of calendar ar 10 minutes");
+				}
 				adapter.log.info("fetch calendar data all " + this.config.intervall + " minutes");
-				this.setInterval(this.fetchCalendars.bind(this), this.config.intervall * 60000);
+				this.updateCalenderIntervall = this.setInterval(
+					this.fetchCalendars.bind(this),
+					this.config.intervall * 60000,
+				);
 			}
 		}
 		this.subscribeStates("fetchCal");
@@ -198,8 +207,11 @@ class Webcal extends utils.Adapter {
 	private onUnload(callback: () => void): void {
 		try {
 			// Here you must clear all timeouts or intervals that may still be active
+			this.updateCalenderIntervall && this.clearInterval(this.updateCalenderIntervall);
 			this.eventManager.resetAll();
-
+			for (let i = 0; i < this.actionEvents.length; i++) {
+				this.clearTimeout(this.actionEvents[i]);
+			}
 			callback();
 		} catch (e) {
 			callback();
@@ -247,14 +259,30 @@ class Webcal extends utils.Adapter {
 						this.addEvent(state.val as string, obj?.common.name as string).then((result) => {
 							this.setStateAsync(id, result.statusText, true);
 							this.fetchCalendars();
-							this.setTimeout(() => {
-								this.setStateAsync(id, "", true);
-							}, 60000);
+							const timerID: ioBroker.Timeout = this.addTimer(
+								adapter.setTimeout(() => {
+									this.setStateAsync(id, "", true);
+									this.clearTimer(timerID);
+								}, 60000),
+							);
 						});
 					});
 				}
 
 				break;
+		}
+	}
+
+	addTimer(timerID: ioBroker.Timeout): ioBroker.Timeout {
+		this.actionEvents.push(timerID);
+		return timerID;
+	}
+
+	clearTimer(timerID: ioBroker.Timeout): void {
+		for (let i = 0; i < this.actionEvents.length; i++) {
+			if (this.actionEvents[i] == timerID) {
+				delete this.actionEvents[i];
+			}
 		}
 	}
 

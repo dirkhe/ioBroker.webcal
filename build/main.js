@@ -82,6 +82,10 @@ class Webcal extends utils.Adapter {
       }
       this.fetchCalendars();
       if (this.config.intervall > 0) {
+        if (this.config.intervall < 10) {
+          this.config.intervall = 10;
+          adapter.log.info("minimum fetching time of calendar ar 10 minutes");
+        }
         adapter.log.info("fetch calendar data all " + this.config.intervall + " minutes");
         this.updateCalenderIntervall = this.setInterval(
           this.fetchCalendars.bind(this),

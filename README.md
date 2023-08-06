@@ -54,7 +54,7 @@ This project uses the following components:
 	### **WORK IN PROGRESS**	* ()
 
 -->
-### **WORK IN PROGRESS**	
+### 1.0.6 (2023-08-06)	
 * (dirkhe) add pictured Google API documentation
 * (dirkhe) fix property of button
 * (dirkhe) add housekeeping for setInterval/setTimeout

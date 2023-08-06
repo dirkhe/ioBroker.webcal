@@ -54,9 +54,9 @@ This project uses the following components:
 	### **WORK IN PROGRESS**	* ()
 
 -->
-
-### **WORK IN PROGRESS**	
+### 1.0.7 (2023-08-06)	
 * (dirkhe) change event state type from group to folder
+
 ### 1.0.6 (2023-08-06)	
 * (dirkhe) add pictured Google API documentation
 * (dirkhe) fix property of button

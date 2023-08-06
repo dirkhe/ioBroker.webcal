@@ -2,120 +2,14 @@
 // @ts-ignore
 import { AdapterInstance } from "@iobroker/adapter-core";
 import { DAVAccount, DAVCalendar, DAVCalendarObject, DAVClient, DAVCredentials } from "tsdav";
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import ICAL from "ical.js";
-import { CalendarEvent, ICalendarTimeRangObj } from "./calendarManager";
+import { IcalCalendarEvent, initLib as IcalInit } from "./IcalCalendarEvent";
 
 let adapter: AdapterInstance;
 
 export function initLib(adapterInstance: AdapterInstance, localTimeZone: string): void {
 	adapter = adapterInstance;
-	ICAL.Timezone.localTimezone = new ICAL.Timezone({ tzID: localTimeZone });
+	IcalInit(adapterInstance, localTimeZone);
 }
-export class IcalCalendarEvent extends CalendarEvent {
-	icalEvent?: ICAL.Event;
-	timezone?: ICAL.Timezone;
-	recurIterator?: ICAL.RecurExpansion;
-
-	constructor(calendarEventData: string, calendarName: string, startDate: Date, endDate: Date) {
-		super(endDate, calendarName);
-		try {
-			adapter.log.debug("parse calendar data:\n" + calendarEventData.replace(/\s*([:;=])\s*/gm, "$1"));
-			const jcalData = ICAL.parse(calendarEventData);
-			const comp = new ICAL.Component(jcalData);
-			const calTimezone = comp.getFirstSubcomponent("vtimezone");
-			if (calTimezone) {
-				this.timezone = new ICAL.Timezone(calTimezone);
-			}
-
-			this.icalEvent = new ICAL.Event(comp.getFirstSubcomponent("vevent"));
-			this.summary = this.icalEvent.summary || "";
-			this.description = this.icalEvent.description || "";
-
-			if (this.icalEvent.isRecurring()) {
-				if (!["HOURLY", "SECONDLY", "MINUTELY"].includes(this.icalEvent.getRecurrenceTypes())) {
-					const timeObj = this.getNextTimeObj(true);
-					if (timeObj) {
-						const startTime = ICAL.Time.fromData({
-							year: startDate.getFullYear(),
-							month: startDate.getMonth() + 1,
-							day: startDate.getDate(),
-							hour: timeObj.startDate.getHours(),
-							minute: timeObj.startDate.getMinutes(),
-							timezone: calTimezone,
-						});
-						this.recurIterator = this.icalEvent.iterator(startTime);
-					}
-				}
-			}
-		} catch (error) {
-			adapter.log.error("could not read calendar Event: " + error);
-			adapter.log.debug(calendarEventData);
-			this.icalEvent = null;
-		}
-	}
-
-	getNextTimeObj(isFirstCall: boolean): ICalendarTimeRangObj | null {
-		let start: ICAL.Time;
-		let end: ICAL.Time;
-		if (this.recurIterator) {
-			start = this.recurIterator.next();
-			if (start) {
-				if (this.timezone) {
-					start = start.convertToZone(this.timezone);
-				}
-				if (start.toUnixTime() > this.maxUnixTime) {
-					return null;
-				}
-				try {
-					end = this.icalEvent.getOccurrenceDetails(start).endDate;
-				} catch (error) {
-					return null;
-				}
-			} else {
-				return null;
-			}
-		} else if (isFirstCall) {
-			start = this.icalEvent.startDate;
-			if (this.timezone) {
-				start = start.convertToZone(this.timezone);
-			}
-			end = this.icalEvent.endDate;
-		} else {
-			return null;
-		}
-		if (this.timezone) {
-			end = end.convertToZone(this.timezone);
-		}
-		return {
-			startDate: start.toJSDate(), //.local();
-			endDate: end.toJSDate(), //.local();
-		};
-	}
-
-	static createIcalEventString(data: webcal.ICalendarEventData): string {
-		const cal = new ICAL.Component(["vcalendar", [], []]);
-		cal.updatePropertyWithValue("prodid", "-//ioBroker.webCal");
-		const vevent = new ICAL.Component("vevent");
-		const event = new ICAL.Event(vevent);
-
-		event.summary = data.summary;
-		event.description = "ioBroker webCal";
-		event.uid = new Date().getTime().toString();
-		event.startDate =
-			typeof data.startDate == "string"
-				? ICAL.Time.fromString(data.startDate)
-				: ICAL.Time.fromData(data.startDate);
-		if (data.endDate) {
-			event.endDate =
-				typeof data.endDate == "string" ? ICAL.Time.fromString(data.endDate) : ICAL.Time.fromData(data.endDate);
-		}
-		cal.addSubcomponent(vevent);
-		return cal.toString();
-	}
-}
-
 export class DavCalCalendar implements webcal.ICalendarBase {
 	name: string;
 	client: DAVClient;
@@ -248,7 +142,13 @@ export class DavCalCalendar implements webcal.ICalendarBase {
 										}
 					*/
 					for (const i in calendarObjects) {
-						calEvents.push(new IcalCalendarEvent(calendarObjects[i].data, this.name, startDate, endDate));
+						const ev: IcalCalendarEvent | null = IcalCalendarEvent.fromData(
+							calendarObjects[i].data,
+							this.name,
+							startDate,
+							endDate,
+						);
+						ev && calEvents.push(ev);
 					}
 				}
 				return null;

@@ -115,7 +115,9 @@ const _CalendarEvent = class {
         if (time == "23:59") {
           days[lastDay] = new jsonEvent(this.calendarName, timeObj.end.toDate(), this.summary);
         } else if (time != "00:00") {
-          days[lastDay].endTime = time;
+          if (days[lastDay]) {
+            days[lastDay].endTime = time;
+          }
         }
       } else {
         days[firstDay] = new jsonEvent(

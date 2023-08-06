@@ -23,6 +23,7 @@ var import_calDav = require("./lib/calDav");
 var import_calendarManager = require("./lib/calendarManager");
 var import_eventManager = require("./lib/eventManager");
 var import_google = require("./lib/google");
+var import_iCalReadOnly = require("./lib/iCalReadOnly");
 let adapter;
 const i18n = {
   allDay: "all day",
@@ -73,6 +74,7 @@ class Webcal extends utils.Adapter {
     this.calendarManager.init(this.config);
     (0, import_calDav.initLib)(this, import_calendarManager.localTimeZone);
     (0, import_google.initLib)(this, import_calendarManager.localTimeZone);
+    (0, import_iCalReadOnly.initLib)(this, import_calendarManager.localTimeZone);
     if (this.config.calendars) {
       for (let c = 0; c < this.config.calendars.length; c++) {
         this.calendarManager.addCalendar(
@@ -109,6 +111,8 @@ class Webcal extends utils.Adapter {
     if (calConfig.password && !calConfig.inactive) {
       if (calConfig.authMethod == "google") {
         return new import_google.GoogleCalendar(calConfig);
+      } else if (calConfig.authMethod == "Download") {
+        return new import_iCalReadOnly.ICalReadOnlyClient(calConfig);
       } else {
         return new import_calDav.DavCalCalendar(calConfig);
       }

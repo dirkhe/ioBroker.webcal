@@ -11,6 +11,7 @@ import { DavCalCalendar, initLib as calDavInit } from "./lib/calDav";
 import { CalendarEvent, CalendarManager, localTimeZone } from "./lib/calendarManager";
 import { EventManager } from "./lib/eventManager";
 import { GoogleCalendar, initLib as googleInit } from "./lib/google";
+import { ICalReadOnlyClient, initLib as icalROInit } from "./lib/iCalReadOnly";
 
 let adapter: Webcal;
 
@@ -72,6 +73,7 @@ class Webcal extends utils.Adapter {
 		this.calendarManager.init(this.config);
 		calDavInit(this, localTimeZone);
 		googleInit(this, localTimeZone);
+		icalROInit(this, localTimeZone);
 		if (this.config.calendars) {
 			for (let c = 0; c < this.config.calendars.length; c++) {
 				this.calendarManager.addCalendar(
@@ -113,6 +115,8 @@ class Webcal extends utils.Adapter {
 		if (calConfig.password && !calConfig.inactive) {
 			if (calConfig.authMethod == "google") {
 				return new GoogleCalendar(calConfig);
+			} else if (calConfig.authMethod == "Download") {
+				return new ICalReadOnlyClient(calConfig);
 			} else {
 				return new DavCalCalendar(calConfig);
 			}

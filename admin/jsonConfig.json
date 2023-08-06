@@ -166,7 +166,8 @@
 							"options": [
 								{ "label": "Basic", "value": "Basic" },
 								{ "label": "Oauth", "value": "Oauth" },
-								{ "label": "google", "value": "google" }
+								{ "label": "google", "value": "google" },
+								{ "label": "Download", "value": "Download" }
 							],
 							"filter": false,
 							"sort": false,
@@ -221,7 +222,7 @@
 							"filter": false,
 							"sort": false,
 							"default": "",
-							"hidden": "data.authMethod == 'Basic'"
+							"hidden": "data.authMethod == 'Basic' || data.authMethod == 'Download'"
 						},
 						{
 							"type": "text",
@@ -231,7 +232,7 @@
 							"filter": false,
 							"sort": false,
 							"default": "",
-							"hidden": "data.authMethod == 'Basic'"
+							"hidden": "data.authMethod == 'Basic' || data.authMethod == 'Download'"
 						},
 						{
 							"type": "checkbox",

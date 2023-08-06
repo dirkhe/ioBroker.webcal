@@ -30,6 +30,9 @@ use basic auth and following Url (you can get it by shared link)
 	- refresh token = which you get from above
 	- client ID = your clientID
 
+**Download iCal**
+  you can download an ical calendar for calendar, which not support dav. But this is than readonly, means no Calendar items could be added
+  
 ### Datapoints
 **add new Event**
 
@@ -54,6 +57,8 @@ This project uses the following components:
 	### **WORK IN PROGRESS**	* ()
 
 -->
+### **WORK IN PROGRESS**	
+* (dirkhe) add readonly client for ical
 ### 1.0.6 (2023-08-06)	
 * (dirkhe) add pictured Google API documentation
 * (dirkhe) fix property of button

@@ -54,6 +54,8 @@ This project uses the following components:
 	### **WORK IN PROGRESS**	* ()
 
 -->
+### **WORK IN PROGRESS**
+* (dirkhe) update dependecies
 ### 1.0.7 (2023-08-06)	
 * (dirkhe) change event state type from group to folder
 

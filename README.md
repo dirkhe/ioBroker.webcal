@@ -87,9 +87,10 @@ This project uses the following components:
 
 -->
 ### **WORK IN PROGRESS**
+* (dirkhe) add addEvent-command to sendTo
+* (dirkhe) fix date parsing, if day only one digit
 * (dirkhe) update dependecies
 ### 1.0.7 (2023-08-06)	
-* (dirkhe) add addEvent-command to sendTo
 * (dirkhe) change event state type from group to folder
 
 ### 1.0.6 (2023-08-06)	

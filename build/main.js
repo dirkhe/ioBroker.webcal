@@ -235,7 +235,7 @@ class Webcal extends utils.Adapter {
       }
     }
   }
-  onMessage(obj) {
+  async onMessage(obj) {
     this.log.info(JSON.stringify(obj));
     if (typeof obj === "object") {
       if (obj.command === "testCalendar") {
@@ -265,6 +265,45 @@ class Webcal extends utils.Adapter {
           this.sendTo(obj.from, obj.command, calendars, obj.callback);
         } else {
           this.sendTo(obj.from, obj.command, [{ label: "No calendar found", value: "" }], obj.callback);
+        }
+      } else if (obj.command === "addEvents") {
+        if (typeof obj.message == "object" && obj.message.events) {
+          const calendar = obj.message.calendar ? this.calendarManager.calendars[obj.message.calendar] : this.calendarManager.defaultCalendar;
+          if (!calendar) {
+            return this.sendTo(
+              obj.from,
+              obj.command,
+              { error: i18n.couldNotFoundCalendar + " name: " + obj.message.calendar },
+              obj.callback
+            );
+          }
+          adapter.log.debug("add Events to " + calendar.name);
+          for (const i in obj.message.events) {
+            const event = obj.message.events[i];
+            event.startDate = import_calendarManager.CalendarEvent.parseDateTime(event.start);
+            if (!event.startDate.year) {
+              event.error = "start: " + i18n.invalidDate;
+            } else {
+              if (event.end) {
+                event.endDate = import_calendarManager.CalendarEvent.parseDateTime(event.end);
+                if (!event.endDate.year) {
+                  event.error = "end: " + i18n.invalidDate;
+                }
+              }
+            }
+            if (!event.error) {
+              const result = await calendar.addEvent(event);
+              if (result.ok) {
+                event.status = i18n.successfullyAdded;
+              } else {
+                event.error = result.message;
+              }
+            }
+          }
+          this.fetchCalendars();
+          this.sendTo(obj.from, obj.command, obj.message.events, obj.callback);
+        } else {
+          return this.sendTo(obj.from, obj.command, { error: "found no events" }, obj.callback);
         }
       }
     }

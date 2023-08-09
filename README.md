@@ -44,6 +44,38 @@ you can add a new Calender Entry based on the Event. Please use the following Sy
 	or date/datetime as parsable date or datetime
 	@calendar is optional the name of the calendar, default is first defined calendar
 
+also possible via Script:
+```
+sendTo("webcal.0", "addEvents", {
+    calendar: "smarthome",
+    events: [
+      {
+        summary: "test",
+        start: "9.8.23 23:00",
+        end: "10.08.2023 14:00"
+      }
+    ]
+  },function(events){
+    events will be
+	[
+		{
+			"summary": "test",
+			"start": "9.8.23 23:00",
+			"end": "10.08.2023 14:00",
+			"startDate": { "year": 2023, "month": 8, "day": 9, "hour": 23, "minute": 0, "second": 0, "isDate": false },
+			"endDate": { "year": 2023, "month": 8, "day": 10, "hour": 14, "minute": 0, "second": 0, "isDate": false },
+			"status": "successfully added"
+		}
+    ]
+  })
+```
+
+if `calendar` not given, defaulktCalender will used
+
+on event `end` is optional 
+
+
+
 ### DISCLAIMER
 This project uses the following components:
 - [tsDav](https://github.com/natelindev/tsdav)
@@ -59,6 +91,14 @@ This project uses the following components:
 -->
 ### **WORK IN PROGRESS**	
 * (dirkhe) add readonly client for ical
+### 1.1.0 (2023-08-09)
+* (dirkhe) add addEvent-command to sendTo
+* (dirkhe) fix date parsing, if day only one digit
+* (dirkhe) update dependecies
+
+### 1.0.7 (2023-08-06)	
+* (dirkhe) change event state type from group to folder
+
 ### 1.0.6 (2023-08-06)	
 * (dirkhe) add pictured Google API documentation
 * (dirkhe) fix property of button

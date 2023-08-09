@@ -149,7 +149,7 @@ export abstract class CalendarEvent implements webcal.ICalendarEventBase {
 		if (terms.length > 2) {
 			if (terms[0].length != 4) {
 				dateTimeObj.year = 2;
-				if (dateString[2] == ".") {
+				if (dateString[2] == "." || dateString[1] == ".") {
 					dateTimeObj.day = 0;
 					dateTimeObj.month = 1;
 				} else {

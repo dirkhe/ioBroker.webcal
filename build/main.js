@@ -296,6 +296,7 @@ class Webcal extends utils.Adapter {
               }
             }
           }
+          this.fetchCalendars();
           this.sendTo(obj.from, obj.command, obj.message.events, obj.callback);
         } else {
           return this.sendTo(obj.from, obj.command, { error: "found no events" }, obj.callback);

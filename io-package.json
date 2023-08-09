@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "webcal",
-    "version": "1.0.7",
+    "version": "1.1.0",
     "news": {
+      "1.1.0": {
+        "en": "add addEvent-command to sendTo\nfix date parsing, if day only one digit\nupdate dependecies",
+        "de": "addEvent-command to send Zu\nfix date parsing, wenn tag nur eine ziffer\naktualisierung der abhängigkeiten",
+        "ru": "добавить addEvent-command для отправки В\nисправить дату parsing, если день только одна цифра\nобновление зависимостей",
+        "pt": "addEvent-command para enviar Para\ncorreção parsing data, se o dia só um dígito\natualizações",
+        "nl": "vertaling: ♪\nals de dag maar één cijfer is\nvertaling:",
+        "fr": "ajouter addEvent-command pour envoyer To\nfixer la date parsing, si le jour seulement un chiffre\nmettre à jour les dépendances",
+        "it": "aggiungere addEvent-comand per inviare A\nfissare la data parsing, se solo giorno una cifra\ndipendenze di aggiornamento",
+        "es": "añadir addEvent-command para enviar A\nfijar fecha paresing, si día sólo un dígito\ndependencias de actualización",
+        "pl": "dodać Komendanta dodawania Aby to zrobić\nustalenie daty, jeśli dzień będzie tylko jedną cyfrą\naktualizacja",
+        "uk": "addEvent-command для відправки до\nфіксувати дату парсингу, якщо день тільки один цифра\nоновлення залежності",
+        "zh-cn": "增 发 导 言\nf 固定日期,只有一天数字\na. 最新依赖情况"
+      },
       "1.0.7": {
         "en": "change event state type from group to folder",
         "de": "änderung von ereigniszustandstyp von gruppe zu ordner",
@@ -69,19 +82,6 @@
         "zh-cn": "固定环境"
       },
       "1.0.2": {
-        "en": "publish to npm",
-        "de": "veröffentlichen bis npm",
-        "ru": "публиковать в npm",
-        "pt": "publicar a npm",
-        "nl": "_",
-        "fr": "publier à npm",
-        "it": "pubblicare a npm",
-        "es": "publicar a npm",
-        "pl": "publikować",
-        "uk": "опублікувати npm",
-        "zh-cn": "出版"
-      },
-      "1.0.1": {
         "en": "publish to npm",
         "de": "veröffentlichen bis npm",
         "ru": "публиковать в npm",

@@ -91,6 +91,8 @@ This project uses the following components:
 -->
 ### **WORK IN PROGRESS**	
 * (dirkhe) add readonly client for ical
+* (dirkhe) add datefilter for readonly 
+
 ### 1.1.0 (2023-08-09)
 * (dirkhe) add addEvent-command to sendTo
 * (dirkhe) fix date parsing, if day only one digit

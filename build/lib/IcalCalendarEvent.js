@@ -36,7 +36,7 @@ function initLib(adapterInstance, localTimeZone) {
   adapter = adapterInstance;
   import_ical.default.Timezone.localTimezone = new import_ical.default.Timezone({ tzID: localTimeZone });
 }
-function getAllIcalCalendarEvents(calendarEventData, calendarName, startDate, endDate) {
+function getAllIcalCalendarEvents(calendarEventData, calendarName, startDate, endDate, checkDateRange) {
   const result = [];
   try {
     adapter.log.debug("parse calendar data:\n" + calendarEventData.replace(/\s*([:;=])\s*/gm, "$1"));
@@ -53,7 +53,15 @@ function getAllIcalCalendarEvents(calendarEventData, calendarName, startDate, en
         startDate,
         endDate
       );
-      ev && result.push(ev);
+      if (ev) {
+        if (checkDateRange) {
+          const timeObj = ev.getNextTimeObj(true);
+          if (!timeObj || timeObj.startDate < startDate || timeObj.endDate > endDate) {
+            continue;
+          }
+        }
+        result.push(ev);
+      }
     }
   } catch (error) {
     adapter.log.error("could not read calendar Event: " + error);

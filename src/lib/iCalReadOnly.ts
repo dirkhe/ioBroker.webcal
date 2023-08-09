@@ -50,7 +50,7 @@ export class ICalReadOnlyClient implements webcal.ICalendarBase {
 		return axios(this.axiosOptions)
 			.then((response) => {
 				if (response.data) {
-					const allEvents = getAllIcalCalendarEvents(response.data, this.name, startDate, endDate);
+					const allEvents = getAllIcalCalendarEvents(response.data, this.name, startDate, endDate, true);
 					for (const i in allEvents) {
 						calEvents.push(allEvents[i]);
 					}

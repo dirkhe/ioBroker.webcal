@@ -17,6 +17,7 @@ export function getAllIcalCalendarEvents(
 	calendarName: string,
 	startDate: Date,
 	endDate: Date,
+	checkDateRange?: boolean,
 ): webcal.ICalendarEventBase[] {
 	const result: webcal.ICalendarEventBase[] = [];
 	try {
@@ -35,7 +36,15 @@ export function getAllIcalCalendarEvents(
 				startDate,
 				endDate,
 			);
-			ev && result.push(ev);
+			if (ev) {
+				if (checkDateRange) {
+					const timeObj = ev.getNextTimeObj(true);
+					if (!timeObj || timeObj.startDate < startDate || timeObj.endDate > endDate) {
+						continue;
+					}
+				}
+				result.push(ev);
+			}
 		}
 	} catch (error) {
 		adapter.log.error("could not read calendar Event: " + error);

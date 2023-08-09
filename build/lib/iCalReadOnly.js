@@ -58,7 +58,7 @@ class ICalReadOnlyClient {
     }
     return (0, import_axios.default)(this.axiosOptions).then((response) => {
       if (response.data) {
-        const allEvents = (0, import_IcalCalendarEvent.getAllIcalCalendarEvents)(response.data, this.name, startDate, endDate);
+        const allEvents = (0, import_IcalCalendarEvent.getAllIcalCalendarEvents)(response.data, this.name, startDate, endDate, true);
         for (const i in allEvents) {
           calEvents.push(allEvents[i]);
         }
@@ -85,7 +85,7 @@ class ICalReadOnlyClient {
   async addEvent(calEvent) {
     return {
       ok: false,
-      message: "This client is readonly"
+      message: "calender is readonly (" + this.name + ")"
     };
   }
 }

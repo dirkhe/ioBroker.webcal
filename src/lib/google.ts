@@ -1,5 +1,5 @@
 import { calendar, calendar_v3 } from "@googleapis/calendar";
-import { auth as googleAuth, GaxiosPromise } from "@googleapis/oauth2";
+import { GaxiosPromise, auth as googleAuth } from "@googleapis/oauth2";
 import { AdapterInstance } from "@iobroker/adapter-core";
 import { CalendarEvent, ICalendarTimeRangObj } from "./calendarManager";
 //const scope = "https://www.googleapis.com/auth/calendar";
@@ -162,7 +162,7 @@ export class GoogleCalendar implements webcal.ICalendarBase {
 					: CalendarEvent.getDateTimeISOStringFromEventDateTime(calEvent.startDate);
 			const data: calendar_v3.Schema$Event = {
 				summary: calEvent.summary,
-				description: "ioBroker webCal",
+				description: calEvent.description || "ioBroker webCal",
 			};
 			if (start.length > 10) {
 				data.start = { dateTime: start, timeZone: localTimeZone };

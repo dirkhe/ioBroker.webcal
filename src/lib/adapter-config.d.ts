@@ -41,6 +41,8 @@ declare global {
 			summary: string;
 			startDate: string | IEventDateTime;
 			endDate?: string | IEventDateTime;
+
+			description?: string;
 		}
 
 		interface ICalendarEventBase {

@@ -161,7 +161,7 @@ class IcalCalendarEvent extends import_calendarManager.CalendarEvent {
     const vevent = new import_ical.default.Component("vevent");
     const event = new import_ical.default.Event(vevent);
     event.summary = data.summary;
-    event.description = "ioBroker webCal";
+    event.description = data.description || "ioBroker webCal";
     event.uid = new Date().getTime().toString();
     event.startDate = typeof data.startDate == "string" ? import_ical.default.Time.fromString(data.startDate) : import_ical.default.Time.fromData(data.startDate);
     if (data.endDate) {

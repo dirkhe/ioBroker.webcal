@@ -53,11 +53,29 @@ sendTo("webcal.0", "addEvents", {
         summary: "test",
         start: "9.8.23 23:00",
         end: "10.08.2023 14:00"
+      },	  
+      {
+        summary: "failed test",
+		description: "long description",
+        start: "9.8"
       }
     ]
   },function(events){
-    events will be
+    /* callback function 
+	   object events will be repeat from input, 
+	   with additional status or error field, 
+	   also startDate and endDate are provided as Object data   
+	*/
+	log(events);
+	/*
 	[
+		{
+			"summary": "failed test",
+			"start": "9.8",
+			"startDate": { "year": 2023, "month": 8, "day": 9, "hour": 23, "minute": 0, "second": 0, "isDate": false },
+			"endDate": { "year": 2023, "month": 8, "day": 10, "hour": 14, "minute": 0, "second": 0, "isDate": false },
+			"status": "successfully added"
+		},
 		{
 			"summary": "test",
 			"start": "9.8.23 23:00",
@@ -67,12 +85,13 @@ sendTo("webcal.0", "addEvents", {
 			"status": "successfully added"
 		}
     ]
+	*/
   })
 ```
 
 if `calendar` not given, defaulktCalender will used
 
-on event `end` is optional 
+on event `end` and `description` is optional 
 
 
 
@@ -89,6 +108,9 @@ This project uses the following components:
 	### **WORK IN PROGRESS**	* ()
 
 -->
+### **WORK IN PROGRESS**	
+* (deher) add description for sendTo-addEvent
+
 ### **WORK IN PROGRESS**	
 * (dirkhe) add readonly client for ical
 * (dirkhe) add datefilter for readonly 

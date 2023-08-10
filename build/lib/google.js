@@ -149,7 +149,7 @@ class GoogleCalendar {
       const start = typeof calEvent.startDate == "string" ? calEvent.startDate : import_calendarManager.CalendarEvent.getDateTimeISOStringFromEventDateTime(calEvent.startDate);
       const data = {
         summary: calEvent.summary,
-        description: "ioBroker webCal"
+        description: calEvent.description || "ioBroker webCal"
       };
       if (start.length > 10) {
         data.start = { dateTime: start, timeZone: localTimeZone };

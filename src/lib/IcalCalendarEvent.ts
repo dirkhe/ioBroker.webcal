@@ -166,7 +166,7 @@ export class IcalCalendarEvent extends CalendarEvent {
 		const event = new ICAL.Event(vevent);
 
 		event.summary = data.summary;
-		event.description = "ioBroker webCal";
+		event.description = data.description || "ioBroker webCal";
 		event.uid = new Date().getTime().toString();
 		event.startDate =
 			typeof data.startDate == "string"

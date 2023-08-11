@@ -101,6 +101,7 @@ class GoogleCalendar {
           for (let i = 0; i < calendars.length; i++) {
             if (((_a = calendars[i].summary) == null ? void 0 : _a.toLowerCase()) == displayNameLowerCase || ((_b = calendars[i].summaryOverride) == null ? void 0 : _b.toLowerCase()) == displayNameLowerCase) {
               this.calendarId = calendars[i].id || "";
+              adapter.log.info("use google calendar " + this.calendarId);
               return this.calendarId;
             }
           }
@@ -108,6 +109,7 @@ class GoogleCalendar {
         for (let i = 0; i < calendars.length; i++) {
           if (calendars[i].primary) {
             this.calendarId = calendars[i].id || "";
+            adapter.log.info("use google primary calendar " + this.calendarId);
             break;
           }
         }

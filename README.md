@@ -25,6 +25,7 @@ use basic auth and following Url (you can get it by shared link)
 **Google**   
   see [using Google API](doc/google.md)
 - Use the following settings in ioBroker
+    - name = internal name, if this matches google-calendar name, this will used
 	- auth Methold = google
 	- Secret = Client Secret
 	- refresh token = which you get from above
@@ -136,6 +137,7 @@ This project uses the following components:
 ### **WORK IN PROGRESS**	
 * (deher) add description for sendTo-addEvent
 * (deher) fix calculating events
+* (deher) add log which google calendar is used 
 
 ### **WORK IN PROGRESS**	
 * (dirkhe) add readonly client for ical

@@ -98,6 +98,7 @@ export class GoogleCalendar implements webcal.ICalendarBase {
 							calendars[i].summaryOverride?.toLowerCase() == displayNameLowerCase
 						) {
 							this.calendarId = calendars[i].id || "";
+							adapter.log.info("use google calendar " + this.calendarId);
 							return this.calendarId;
 						}
 					}
@@ -106,6 +107,7 @@ export class GoogleCalendar implements webcal.ICalendarBase {
 				for (let i = 0; i < calendars.length; i++) {
 					if (calendars[i].primary) {
 						this.calendarId = calendars[i].id || "";
+						adapter.log.info("use google primary calendar " + this.calendarId);
 						break;
 					}
 				}

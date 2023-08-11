@@ -52,30 +52,32 @@ export class Event {
 		const today = days[0];
 		if (today) {
 			// we have a hit today
-			if (this.nowFlag && today.startTime) {
+			const startTime = today.startTime || "00:00";
+			const endTime = today.endTime || "23:59";
+			if (this.nowFlag) {
 				if (!this.nowFlag.allDay) {
 					let curTime = null;
 					for (let i = 0; curTime == null && i < this.nowFlag.times.length; i++) {
 						curTime = this.nowFlag.times[i];
-						if (today.startTime < curTime.start) {
-							if (today.endTime && curTime.start > today.endTime) {
+						if (startTime < curTime.start) {
+							if (curTime.start > endTime) {
 								// hole timeframe is befor cur timeframe, so we insert it as new item
 								this.nowFlag.times.splice(i, 0, {
-									start: today.startTime,
-									end: today.endTime,
+									start: startTime,
+									end: endTime,
 								});
 							} else {
 								// we will start earlier
-								curTime.start = today.startTime;
-								if (today.endTime && today.endTime > curTime.end) {
+								curTime.start = startTime;
+								if (endTime > curTime.end) {
 									// the endtime is later then cur timeframe, so we stopps later
-									curTime.end = today.endTime;
+									curTime.end = endTime;
 								}
 							}
-						} else if (today.startTime == curTime.start || today.startTime < curTime.end) {
-							if (today.endTime && today.endTime > curTime.end) {
+						} else if (startTime == curTime.start || startTime < curTime.end) {
+							if (endTime > curTime.end) {
 								// the endtime is later then cur timeframe, so we stopps later
-								curTime.end = today.endTime;
+								curTime.end = endTime;
 							}
 						} else {
 							curTime = null;
@@ -84,9 +86,11 @@ export class Event {
 
 					if (curTime == null) {
 						this.nowFlag.times.push({
-							start: today.startTime,
-							end: today.endTime,
+							start: startTime,
+							end: endTime,
 						});
+					} else if (curTime.start == "00:00" && curTime.end == "23:59") {
+						this.nowFlag.allDay = true;
 					}
 				}
 			} else {
@@ -97,7 +101,7 @@ export class Event {
 					allDay: today.isAllday(),
 				};
 				if (!this.nowFlag.allDay) {
-					this.nowFlag.times.push({ start: today.startTime, end: today.endTime });
+					this.nowFlag.times.push({ start: startTime, end: endTime });
 				}
 			}
 		}
@@ -178,7 +182,14 @@ export class Event {
 					const timerUntilStop = dayjs(todayStr + this.nowFlag.times[i].end).diff();
 					if (timeUntilStart <= 0 && timerUntilStop > 0) {
 						// starttime is in the past and endTime is in the future
-						stateText = this.nowFlag.times[i].start;
+						stateText =
+							this.nowFlag.times[i].start != "00:00"
+								? i18n["from"] + " " + this.nowFlag.times[i].start
+								: "";
+						stateText +=
+							this.nowFlag.times[i].end != "23:59"
+								? (stateText ? " " : "") + i18n["until"] + " " + this.nowFlag.times[i].end
+								: "";
 						this.nowFlag.timerID = setTimeout(
 							function (event) {
 								event.updateNowFlag();

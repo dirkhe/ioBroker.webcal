@@ -35,7 +35,8 @@ export class jsonEvent {
 	toString(): string {
 		return this.isAllday()
 			? i18n.allDay
-			: i18n["from"] + " " + this.startTime + (this.endTime ? " " + i18n["until"] + " " + this.endTime : "");
+			: (this.startTime ? i18n["from"] + " " + this.startTime : "") +
+					(this.endTime ? (this.startTime ? " " : "") + i18n["until"] + " " + this.endTime : "");
 	}
 	isAllday(): boolean {
 		return !this.startTime && !this.endTime;
@@ -89,23 +90,24 @@ export abstract class CalendarEvent implements webcal.ICalendarEventBase {
 	calcDays(timeObj: webcal.IEventTimeRangObj): Record<number, jsonEvent> {
 		const days: Record<number, jsonEvent> = {};
 		if (timeObj) {
-			const firstDay = Math.max(
-				timeObj.start.startOf("D").diff(CalendarEvent.todayMidnight, "d"),
-				-CalendarEvent.daysPast,
-			);
+			const firstDay = timeObj.start.startOf("D").diff(CalendarEvent.todayMidnight, "d");
 			if (!timeObj.start.isSame(timeObj.end)) {
-				//(lastDay >= firstDay) {
 				const lastDay = Math.min(
 					timeObj.end.startOf("D").diff(CalendarEvent.todayMidnight, "d"),
 					CalendarEvent.daysFuture,
 				);
-				// event is at least next day
+
 				let d: number = firstDay;
 				let time = timeObj.start.format("HH:mm");
-				if (time != "00:00") {
-					days[d++] = new jsonEvent(this.calendarName, timeObj.start.toDate(), this.summary, time);
+				if (firstDay < -CalendarEvent.daysPast) {
+					// Event start bevor timerange
+					d = -CalendarEvent.daysPast;
+				} else if (time != "00:00") {
+					// Event start in timerange
+					days[firstDay] = new jsonEvent(this.calendarName, timeObj.start.toDate(), this.summary, time);
+					d++;
 				}
-				for (; d < lastDay; d++) {
+				for (; d <= lastDay; d++) {
 					days[d] = new jsonEvent(
 						this.calendarName,
 						timeObj.start.add(d - firstDay, "d").toDate(),
@@ -113,14 +115,12 @@ export abstract class CalendarEvent implements webcal.ICalendarEventBase {
 					);
 				}
 				time = timeObj.end.format("HH:mm");
-				if (time == "23:59") {
-					days[lastDay] = new jsonEvent(this.calendarName, timeObj.end.toDate(), this.summary);
-				} else if (time != "00:00") {
+				if (time != "23:59") {
 					if (days[lastDay]) {
 						days[lastDay].endTime = time;
 					}
 				}
-			} else {
+			} else if (firstDay >= -CalendarEvent.daysPast) {
 				days[firstDay] = new jsonEvent(
 					this.calendarName,
 					timeObj.start.toDate(),

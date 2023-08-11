@@ -66,35 +66,60 @@ sendTo("webcal.0", "addEvents", {
 	   with additional status or error field, 
 	   also startDate and endDate are provided as Object data   
 	*/
-	log(events);
-	/*
-	[
-		{
-			"summary": "failed test",
-			"start": "9.8",
-			"startDate": { "year": 2023, "month": 8, "day": 9, "hour": 23, "minute": 0, "second": 0, "isDate": false },
-			"endDate": { "year": 2023, "month": 8, "day": 10, "hour": 14, "minute": 0, "second": 0, "isDate": false },
-			"status": "successfully added"
-		},
-		{
-			"summary": "test",
-			"start": "9.8.23 23:00",
-			"end": "10.08.2023 14:00",
-			"startDate": { "year": 2023, "month": 8, "day": 9, "hour": 23, "minute": 0, "second": 0, "isDate": false },
-			"endDate": { "year": 2023, "month": 8, "day": 10, "hour": 14, "minute": 0, "second": 0, "isDate": false },
-			"status": "successfully added"
-		}
-    ]
-	*/
+	log(events);	
   })
+```
+output from log will be:
+```
+[
+  {
+    "summary": "test",
+    "start": "9.8.23 23:00",
+    "end": "10.08.2023 14:00",
+    "startDate": {
+      "year": 2023,
+      "month": 8,
+      "day": 9,
+      "hour": 23,
+      "minute": 0,
+      "second": 0,
+      "isDate": false
+    },
+    "endDate": {
+      "year": 2023,
+      "month": 8,
+      "day": 10,
+      "hour": 14,
+      "minute": 0,
+      "second": 0,
+      "isDate": false
+    },
+    "status": "successfully added"
+  },
+  {
+    "summary": "failed test",
+    "description": "long description",
+    "start": "9.8",
+    "startDate": {
+      "year": 0,
+      "month": 1,
+      "day": 2,
+      "hour": 0,
+      "minute": 0,
+      "second": 0,
+      "isDate": false
+    },
+    "error": "start: invalid date"
+  }
+]
 ```
 
 if `calendar` not given, defaulktCalender will used
 
-on event `end` and `description` is optional 
+on `event` field `end` and `description` is optional 
 
-
-
+### known errors
+breaking (exception) a serie of events will be ignored 
 ### DISCLAIMER
 This project uses the following components:
 - [tsDav](https://github.com/natelindev/tsdav)
@@ -110,6 +135,7 @@ This project uses the following components:
 -->
 ### **WORK IN PROGRESS**	
 * (deher) add description for sendTo-addEvent
+* (deher) fix calculating events
 
 ### **WORK IN PROGRESS**	
 * (dirkhe) add readonly client for ical

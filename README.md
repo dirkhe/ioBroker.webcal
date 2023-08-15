@@ -138,10 +138,8 @@ This project uses the following components:
 * (deher) add description for sendTo-addEvent
 * (deher) fix calculating events
 * (deher) add log which google calendar is used 
-
-### **WORK IN PROGRESS**	
-* (dirkhe) add readonly client for ical
 * (dirkhe) add datefilter for readonly 
+* (dirkhe) add readonly client for ical
 
 ### 1.1.0 (2023-08-09)
 * (dirkhe) add addEvent-command to sendTo

@@ -134,7 +134,7 @@ This project uses the following components:
 	### **WORK IN PROGRESS**	* ()
 
 -->
-### **WORK IN PROGRESS**	
+### 1.2.0 (2023-08-15)	
 * (deher) add description for sendTo-addEvent
 * (deher) fix calculating events
 * (deher) add log which google calendar is used 

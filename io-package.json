@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "webcal",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "news": {
+      "1.2.0": {
+        "en": "add description for sendTo-addEvent\nfix calculating events\nadd log which google calendar is used \nadd datefilter for readonly \nadd readonly client for ical",
+        "de": "beschreibung hinzufügen für sendTo-addEvent\nberechnen von ereignissen\nlog hinzufügen, der google kalender verwendet wird\ndatumsfilter für readonly hinzufügen\nadd readonly client for ical",
+        "ru": "добавить описание для sendTo-addEvent\nисправить расчетные события\nдобавить лог, который используется google calendar\nдобавить datefilter для readonly\nдобавить читательского клиента для ical",
+        "pt": "adicionar descrição para sendTo-addEvent\ncorrigir eventos de cálculo\nadicionar log que o calendário do google é usado\nadicionar datafilter para somente leitura\nadicionar cliente somente leitura para ical",
+        "nl": "vertaling:\nvertaling:\nvoeg het logboek dat google kalender gebruikt\nvoeg datumfilter toe\nvoeg de lezers toe",
+        "fr": "ajouter la description pour sendTo-addEvent\ncalcul des événements\najouter log quel calendrier google est utilisé\najouter datefilter pour readonly\najouter le client lisible pour ical",
+        "it": "aggiungere la descrizione per sendTo-addEvent\nfissare gli eventi di calcolo\naggiungere il registro che il calendario di google viene utilizzato\naggiungere datafilter per sola lettura\naggiungere client di sola lettura per ical",
+        "es": "añadir descripción para sendTo-addEvent\narreglar eventos de cálculo\nañadir log que google calendario se utiliza\nañadir fechafiltro para sólo lectura\nañadir leonly cliente para ical",
+        "pl": "opis dodawania To-addEvent\nustalenie\ndodać do logowania, który jest używany kalendarz google\ndodać\ndodać czytelnikowi klientowi dodają do icalowego klienta",
+        "uk": "додати опис для sendTo-addEvent\nфіксувати події\nдодати журнал, який використовується google календар\nдодати датафільтр для читання\nдодавати клієнту читаванню",
+        "zh-cn": "发 发 明\nf 计算事件\n用来衡量日历的附加逻辑\n增 日\n读者"
+      },
       "1.1.0": {
         "en": "add addEvent-command to sendTo\nfix date parsing, if day only one digit\nupdate dependecies",
         "de": "addEvent-command to send Zu\nfix date parsing, wenn tag nur eine ziffer\naktualisierung der abhängigkeiten",
@@ -80,19 +93,6 @@
         "pl": "seta środowiskowa",
         "uk": "налаштування середовища",
         "zh-cn": "固定环境"
-      },
-      "1.0.2": {
-        "en": "publish to npm",
-        "de": "veröffentlichen bis npm",
-        "ru": "публиковать в npm",
-        "pt": "publicar a npm",
-        "nl": "_",
-        "fr": "publier à npm",
-        "it": "pubblicare a npm",
-        "es": "publicar a npm",
-        "pl": "publikować",
-        "uk": "опублікувати npm",
-        "zh-cn": "出版"
       }
     },
     "titleLang": {

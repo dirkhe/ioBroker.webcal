@@ -91,18 +91,23 @@ const _CalendarEvent = class {
     const days = {};
     if (timeObj) {
       const firstDay = timeObj.start.startOf("D").diff(_CalendarEvent.todayMidnight, "d");
+      let time = timeObj.start.format("HH:mm");
       if (!timeObj.start.isSame(timeObj.end)) {
-        const lastDay = Math.min(
+        let lastDay = Math.min(
           timeObj.end.startOf("D").diff(_CalendarEvent.todayMidnight, "d"),
           _CalendarEvent.daysFuture
         );
         let d = firstDay;
-        let time = timeObj.start.format("HH:mm");
         if (firstDay < -_CalendarEvent.daysPast) {
           d = -_CalendarEvent.daysPast;
         } else if (time != "00:00") {
           days[firstDay] = new jsonEvent(this.calendarName, timeObj.start.toDate(), this.summary, time);
           d++;
+        }
+        time = timeObj.end.format("HH:mm");
+        if (time == "00:00") {
+          lastDay--;
+          time = "23:59";
         }
         for (; d <= lastDay; d++) {
           days[d] = new jsonEvent(
@@ -111,7 +116,6 @@ const _CalendarEvent = class {
             this.summary
           );
         }
-        time = timeObj.end.format("HH:mm");
         if (time != "23:59") {
           if (days[lastDay]) {
             days[lastDay].endTime = time;
@@ -122,8 +126,12 @@ const _CalendarEvent = class {
           this.calendarName,
           timeObj.start.toDate(),
           this.summary,
-          timeObj.start.format("HH:mm")
+          time != "00:00" ? time : void 0
         );
+        time = timeObj.end.format("HH:mm");
+        if (time != "23:59" && time != days[firstDay].startTime) {
+          days[firstDay].endTime = time;
+        }
       }
       adapter.log.debug("days for calendar event(" + JSON.stringify(timeObj) + "): " + JSON.stringify(days));
     }

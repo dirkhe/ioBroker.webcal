@@ -17,7 +17,7 @@ declare global {
 			name: string;
 			serverUrl: string;
 			username: string;
-			authMethod: "Basic" | "Oauth" | "google" | "Download";
+			authMethod: "Basic" | "Oauth" | "Digest" | "google" | "Download";
 			tokenUrl: string;
 			refreshToken: string;
 			clientId: string;

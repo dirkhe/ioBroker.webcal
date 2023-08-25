@@ -1,8 +1,11 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import { AdapterInstance } from "@iobroker/adapter-core";
+import axios from "axios";
 import { DAVAccount, DAVCalendar, DAVCalendarObject, DAVClient, DAVCredentials } from "tsdav";
 import { IcalCalendarEvent, initLib as IcalInit } from "./IcalCalendarEvent";
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const digestHeader = require("digest-header");
 
 let adapter: AdapterInstance;
 
@@ -18,36 +21,77 @@ export class DavCalCalendar implements webcal.ICalendarBase {
 
 	constructor(calConfig: webcal.IConfigCalendar) {
 		this.name = calConfig.name;
-		const params: {
+		let params: {
 			serverUrl: string;
 			credentials: DAVCredentials;
-			authMethod?: "Basic" | "Oauth";
+			authMethod?: "Basic" | "Oauth" | "Digest";
 			defaultAccountType?: DAVAccount["accountType"] | undefined;
-		} =
-			calConfig.authMethod == "Oauth"
-				? {
-						serverUrl: calConfig.serverUrl,
-						credentials: {
-							tokenUrl: calConfig.tokenUrl,
-							username: calConfig.username,
-							refreshToken: calConfig.refreshToken,
-							clientId: calConfig.clientId,
-							clientSecret: calConfig.password,
-						},
-						authMethod: calConfig.authMethod,
-						defaultAccountType: "caldav",
-				  }
-				: {
-						serverUrl: calConfig.serverUrl,
-						credentials: {
-							username: calConfig.username,
-							password: calConfig.password,
-						},
-						authMethod: "Basic",
-						defaultAccountType: "caldav",
-				  };
-		this.client = new DAVClient(params);
+		};
 		this.ignoreSSL = !!calConfig.ignoreSSL;
+		if (calConfig.authMethod == "Digest") {
+			params = {
+				serverUrl: calConfig.serverUrl,
+				credentials: {},
+				authMethod: "Digest",
+				defaultAccountType: "caldav",
+			};
+			let storeDefaultIgnoreSSL: string | undefined | null = null;
+			if (this.ignoreSSL && process.env.NODE_TLS_REJECT_UNAUTHORIZED != "0") {
+				storeDefaultIgnoreSSL = process.env.NODE_TLS_REJECT_UNAUTHORIZED;
+				process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+			}
+			axios
+				.get(calConfig.serverUrl)
+				.catch((error) => {
+					try {
+						const www_authenticate: string = error.response.headers["www-authenticate"];
+						if (www_authenticate && www_authenticate.indexOf("Digest ") >= 0) {
+							this.client.credentials.digestString = digestHeader(
+								"GET",
+								calConfig.serverUrl,
+								www_authenticate,
+								calConfig.username + ":" + calConfig.password,
+							).replace(/^Digest /i, "");
+						} else {
+							adapter.log.error(
+								"Calendar " + this.name + " does not support Digest, need " + www_authenticate ||
+									"no auth",
+							);
+						}
+					} catch (e: any) {
+						adapter.log.error(e.message);
+					}
+				})
+				.finally(() => {
+					if (storeDefaultIgnoreSSL !== null) {
+						process.env.NODE_TLS_REJECT_UNAUTHORIZED = storeDefaultIgnoreSSL;
+					}
+				});
+		} else if (calConfig.authMethod == "Oauth") {
+			params = {
+				serverUrl: calConfig.serverUrl,
+				credentials: {
+					tokenUrl: calConfig.tokenUrl,
+					username: calConfig.username,
+					refreshToken: calConfig.refreshToken,
+					clientId: calConfig.clientId,
+					clientSecret: calConfig.password,
+				},
+				authMethod: "Oauth",
+				defaultAccountType: "caldav",
+			};
+		} else {
+			params = {
+				serverUrl: calConfig.serverUrl,
+				credentials: {
+					username: calConfig.username,
+					password: calConfig.password,
+				},
+				authMethod: "Basic",
+				defaultAccountType: "caldav",
+			};
+		}
+		this.client = new DAVClient(params);
 	}
 
 	/**
@@ -131,7 +175,7 @@ export class DavCalCalendar implements webcal.ICalendarBase {
 		return this.getCalendarObjects(startDate.toISOString(), endDate.toISOString())
 			.then((calendarObjects) => {
 				if (calendarObjects) {
-					adapter.log.info("found " + calendarObjects.length + " calendar objects");
+					adapter.log.info("found " + calendarObjects.length + " calendar objects for " + this.name);
 					/* test for now update ...
 										const calEvent = new CalendarEvent(calendarObjects[0].data);
 										calEvent.startDate = dayjs().add(1, "minute");

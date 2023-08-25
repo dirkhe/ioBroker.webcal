@@ -165,6 +165,7 @@
 							"title": "authorization method",
 							"options": [
 								{ "label": "Basic", "value": "Basic" },
+								{ "label": "Digest", "value": "Digest" },
 								{ "label": "Oauth", "value": "Oauth" },
 								{ "label": "google", "value": "google" },
 								{ "label": "Download", "value": "Download" }
@@ -222,7 +223,7 @@
 							"filter": false,
 							"sort": false,
 							"default": "",
-							"hidden": "data.authMethod == 'Basic' || data.authMethod == 'Download'"
+							"hidden": "data.authMethod != 'Oauth' && data.authMethod == 'google'"
 						},
 						{
 							"type": "text",
@@ -232,7 +233,7 @@
 							"filter": false,
 							"sort": false,
 							"default": "",
-							"hidden": "data.authMethod == 'Basic' || data.authMethod == 'Download'"
+							"hidden": "data.authMethod != 'Oauth' && data.authMethod == 'google'"
 						},
 						{
 							"type": "checkbox",

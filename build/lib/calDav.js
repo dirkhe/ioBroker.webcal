@@ -1,7 +1,9 @@
 "use strict";
+var __create = Object.create;
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
 var __export = (target, all) => {
   for (var name in all)
@@ -15,6 +17,10 @@ var __copyProps = (to, from, except, desc) => {
   }
   return to;
 };
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 var calDav_exports = {};
 __export(calDav_exports, {
@@ -22,8 +28,10 @@ __export(calDav_exports, {
   initLib: () => initLib
 });
 module.exports = __toCommonJS(calDav_exports);
+var import_axios = __toESM(require("axios"));
 var import_tsdav = require("tsdav");
 var import_IcalCalendarEvent = require("./IcalCalendarEvent");
+const digestHeader = require("digest-header");
 let adapter;
 function initLib(adapterInstance, localTimeZone) {
   adapter = adapterInstance;
@@ -33,28 +41,68 @@ class DavCalCalendar {
   constructor(calConfig) {
     this.ignoreSSL = false;
     this.name = calConfig.name;
-    const params = calConfig.authMethod == "Oauth" ? {
-      serverUrl: calConfig.serverUrl,
-      credentials: {
-        tokenUrl: calConfig.tokenUrl,
-        username: calConfig.username,
-        refreshToken: calConfig.refreshToken,
-        clientId: calConfig.clientId,
-        clientSecret: calConfig.password
-      },
-      authMethod: calConfig.authMethod,
-      defaultAccountType: "caldav"
-    } : {
-      serverUrl: calConfig.serverUrl,
-      credentials: {
-        username: calConfig.username,
-        password: calConfig.password
-      },
-      authMethod: "Basic",
-      defaultAccountType: "caldav"
-    };
-    this.client = new import_tsdav.DAVClient(params);
+    let params;
     this.ignoreSSL = !!calConfig.ignoreSSL;
+    if (calConfig.authMethod == "Digest") {
+      params = {
+        serverUrl: calConfig.serverUrl,
+        credentials: {},
+        authMethod: "Digest",
+        defaultAccountType: "caldav"
+      };
+      let storeDefaultIgnoreSSL = null;
+      if (this.ignoreSSL && process.env.NODE_TLS_REJECT_UNAUTHORIZED != "0") {
+        storeDefaultIgnoreSSL = process.env.NODE_TLS_REJECT_UNAUTHORIZED;
+        process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+      }
+      import_axios.default.get(calConfig.serverUrl).catch((error) => {
+        try {
+          const www_authenticate = error.response.headers["www-authenticate"];
+          if (www_authenticate && www_authenticate.indexOf("Digest ") >= 0) {
+            this.client.credentials.digestString = digestHeader(
+              "GET",
+              calConfig.serverUrl,
+              www_authenticate,
+              calConfig.username + ":" + calConfig.password
+            ).replace(/^Digest /i, "");
+          } else {
+            adapter.log.error(
+              "Calendar " + this.name + " does not support Digest, need " + www_authenticate || "no auth"
+            );
+          }
+        } catch (e) {
+          adapter.log.error(e.message);
+        }
+      }).finally(() => {
+        if (storeDefaultIgnoreSSL !== null) {
+          process.env.NODE_TLS_REJECT_UNAUTHORIZED = storeDefaultIgnoreSSL;
+        }
+      });
+    } else if (calConfig.authMethod == "Oauth") {
+      params = {
+        serverUrl: calConfig.serverUrl,
+        credentials: {
+          tokenUrl: calConfig.tokenUrl,
+          username: calConfig.username,
+          refreshToken: calConfig.refreshToken,
+          clientId: calConfig.clientId,
+          clientSecret: calConfig.password
+        },
+        authMethod: "Oauth",
+        defaultAccountType: "caldav"
+      };
+    } else {
+      params = {
+        serverUrl: calConfig.serverUrl,
+        credentials: {
+          username: calConfig.username,
+          password: calConfig.password
+        },
+        authMethod: "Basic",
+        defaultAccountType: "caldav"
+      };
+    }
+    this.client = new import_tsdav.DAVClient(params);
   }
   async getCalendar(displayName) {
     if (!this.calendar) {
@@ -108,7 +156,7 @@ class DavCalCalendar {
   loadEvents(calEvents, startDate, endDate) {
     return this.getCalendarObjects(startDate.toISOString(), endDate.toISOString()).then((calendarObjects) => {
       if (calendarObjects) {
-        adapter.log.info("found " + calendarObjects.length + " calendar objects");
+        adapter.log.info("found " + calendarObjects.length + " calendar objects for " + this.name);
         for (const i in calendarObjects) {
           const ev = import_IcalCalendarEvent.IcalCalendarEvent.fromData(
             calendarObjects[i].data,

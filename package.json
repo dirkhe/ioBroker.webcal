@@ -30,6 +30,7 @@
     "@iobroker/adapter-core": "^2.6.7",
     "axios": "^1.4.0",
     "dayjs": "^1.11.7",
+    "digest-header": "^1.1.0",
     "ical.js": "^1.5.0",
     "regex-escape": "^3.4.10",
     "tsdav": "^2.0.3"

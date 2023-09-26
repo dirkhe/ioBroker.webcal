@@ -24,49 +24,23 @@ export class DavCalCalendar implements webcal.ICalendarBase {
 		let params: {
 			serverUrl: string;
 			credentials: DAVCredentials;
-			authMethod?: "Basic" | "Oauth" | "Digest";
+			authMethod: "Basic" | "Oauth" | "Custom";
+			authFunction?: (credentials: DAVCredentials) => Promise<Record<string, string>>;
 			defaultAccountType?: DAVAccount["accountType"] | undefined;
 		};
 		this.ignoreSSL = !!calConfig.ignoreSSL;
 		if (calConfig.authMethod == "Digest") {
 			params = {
 				serverUrl: calConfig.serverUrl,
-				credentials: {},
-				authMethod: "Digest",
+				credentials: {
+					username: calConfig.username,
+					password: calConfig.password,
+					redirectUrl: calConfig.serverUrl,
+				},
+				authMethod: "Custom",
+				authFunction: this.getDigestAuth,
 				defaultAccountType: "caldav",
 			};
-			let storeDefaultIgnoreSSL: string | undefined | null = null;
-			if (this.ignoreSSL && process.env.NODE_TLS_REJECT_UNAUTHORIZED != "0") {
-				storeDefaultIgnoreSSL = process.env.NODE_TLS_REJECT_UNAUTHORIZED;
-				process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
-			}
-			axios
-				.get(calConfig.serverUrl)
-				.catch((error) => {
-					try {
-						const www_authenticate: string = error.response.headers["www-authenticate"];
-						if (www_authenticate && www_authenticate.indexOf("Digest ") >= 0) {
-							this.client.credentials.digestString = digestHeader(
-								"GET",
-								calConfig.serverUrl,
-								www_authenticate,
-								calConfig.username + ":" + calConfig.password,
-							).replace(/^Digest /i, "");
-						} else {
-							adapter.log.error(
-								"Calendar " + this.name + " does not support Digest, need " + www_authenticate ||
-									"no auth",
-							);
-						}
-					} catch (e: any) {
-						adapter.log.error(e.message);
-					}
-				})
-				.finally(() => {
-					if (storeDefaultIgnoreSSL !== null) {
-						process.env.NODE_TLS_REJECT_UNAUTHORIZED = storeDefaultIgnoreSSL;
-					}
-				});
 		} else if (calConfig.authMethod == "Oauth") {
 			params = {
 				serverUrl: calConfig.serverUrl,
@@ -92,6 +66,55 @@ export class DavCalCalendar implements webcal.ICalendarBase {
 			};
 		}
 		this.client = new DAVClient(params);
+		if (params.authFunction) {
+			// it seems, there is a bug in tsdav, that authFunction is not set
+			this.client.authFunction = params.authFunction;
+		}
+	}
+
+	private async getDigestAuth(credentials: DAVCredentials): Promise<Record<string, string>> {
+		const authHeaders: { Authorization?: string } = {};
+		if (credentials.redirectUrl) {
+			let storeDefaultIgnoreSSL: string | undefined | null = null;
+			if (this.ignoreSSL && process.env.NODE_TLS_REJECT_UNAUTHORIZED != "0") {
+				storeDefaultIgnoreSSL = process.env.NODE_TLS_REJECT_UNAUTHORIZED;
+				process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+			}
+			await axios
+				.get(credentials.redirectUrl)
+				.catch((error) => {
+					try {
+						const www_authenticate: string = error.response.headers["www-authenticate"];
+						if (www_authenticate && www_authenticate.indexOf("Digest ") >= 0) {
+							authHeaders.Authorization = digestHeader(
+								"GET",
+								credentials.redirectUrl?.replace(/^https?:\/\/[^\/]+/, ""),
+								www_authenticate,
+								credentials.username + ":" + credentials.password,
+							);
+							/*
+							delete credentials.redirectUrl;
+							delete credentials.username;
+							delete credentials.password;
+							credentials.digestString = authHeaders.Authorization?.replace(/Digest /, "");
+							*/
+						} else {
+							adapter.log.error(
+								"Calendar " + this.name + " does not support Digest, need " + www_authenticate ||
+									"no auth",
+							);
+						}
+					} catch (e: any) {
+						adapter.log.error(e.message);
+					}
+				})
+				.finally(() => {
+					if (storeDefaultIgnoreSSL !== null) {
+						process.env.NODE_TLS_REJECT_UNAUTHORIZED = storeDefaultIgnoreSSL;
+					}
+				});
+		}
+		return authHeaders;
 	}
 
 	/**

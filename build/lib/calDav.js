@@ -46,38 +46,15 @@ class DavCalCalendar {
     if (calConfig.authMethod == "Digest") {
       params = {
         serverUrl: calConfig.serverUrl,
-        credentials: {},
-        authMethod: "Digest",
+        credentials: {
+          username: calConfig.username,
+          password: calConfig.password,
+          redirectUrl: calConfig.serverUrl
+        },
+        authMethod: "Custom",
+        authFunction: this.getDigestAuth,
         defaultAccountType: "caldav"
       };
-      let storeDefaultIgnoreSSL = null;
-      if (this.ignoreSSL && process.env.NODE_TLS_REJECT_UNAUTHORIZED != "0") {
-        storeDefaultIgnoreSSL = process.env.NODE_TLS_REJECT_UNAUTHORIZED;
-        process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
-      }
-      import_axios.default.get(calConfig.serverUrl).catch((error) => {
-        try {
-          const www_authenticate = error.response.headers["www-authenticate"];
-          if (www_authenticate && www_authenticate.indexOf("Digest ") >= 0) {
-            this.client.credentials.digestString = digestHeader(
-              "GET",
-              calConfig.serverUrl,
-              www_authenticate,
-              calConfig.username + ":" + calConfig.password
-            ).replace(/^Digest /i, "");
-          } else {
-            adapter.log.error(
-              "Calendar " + this.name + " does not support Digest, need " + www_authenticate || "no auth"
-            );
-          }
-        } catch (e) {
-          adapter.log.error(e.message);
-        }
-      }).finally(() => {
-        if (storeDefaultIgnoreSSL !== null) {
-          process.env.NODE_TLS_REJECT_UNAUTHORIZED = storeDefaultIgnoreSSL;
-        }
-      });
     } else if (calConfig.authMethod == "Oauth") {
       params = {
         serverUrl: calConfig.serverUrl,
@@ -103,6 +80,44 @@ class DavCalCalendar {
       };
     }
     this.client = new import_tsdav.DAVClient(params);
+    if (params.authFunction) {
+      this.client.authFunction = params.authFunction;
+    }
+  }
+  async getDigestAuth(credentials) {
+    const authHeaders = {};
+    if (credentials.redirectUrl) {
+      let storeDefaultIgnoreSSL = null;
+      if (this.ignoreSSL && process.env.NODE_TLS_REJECT_UNAUTHORIZED != "0") {
+        storeDefaultIgnoreSSL = process.env.NODE_TLS_REJECT_UNAUTHORIZED;
+        process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+      }
+      await import_axios.default.get(credentials.redirectUrl).catch((error) => {
+        var _a;
+        try {
+          const www_authenticate = error.response.headers["www-authenticate"];
+          if (www_authenticate && www_authenticate.indexOf("Digest ") >= 0) {
+            authHeaders.Authorization = digestHeader(
+              "GET",
+              (_a = credentials.redirectUrl) == null ? void 0 : _a.replace(/^https?:\/\/[^\/]+/, ""),
+              www_authenticate,
+              credentials.username + ":" + credentials.password
+            );
+          } else {
+            adapter.log.error(
+              "Calendar " + this.name + " does not support Digest, need " + www_authenticate || "no auth"
+            );
+          }
+        } catch (e) {
+          adapter.log.error(e.message);
+        }
+      }).finally(() => {
+        if (storeDefaultIgnoreSSL !== null) {
+          process.env.NODE_TLS_REJECT_UNAUTHORIZED = storeDefaultIgnoreSSL;
+        }
+      });
+    }
+    return authHeaders;
   }
   async getCalendar(displayName) {
     if (!this.calendar) {

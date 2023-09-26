@@ -223,7 +223,7 @@
 							"filter": false,
 							"sort": false,
 							"default": "",
-							"hidden": "data.authMethod != 'Oauth' && data.authMethod == 'google'"
+							"hidden": "data.authMethod != 'Oauth' && data.authMethod != 'google'"
 						},
 						{
 							"type": "text",
@@ -233,7 +233,7 @@
 							"filter": false,
 							"sort": false,
 							"default": "",
-							"hidden": "data.authMethod != 'Oauth' && data.authMethod == 'google'"
+							"hidden": "data.authMethod != 'Oauth' && data.authMethod != 'google'"
 						},
 						{
 							"type": "checkbox",

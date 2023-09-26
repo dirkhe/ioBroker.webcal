@@ -21,7 +21,7 @@ export function getAllIcalCalendarEvents(
 ): webcal.ICalendarEventBase[] {
 	const result: webcal.ICalendarEventBase[] = [];
 	try {
-		adapter.log.debug("parse calendar data:\n" + calendarEventData.replace(/\s*([:;=])\s*/gm, "$1"));
+		adapter.log.silly("parse calendar data:\n" + calendarEventData.replace(/\s*([:;=])\s*/gm, "$1"));
 		const jcalData = ICAL.parse(calendarEventData);
 		const comp = new ICAL.Component(jcalData);
 		const calTimezoneComp = comp.getFirstSubcomponent("vtimezone");

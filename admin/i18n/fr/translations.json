@@ -42,5 +42,7 @@
     "Wednesday": "Mercredi",
     "Thursday": "Jeudi",
     "Friday": "Vendredi",
-    "Saturday": "Samedi"
+    "Saturday": "Samedi",
+    "use only calendars": "utiliser uniquement des calendriers",
+    "use default calendar on addEvent": "utiliser le calendrier par défaut sur addEvent"
 }

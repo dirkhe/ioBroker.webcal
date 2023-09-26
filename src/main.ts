@@ -296,7 +296,7 @@ class Webcal extends utils.Adapter {
 	//  * Using this method requires "common.messagebox" property to be set to true in io-package.json
 	//  */
 	private async onMessage(obj: ioBroker.Message): Promise<void> {
-		this.log.info(JSON.stringify(obj));
+		this.log.debug(JSON.stringify(obj));
 		if (typeof obj === "object") {
 			if (obj.command === "testCalendar") {
 				// Send response in callback if required

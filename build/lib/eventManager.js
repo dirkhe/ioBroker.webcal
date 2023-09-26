@@ -36,13 +36,28 @@ const _Event = class {
   constructor(config) {
     this.stateValues = {};
     this.nowFlag = null;
+    var _a;
     this.name = config.name;
     this.id = this.name.replace(/[^a-z0-9_-]/gi, "");
     this.regEx = new RegExp(config.regEx || (0, import_regex_escape.default)(config.name), "i");
+    if (config.calendars) {
+      this.calendars = [];
+      for (const i in config.calendars) {
+        if (config.calendars[i]) {
+          this.calendars.push(config.calendars[i]);
+        }
+      }
+      if (!((_a = this.calendars) == null ? void 0 : _a.length)) {
+        this.calendars = void 0;
+      }
+    }
     this.defaultCalendar = config.defaultCalendar;
     this.useIQontrol = !!config.useIQontrol;
   }
-  checkCalendarContent(content) {
+  checkCalendarContent(content, calendarName) {
+    if (calendarName && this.calendars && this.calendars.indexOf(calendarName) == -1) {
+      return false;
+    }
     return this.regEx.test(content) || content.indexOf(this.name) >= 0;
   }
   addCalendarEvent(days) {

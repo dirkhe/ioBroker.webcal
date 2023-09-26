@@ -42,5 +42,7 @@
     "Wednesday": "周三",
     "Thursday": "周四",
     "Friday": "星期五",
-    "Saturday": "周六"
+    "Saturday": "周六",
+    "use only calendars": "仅使用日历",
+    "use default calendar on addEvent": "在 addEvent 上使用默认日历"
 }

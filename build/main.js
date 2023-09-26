@@ -236,7 +236,7 @@ class Webcal extends utils.Adapter {
     }
   }
   async onMessage(obj) {
-    this.log.info(JSON.stringify(obj));
+    this.log.debug(JSON.stringify(obj));
     if (typeof obj === "object") {
       if (obj.command === "testCalendar") {
         if (obj.callback && obj.message) {

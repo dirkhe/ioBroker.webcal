@@ -42,5 +42,7 @@
 	"Wednesday": "Wednesday",
 	"Thursday": "Thursday",
 	"Friday": "Friday",
-	"Saturday": "Saturday"
+	"Saturday": "Saturday",
+	"use only calendars": "use only calendars",
+	"use default calendar on addEvent": "use default calendar on addEvent"
 }

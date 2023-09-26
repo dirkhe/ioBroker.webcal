@@ -7,6 +7,7 @@ declare global {
 			name: string;
 			regEx?: string;
 			defaultCalendar?: string;
+			calendars?: Array<string>;
 			useIQontrol?: boolean;
 		}
 		interface IInternalEvent extends IConfigEvent {

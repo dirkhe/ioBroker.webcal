@@ -42,5 +42,7 @@
     "Wednesday": "Среда",
     "Thursday": "Четверг",
     "Friday": "Пятница",
-    "Saturday": "Суббота"
+    "Saturday": "Суббота",
+    "use only calendars": "используйте только календари",
+    "use default calendar on addEvent": "использовать календарь по умолчанию в addEvent"
 }

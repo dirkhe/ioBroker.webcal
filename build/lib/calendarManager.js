@@ -62,11 +62,13 @@ const _CalendarEvent = class {
   searchForEvents(events) {
     const content = (this.summary || "") + (this.description || "");
     if (content.length) {
-      adapter.log.debug("check calendar event " + (this.summary || "") + " " + (this.description || ""));
+      adapter.log.debug(
+        "check calendar(" + this.calendarName + ") event " + (this.summary || "") + " " + (this.description || "")
+      );
       const eventHits = [];
       for (const evID in events) {
         const event = events[evID];
-        if (event.checkCalendarContent(content)) {
+        if (event.checkCalendarContent(content, this.calendarName)) {
           adapter.log.debug("  found event '" + event.name + "' in calendar event ");
           eventHits.push(event);
         }

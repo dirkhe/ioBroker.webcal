@@ -15,6 +15,7 @@ export class Event {
 	id: string;
 	name: string;
 	regEx: RegExp;
+	calendars?: Array<string>;
 	defaultCalendar?: string;
 	useIQontrol: boolean;
 	stateValues: Record<number, Array<jsonEvent>> = {};
@@ -28,11 +29,25 @@ export class Event {
 		this.name = config.name;
 		this.id = this.name.replace(/[^a-z0-9_-]/gi, "");
 		this.regEx = new RegExp(config.regEx || RegExpEscape(config.name), "i");
+		if (config.calendars) {
+			this.calendars = [];
+			for (const i in config.calendars) {
+				if (config.calendars[i]) {
+					this.calendars.push(config.calendars[i]);
+				}
+			}
+			if (!this.calendars?.length) {
+				this.calendars = undefined;
+			}
+		}
 		this.defaultCalendar = config.defaultCalendar;
 		this.useIQontrol = !!config.useIQontrol;
 	}
 
-	checkCalendarContent(content: string): boolean {
+	checkCalendarContent(content: string, calendarName: string): boolean {
+		if (calendarName && this.calendars && this.calendars.indexOf(calendarName) == -1) {
+			return false;
+		}
 		return this.regEx.test(content) || content.indexOf(this.name) >= 0;
 	}
 

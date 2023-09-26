@@ -134,10 +134,12 @@ This project uses the following components:
 	### **WORK IN PROGRESS**	* ()
 
 -->
+### **WORK IN PROGRESS**	
+* (dirkhe) add choose calendar for events
 ### 1.2.0 (2023-08-15)	
-* (deher) add description for sendTo-addEvent
-* (deher) fix calculating events
-* (deher) add log which google calendar is used 
+* (dirkhe) add description for sendTo-addEvent
+* (dirkhe) fix calculating events
+* (dirkhe) add log which google calendar is used 
 * (dirkhe) add datefilter for readonly 
 * (dirkhe) add readonly client for ical
 

@@ -1,215 +1,215 @@
 {
-  "common": {
-    "name": "webcal",
-    "version": "1.2.0",
-    "news": {
-      "1.2.0": {
-        "en": "add description for sendTo-addEvent\nfix calculating events\nadd log which google calendar is used \nadd datefilter for readonly \nadd readonly client for ical",
-        "de": "beschreibung hinzufügen für sendTo-addEvent\nberechnen von ereignissen\nlog hinzufügen, der google kalender verwendet wird\ndatumsfilter für readonly hinzufügen\nadd readonly client for ical",
-        "ru": "добавить описание для sendTo-addEvent\nисправить расчетные события\nдобавить лог, который используется google calendar\nдобавить datefilter для readonly\nдобавить читательского клиента для ical",
-        "pt": "adicionar descrição para sendTo-addEvent\ncorrigir eventos de cálculo\nadicionar log que o calendário do google é usado\nadicionar datafilter para somente leitura\nadicionar cliente somente leitura para ical",
-        "nl": "vertaling:\nvertaling:\nvoeg het logboek dat google kalender gebruikt\nvoeg datumfilter toe\nvoeg de lezers toe",
-        "fr": "ajouter la description pour sendTo-addEvent\ncalcul des événements\najouter log quel calendrier google est utilisé\najouter datefilter pour readonly\najouter le client lisible pour ical",
-        "it": "aggiungere la descrizione per sendTo-addEvent\nfissare gli eventi di calcolo\naggiungere il registro che il calendario di google viene utilizzato\naggiungere datafilter per sola lettura\naggiungere client di sola lettura per ical",
-        "es": "añadir descripción para sendTo-addEvent\narreglar eventos de cálculo\nañadir log que google calendario se utiliza\nañadir fechafiltro para sólo lectura\nañadir leonly cliente para ical",
-        "pl": "opis dodawania To-addEvent\nustalenie\ndodać do logowania, który jest używany kalendarz google\ndodać\ndodać czytelnikowi klientowi dodają do icalowego klienta",
-        "uk": "додати опис для sendTo-addEvent\nфіксувати події\nдодати журнал, який використовується google календар\nдодати датафільтр для читання\nдодавати клієнту читаванню",
-        "zh-cn": "发 发 明\nf 计算事件\n用来衡量日历的附加逻辑\n增 日\n读者"
-      },
-      "1.1.0": {
-        "en": "add addEvent-command to sendTo\nfix date parsing, if day only one digit\nupdate dependecies",
-        "de": "addEvent-command to send Zu\nfix date parsing, wenn tag nur eine ziffer\naktualisierung der abhängigkeiten",
-        "ru": "добавить addEvent-command для отправки В\nисправить дату parsing, если день только одна цифра\nобновление зависимостей",
-        "pt": "addEvent-command para enviar Para\ncorreção parsing data, se o dia só um dígito\natualizações",
-        "nl": "vertaling: ♪\nals de dag maar één cijfer is\nvertaling:",
-        "fr": "ajouter addEvent-command pour envoyer To\nfixer la date parsing, si le jour seulement un chiffre\nmettre à jour les dépendances",
-        "it": "aggiungere addEvent-comand per inviare A\nfissare la data parsing, se solo giorno una cifra\ndipendenze di aggiornamento",
-        "es": "añadir addEvent-command para enviar A\nfijar fecha paresing, si día sólo un dígito\ndependencias de actualización",
-        "pl": "dodać Komendanta dodawania Aby to zrobić\nustalenie daty, jeśli dzień będzie tylko jedną cyfrą\naktualizacja",
-        "uk": "addEvent-command для відправки до\nфіксувати дату парсингу, якщо день тільки один цифра\nоновлення залежності",
-        "zh-cn": "增 发 导 言\nf 固定日期,只有一天数字\na. 最新依赖情况"
-      },
-      "1.0.7": {
-        "en": "change event state type from group to folder",
-        "de": "änderung von ereigniszustandstyp von gruppe zu ordner",
-        "ru": "изменить тип события из группы в папку",
-        "pt": "alterar o tipo de estado do evento de grupo para pasta",
-        "nl": "veranderingstype van de groep",
-        "fr": "changement de type d'état d'événement de groupe à dossier",
-        "it": "cambiare tipo di stato evento da gruppo a cartella",
-        "es": "cambiar el tipo de estado del evento de grupo a carpeta",
-        "pl": "zmiana stanu z grupy do folderzy",
-        "uk": "змінити тип стану події з групи в папку",
-        "zh-cn": "b. 改变事件的类别"
-      },
-      "1.0.6": {
-        "en": "add pictured Google API documentation\nfix property of button\nadd housekeeping for setInterval/setTimeout\ncheck updateinterval for minimum of 10 minutes",
-        "de": "bild hinzugefügt Google API Dokumentation\neigenschaften der schaltfläche beheben\nhousekeeping für Set hinzufügen Interval / SetTimeout\nkontroll-update-interval für mindestens 10 minuten",
-        "ru": "добавить фото Документация Google API\nисправить свойство кнопки\nдобавить домохозяйку для набора Интервал/setTimeout\nпроверить обновлениеинтервал минимум на 10 минут",
-        "pt": "adicionar imagem Documentação do Google API\ncorrigir a propriedade do botão\nadicionar limpeza para conjunto Interval/setTimeout\ncheck updateinterval para mínimo de 10 minutos",
-        "nl": "vertaling: Google API documentatie\nvertaling:\nvoeg huishoudster toe Interval\ncontrole update over minimaal 10 minuten",
-        "fr": "ajouter photo Google API documentation\nréparer la propriété de bouton\najouter la tenue de maison pour set Intervalle/temps\nvérifier l'intervale de mise à jour pendant au moins 10 minutes",
-        "it": "aggiungere foto Documentazione API di Google\nfissare la proprietà del pulsante\naggiungere pulizia per set Intervallo/setTimeout\ncontrollare l'aggiornamentointerval per minimo 10 minuti",
-        "es": "añadir pictured Documentación de Google API\narreglar propiedad de botón\nañadir limpieza para el set Interval/setTimeout\ncheck updateinterval por mínimo 10 minutos",
-        "pl": "dodać obraz Dokumentacja Google\nwłasność przycisku\ndodać do domu Interval/setTimeout\nuaktualnienie interwaluacji za minimum 10 minut",
-        "uk": "додати зображення Документація Google API\nфіксувати властивість кнопки\nдодати прибирання будинку для набору Інтервал/setTimeout\nперевірити оновленнявстановити мінімум 10 хвилин",
-        "zh-cn": "增加图像 谷歌协会文件\nfix 但顿的财产\n增加住房 B. 间隔/制度\n至少10分钟的检查"
-      },
-      "1.0.5": {
-        "en": "set update addEvent-states to 00:10\nfix timeframe for JSON data\nfix layout for config",
-        "de": "set update addEvent-states to 00:10\nzeitrahmen für JSON-Daten festlegen\nfixlayout für config",
-        "ru": "установить обновление addEvent-states до 00:10\nисправить таймфрейм для данных JSON\nfix макет для config",
-        "pt": "set update addEvent-states to 00:10\ntempo de correção para dados JSON\nlayout de correção para configuração",
-        "nl": "vertaling:\nvertaling:\nvertaling:",
-        "fr": "set update addEvent-states to 00:10\nfix timeframe pour les données JSON\ncorrection de la configuration",
-        "it": "set update addEvent-states a 00:10\nfissare il tempo per i dati JSON\nfix layout per config",
-        "es": "set update addEvent-states to 00:10\nfijar el plazo para los datos JSON\ndiseño de fijación para configuración",
-        "pl": "adaptacja dodarzyła się o 0:10\noprogramowanie JSON\nulepszenie konfiguracji",
-        "uk": "встановити оновлення addEvent-states до 00:10\nфіксувати часові рамки для даних JSON\nфіксувати макет для налаштування",
-        "zh-cn": "为00年增建新国家:10\nf 联合办数据的固定时间框架\nf 混凝土"
-      },
-      "1.0.4": {
-        "en": "fix environment setup",
-        "de": "einstellung der umgebung",
-        "ru": "исправление установки среды",
-        "pt": "configuração do ambiente de correção",
-        "nl": "de omgeving opgezet",
-        "fr": "fixation de l ' environnement",
-        "it": "impostazione ambiente",
-        "es": "configuración del entorno",
-        "pl": "seta środowiskowa",
-        "uk": "налаштування середовища",
-        "zh-cn": "固定环境"
-      },
-      "1.0.3": {
-        "en": "fix environment setup",
-        "de": "einstellung der umgebung",
-        "ru": "исправление установки среды",
-        "pt": "configuração do ambiente de correção",
-        "nl": "de omgeving opgezet",
-        "fr": "fixation de l ' environnement",
-        "it": "impostazione ambiente",
-        "es": "configuración del entorno",
-        "pl": "seta środowiskowa",
-        "uk": "налаштування середовища",
-        "zh-cn": "固定环境"
-      }
-    },
-    "titleLang": {
-      "en": "fetch events from WEBDAV, CALDAV, CARDDAV Calendar or Google Calendar",
-      "de": "Abrufen von Ereignissen aus WEBDAV, CALDAV, CARDDAV Calendar oder Google Calendar",
-      "ru": "получать события из календаря WEBDAV, CALDAV, CARDDAV или Google Calendar",
-      "pt": "buscar eventos do WEBDAV, CALDAV, CARDDAV Calendar ou Google Calendar",
-      "nl": "evenementen ophalen van WEBDAV, CALDAV, CARDDAV Calendar of Google Calendar",
-      "fr": "récupérer des événements depuis WEBDAV, CALDAV, CARDDAV Calendar ou Google Calendar",
-      "it": "recuperare eventi da WEBDAV, CALDAV, CARDDAV Calendar o Google Calendar",
-      "es": "obtener eventos de WEBDAV, CALDAV, CARDDAV Calendar o Google Calendar",
-      "pl": "pobierać wydarzenia z WEBDAV, CALDAV, CARDDAV Calendar lub Google Calendar",
-      "uk": "отримувати події з календаря WEBDAV, CALDAV, CARDDAV або календаря Google",
-      "zh-cn": "从 WEBDAV、CALDAV、CARDDAV 日历或 Google 日历中获取事件"
-    },
-    "desc": {
-      "en": "webcal",
-      "de": "webcal",
-      "ru": "вебкаль",
-      "pt": "webcal",
-      "nl": "webcal",
-      "fr": "webcal",
-      "it": "webcal",
-      "es": "webcal",
-      "pl": "webcal",
-      "zh-cn": "网络电话",
-      "uk": "webcal"
-    },
-    "authors": [
-      "dirkhe"
-    ],
-    "keywords": [
-      "Calendar",
-      "WEBDAV",
-      "CALDAV",
-      "Google Calendar"
-    ],
-    "license": "MIT",
-    "platform": "Javascript/Node.js",
-    "main": "build/main.js",
-    "icon": "webcal.png",
-    "enabled": true,
-    "extIcon": "https://raw.githubusercontent.com/dirkhe/ioBroker.webcal/master/admin/webcal.png",
-    "readme": "https://github.com/dirkhe/ioBroker.webcal/blob/master/README.md",
-    "loglevel": "info",
-    "mode": "daemon",
-    "type": "date-and-time",
-    "compact": true,
-    "connectionType": "cloud",
-    "dataSource": "poll",
-    "messagebox": true,
-    "subscribe": "messagebox",
-    "adminUI": {
-      "config": "json"
-    },
-    "dependencies": [
-      {
-        "js-controller": ">=3.3.22"
-      }
-    ],
-    "globalDependencies": [
-      {
-        "admin": ">=5.1.13"
-      }
-    ]
-  },
-  "native": {
-    "daysEventFuture": 2,
-    "daysJSONFuture": 10,
-    "daysEventPast": 0,
-    "daysJSONPast": 0,
-    "intervall": 60,
-    "calendars": [],
-    "events": []
-  },
-  "objects": [],
-  "instanceObjects": [
-    {
-      "_id": "",
-      "type": "meta",
-      "common": {
-        "name": {
-          "en": "user files and images for background",
-          "de": "Benutzerdateien und Bilder für den Hintergrund",
-          "ru": "пользовательские файлы и изображения для фона",
-          "pt": "arquivos e imagens do usuário para plano de fundo",
-          "nl": "gebruikersbestanden en afbeeldingen voor achtergrond",
-          "fr": "fichiers utilisateur et images pour l'arrière-plan",
-          "it": "file utente e immagini per lo sfondo",
-          "es": "archivos de usuario e imágenes para el fondo",
-          "pl": "pliki użytkownika i obrazy w tle",
-          "zh-cn": "背景的用户文件和图像"
+    "common": {
+        "name": "webcal",
+        "version": "1.2.0",
+        "news": {
+            "1.2.0": {
+                "en": "add description for sendTo-addEvent\nfix calculating events\nadd log which google calendar is used \nadd datefilter for readonly \nadd readonly client for ical",
+                "de": "beschreibung hinzufügen für sendTo-addEvent\nberechnen von ereignissen\nlog hinzufügen, der google kalender verwendet wird\ndatumsfilter für readonly hinzufügen\nadd readonly client for ical",
+                "ru": "добавить описание для sendTo-addEvent\nисправить расчетные события\nдобавить лог, который используется google calendar\nдобавить datefilter для readonly\nдобавить читательского клиента для ical",
+                "pt": "adicionar descrição para sendTo-addEvent\ncorrigir eventos de cálculo\nadicionar log que o calendário do google é usado\nadicionar datafilter para somente leitura\nadicionar cliente somente leitura para ical",
+                "nl": "vertaling:\nvertaling:\nvoeg het logboek dat google kalender gebruikt\nvoeg datumfilter toe\nvoeg de lezers toe",
+                "fr": "ajouter la description pour sendTo-addEvent\ncalcul des événements\najouter log quel calendrier google est utilisé\najouter datefilter pour readonly\najouter le client lisible pour ical",
+                "it": "aggiungere la descrizione per sendTo-addEvent\nfissare gli eventi di calcolo\naggiungere il registro che il calendario di google viene utilizzato\naggiungere datafilter per sola lettura\naggiungere client di sola lettura per ical",
+                "es": "añadir descripción para sendTo-addEvent\narreglar eventos de cálculo\nañadir log que google calendario se utiliza\nañadir fechafiltro para sólo lectura\nañadir leonly cliente para ical",
+                "pl": "opis dodawania To-addEvent\nustalenie\ndodać do logowania, który jest używany kalendarz google\ndodać\ndodać czytelnikowi klientowi dodają do icalowego klienta",
+                "uk": "додати опис для sendTo-addEvent\nфіксувати події\nдодати журнал, який використовується google календар\nдодати датафільтр для читання\nдодавати клієнту читаванню",
+                "zh-cn": "发 发 明\nf 计算事件\n用来衡量日历的附加逻辑\n增 日\n读者"
+            },
+            "1.1.0": {
+                "en": "add addEvent-command to sendTo\nfix date parsing, if day only one digit\nupdate dependecies",
+                "de": "addEvent-command to send Zu\nfix date parsing, wenn tag nur eine ziffer\naktualisierung der abhängigkeiten",
+                "ru": "добавить addEvent-command для отправки В\nисправить дату parsing, если день только одна цифра\nобновление зависимостей",
+                "pt": "addEvent-command para enviar Para\ncorreção parsing data, se o dia só um dígito\natualizações",
+                "nl": "vertaling: ♪\nals de dag maar één cijfer is\nvertaling:",
+                "fr": "ajouter addEvent-command pour envoyer To\nfixer la date parsing, si le jour seulement un chiffre\nmettre à jour les dépendances",
+                "it": "aggiungere addEvent-comand per inviare A\nfissare la data parsing, se solo giorno una cifra\ndipendenze di aggiornamento",
+                "es": "añadir addEvent-command para enviar A\nfijar fecha paresing, si día sólo un dígito\ndependencias de actualización",
+                "pl": "dodać Komendanta dodawania Aby to zrobić\nustalenie daty, jeśli dzień będzie tylko jedną cyfrą\naktualizacja",
+                "uk": "addEvent-command для відправки до\nфіксувати дату парсингу, якщо день тільки один цифра\nоновлення залежності",
+                "zh-cn": "增 发 导 言\nf 固定日期,只有一天数字\na. 最新依赖情况"
+            },
+            "1.0.7": {
+                "en": "change event state type from group to folder",
+                "de": "änderung von ereigniszustandstyp von gruppe zu ordner",
+                "ru": "изменить тип события из группы в папку",
+                "pt": "alterar o tipo de estado do evento de grupo para pasta",
+                "nl": "veranderingstype van de groep",
+                "fr": "changement de type d'état d'événement de groupe à dossier",
+                "it": "cambiare tipo di stato evento da gruppo a cartella",
+                "es": "cambiar el tipo de estado del evento de grupo a carpeta",
+                "pl": "zmiana stanu z grupy do folderzy",
+                "uk": "змінити тип стану події з групи в папку",
+                "zh-cn": "b. 改变事件的类别"
+            },
+            "1.0.6": {
+                "en": "add pictured Google API documentation\nfix property of button\nadd housekeeping for setInterval/setTimeout\ncheck updateinterval for minimum of 10 minutes",
+                "de": "bild hinzugefügt Google API Dokumentation\neigenschaften der schaltfläche beheben\nhousekeeping für Set hinzufügen Interval / SetTimeout\nkontroll-update-interval für mindestens 10 minuten",
+                "ru": "добавить фото Документация Google API\nисправить свойство кнопки\nдобавить домохозяйку для набора Интервал/setTimeout\nпроверить обновлениеинтервал минимум на 10 минут",
+                "pt": "adicionar imagem Documentação do Google API\ncorrigir a propriedade do botão\nadicionar limpeza para conjunto Interval/setTimeout\ncheck updateinterval para mínimo de 10 minutos",
+                "nl": "vertaling: Google API documentatie\nvertaling:\nvoeg huishoudster toe Interval\ncontrole update over minimaal 10 minuten",
+                "fr": "ajouter photo Google API documentation\nréparer la propriété de bouton\najouter la tenue de maison pour set Intervalle/temps\nvérifier l'intervale de mise à jour pendant au moins 10 minutes",
+                "it": "aggiungere foto Documentazione API di Google\nfissare la proprietà del pulsante\naggiungere pulizia per set Intervallo/setTimeout\ncontrollare l'aggiornamentointerval per minimo 10 minuti",
+                "es": "añadir pictured Documentación de Google API\narreglar propiedad de botón\nañadir limpieza para el set Interval/setTimeout\ncheck updateinterval por mínimo 10 minutos",
+                "pl": "dodać obraz Dokumentacja Google\nwłasność przycisku\ndodać do domu Interval/setTimeout\nuaktualnienie interwaluacji za minimum 10 minut",
+                "uk": "додати зображення Документація Google API\nфіксувати властивість кнопки\nдодати прибирання будинку для набору Інтервал/setTimeout\nперевірити оновленнявстановити мінімум 10 хвилин",
+                "zh-cn": "增加图像 谷歌协会文件\nfix 但顿的财产\n增加住房 B. 间隔/制度\n至少10分钟的检查"
+            },
+            "1.0.5": {
+                "en": "set update addEvent-states to 00:10\nfix timeframe for JSON data\nfix layout for config",
+                "de": "set update addEvent-states to 00:10\nzeitrahmen für JSON-Daten festlegen\nfixlayout für config",
+                "ru": "установить обновление addEvent-states до 00:10\nисправить таймфрейм для данных JSON\nfix макет для config",
+                "pt": "set update addEvent-states to 00:10\ntempo de correção para dados JSON\nlayout de correção para configuração",
+                "nl": "vertaling:\nvertaling:\nvertaling:",
+                "fr": "set update addEvent-states to 00:10\nfix timeframe pour les données JSON\ncorrection de la configuration",
+                "it": "set update addEvent-states a 00:10\nfissare il tempo per i dati JSON\nfix layout per config",
+                "es": "set update addEvent-states to 00:10\nfijar el plazo para los datos JSON\ndiseño de fijación para configuración",
+                "pl": "adaptacja dodarzyła się o 0:10\noprogramowanie JSON\nulepszenie konfiguracji",
+                "uk": "встановити оновлення addEvent-states до 00:10\nфіксувати часові рамки для даних JSON\nфіксувати макет для налаштування",
+                "zh-cn": "为00年增建新国家:10\nf 联合办数据的固定时间框架\nf 混凝土"
+            },
+            "1.0.4": {
+                "en": "fix environment setup",
+                "de": "einstellung der umgebung",
+                "ru": "исправление установки среды",
+                "pt": "configuração do ambiente de correção",
+                "nl": "de omgeving opgezet",
+                "fr": "fixation de l ' environnement",
+                "it": "impostazione ambiente",
+                "es": "configuración del entorno",
+                "pl": "seta środowiskowa",
+                "uk": "налаштування середовища",
+                "zh-cn": "固定环境"
+            },
+            "1.0.3": {
+                "en": "fix environment setup",
+                "de": "einstellung der umgebung",
+                "ru": "исправление установки среды",
+                "pt": "configuração do ambiente de correção",
+                "nl": "de omgeving opgezet",
+                "fr": "fixation de l ' environnement",
+                "it": "impostazione ambiente",
+                "es": "configuración del entorno",
+                "pl": "seta środowiskowa",
+                "uk": "налаштування середовища",
+                "zh-cn": "固定环境"
+            }
         },
-        "type": "meta.user"
-      },
-      "native": {}
+        "titleLang": {
+            "en": "fetch events from WEBDAV, CALDAV, CARDDAV Calendar or Google Calendar",
+            "de": "Abrufen von Ereignissen aus WEBDAV, CALDAV, CARDDAV Calendar oder Google Calendar",
+            "ru": "получать события из календаря WEBDAV, CALDAV, CARDDAV или Google Calendar",
+            "pt": "buscar eventos do WEBDAV, CALDAV, CARDDAV Calendar ou Google Calendar",
+            "nl": "evenementen ophalen van WEBDAV, CALDAV, CARDDAV Calendar of Google Calendar",
+            "fr": "récupérer des événements depuis WEBDAV, CALDAV, CARDDAV Calendar ou Google Calendar",
+            "it": "recuperare eventi da WEBDAV, CALDAV, CARDDAV Calendar o Google Calendar",
+            "es": "obtener eventos de WEBDAV, CALDAV, CARDDAV Calendar o Google Calendar",
+            "pl": "pobierać wydarzenia z WEBDAV, CALDAV, CARDDAV Calendar lub Google Calendar",
+            "uk": "отримувати події з календаря WEBDAV, CALDAV, CARDDAV або календаря Google",
+            "zh-cn": "从 WEBDAV、CALDAV、CARDDAV 日历或 Google 日历中获取事件"
+        },
+        "desc": {
+            "en": "webcal",
+            "de": "webcal",
+            "ru": "вебкаль",
+            "pt": "webcal",
+            "nl": "webcal",
+            "fr": "webcal",
+            "it": "webcal",
+            "es": "webcal",
+            "pl": "webcal",
+            "zh-cn": "网络电话",
+            "uk": "webcal"
+        },
+        "authors": [
+            "dirkhe"
+        ],
+        "keywords": [
+            "Calendar",
+            "WEBDAV",
+            "CALDAV",
+            "Google Calendar"
+        ],
+        "license": "MIT",
+        "platform": "Javascript/Node.js",
+        "main": "build/main.js",
+        "icon": "webcal.png",
+        "enabled": true,
+        "extIcon": "https://raw.githubusercontent.com/dirkhe/ioBroker.webcal/master/admin/webcal.png",
+        "readme": "https://github.com/dirkhe/ioBroker.webcal/blob/master/README.md",
+        "loglevel": "info",
+        "mode": "daemon",
+        "type": "date-and-time",
+        "compact": true,
+        "connectionType": "cloud",
+        "dataSource": "poll",
+        "messagebox": true,
+        "subscribe": "messagebox",
+        "adminUI": {
+            "config": "json"
+        },
+        "dependencies": [
+            {
+                "js-controller": ">=3.3.22"
+            }
+        ],
+        "globalDependencies": [
+            {
+                "admin": ">=5.1.13"
+            }
+        ]
     },
-    {
-      "_id": "fetchCal",
-      "type": "state",
-      "common": {
-        "role": "button",
-        "name": "Fetch calendar data",
-        "def": false,
-        "type": "boolean",
-        "read": false,
-        "write": true
-      },
-      "native": {}
+    "native": {
+        "daysEventFuture": 2,
+        "daysJSONFuture": 10,
+        "daysEventPast": 0,
+        "daysJSONPast": 0,
+        "intervall": 60,
+        "calendars": [],
+        "events": []
     },
-    {
-      "_id": "events",
-      "type": "folder",
-      "common": {
-        "name": "fetched events from calendar"
-      },
-      "native": {}
-    }
-  ]
+    "objects": [],
+    "instanceObjects": [
+        {
+            "_id": "",
+            "type": "meta",
+            "common": {
+                "name": {
+                    "en": "user files and images for background",
+                    "de": "Benutzerdateien und Bilder für den Hintergrund",
+                    "ru": "пользовательские файлы и изображения для фона",
+                    "pt": "arquivos e imagens do usuário para plano de fundo",
+                    "nl": "gebruikersbestanden en afbeeldingen voor achtergrond",
+                    "fr": "fichiers utilisateur et images pour l'arrière-plan",
+                    "it": "file utente e immagini per lo sfondo",
+                    "es": "archivos de usuario e imágenes para el fondo",
+                    "pl": "pliki użytkownika i obrazy w tle",
+                    "zh-cn": "背景的用户文件和图像"
+                },
+                "type": "meta.user"
+            },
+            "native": {}
+        },
+        {
+            "_id": "fetchCal",
+            "type": "state",
+            "common": {
+                "role": "button",
+                "name": "Fetch calendar data",
+                "def": false,
+                "type": "boolean",
+                "read": false,
+                "write": true
+            },
+            "native": {}
+        },
+        {
+            "_id": "events",
+            "type": "folder",
+            "common": {
+                "name": "fetched events from calendar"
+            },
+            "native": {}
+        }
+    ]
 }

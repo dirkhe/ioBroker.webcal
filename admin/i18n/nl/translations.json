@@ -42,5 +42,7 @@
     "Wednesday": "Woensdag",
     "Thursday": "Donderdag",
     "Friday": "Vrijdag",
-    "Saturday": "Zaterdag"
+    "Saturday": "Zaterdag",
+    "use only calendars": "gebruik alleen kalenders",
+    "use default calendar on addEvent": "gebruik de standaardkalender op addEvent"
 }

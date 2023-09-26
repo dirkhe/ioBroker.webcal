@@ -39,7 +39,7 @@ function initLib(adapterInstance, localTimeZone) {
 function getAllIcalCalendarEvents(calendarEventData, calendarName, startDate, endDate, checkDateRange) {
   const result = [];
   try {
-    adapter.log.debug("parse calendar data:\n" + calendarEventData.replace(/\s*([:;=])\s*/gm, "$1"));
+    adapter.log.silly("parse calendar data:\n" + calendarEventData.replace(/\s*([:;=])\s*/gm, "$1"));
     const jcalData = import_ical.default.parse(calendarEventData);
     const comp = new import_ical.default.Component(jcalData);
     const calTimezoneComp = comp.getFirstSubcomponent("vtimezone");

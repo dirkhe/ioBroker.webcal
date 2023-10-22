@@ -204,4 +204,32 @@ export class GoogleCalendar implements webcal.ICalendarBase {
 		//console.log(result.ok);
 		return result;
 	}
+
+	/**
+	 * delte Event from Calendar
+	 * @param id event id
+	 * @returns Server response, like {ok:boolen}
+	 */
+	async deleteEvent(id: string): Promise<any> {
+		let result;
+		try {
+			const res = await this.client.events.delete({
+				calendarId: await this.getCalendar(),
+				eventId: id,
+			});
+			result = {
+				ok: res.status >= 200 && res.status < 300,
+				message: res.statusText,
+			};
+		} catch (error) {
+			result = {
+				ok: false,
+				message: (error as { message: string }).message,
+			};
+		}
+
+		//console.log(result);
+		//console.log(result.ok);
+		return result;
+	}
 }

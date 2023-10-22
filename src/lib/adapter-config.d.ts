@@ -68,6 +68,12 @@ declare global {
 			 * @returns Server response, like {ok:boolen}
 			 */
 			addEvent(calEvent: ICalendarEventData): Promise<any>;
+			/**
+			 * delte Event from Calendar
+			 * @param id event id
+			 * @returns Server response, like {ok:boolen}
+			 */
+			deleteEvent(id: string): Promise<any>;
 		}
 	}
 	namespace ioBroker {

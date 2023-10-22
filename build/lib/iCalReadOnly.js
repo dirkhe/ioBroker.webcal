@@ -88,6 +88,12 @@ class ICalReadOnlyClient {
       message: "calender is readonly (" + this.name + ")"
     };
   }
+  async deleteEvent(id) {
+    return {
+      ok: false,
+      message: "calender is readonly (" + this.name + ")"
+    };
+  }
 }
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {

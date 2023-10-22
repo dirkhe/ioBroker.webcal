@@ -46,6 +46,9 @@ export class DavCalCalendar implements webcal.ICalendarBase {
 						authMethod: "Basic",
 						defaultAccountType: "caldav",
 				  };
+		if (!params.serverUrl.endsWith("/")) {
+			params.serverUrl += "/";
+		}
 		this.client = new DAVClient(params);
 		this.ignoreSSL = !!calConfig.ignoreSSL;
 	}
@@ -145,7 +148,6 @@ export class DavCalCalendar implements webcal.ICalendarBase {
 						const ev: IcalCalendarEvent | null = IcalCalendarEvent.fromData(
 							calendarObjects[i].data,
 							this.name,
-							calendarObjects[i].etag,
 							startDate,
 							endDate,
 						);
@@ -177,6 +179,39 @@ export class DavCalCalendar implements webcal.ICalendarBase {
 				calendar: await this.getCalendar(),
 				filename: new Date().getTime() + ".ics",
 				iCalString: calendarEventData,
+			});
+		} catch (error) {
+			result = {
+				ok: false,
+				message: error,
+			};
+		}
+		if (storeDefaultIgnoreSSL !== null) {
+			process.env.NODE_TLS_REJECT_UNAUTHORIZED = storeDefaultIgnoreSSL;
+		}
+		//console.log(result);
+		//console.log(result.ok);
+		return result;
+	}
+
+	/**
+	 * delte Event from Calendar
+	 * @param id event id
+	 * @returns Server response, like {ok:boolen}
+	 */
+	async deleteEvent(id: string): Promise<any> {
+		let storeDefaultIgnoreSSL: string | undefined | null = null;
+		if (this.ignoreSSL && process.env.NODE_TLS_REJECT_UNAUTHORIZED != "0") {
+			storeDefaultIgnoreSSL = process.env.NODE_TLS_REJECT_UNAUTHORIZED;
+			process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+		}
+		let result;
+		try {
+			result = await this.client.deleteCalendarObject({
+				calendarObject: {
+					url: (await this.getCalendar()).url + id + ".ics",
+					etag: "",
+				},
 			});
 		} catch (error) {
 			result = {

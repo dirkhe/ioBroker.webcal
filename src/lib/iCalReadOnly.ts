@@ -84,4 +84,16 @@ export class ICalReadOnlyClient implements webcal.ICalendarBase {
 			message: "calender is readonly (" + this.name + ")",
 		};
 	}
+	/**
+	 * delte Event from Calendar
+	 * @param id event id
+	 * @returns Server response, like {ok:boolen}
+	 */
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	async deleteEvent(id: string): Promise<any | { ok: boolean; message: string }> {
+		return {
+			ok: false,
+			message: "calender is readonly (" + this.name + ")",
+		};
+	}
 }

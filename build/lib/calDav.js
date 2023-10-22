@@ -53,6 +53,9 @@ class DavCalCalendar {
       authMethod: "Basic",
       defaultAccountType: "caldav"
     };
+    if (!params.serverUrl.endsWith("/")) {
+      params.serverUrl += "/";
+    }
     this.client = new import_tsdav.DAVClient(params);
     this.ignoreSSL = !!calConfig.ignoreSSL;
   }
@@ -113,7 +116,6 @@ class DavCalCalendar {
           const ev = import_IcalCalendarEvent.IcalCalendarEvent.fromData(
             calendarObjects[i].data,
             this.name,
-            calendarObjects[i].etag,
             startDate,
             endDate
           );
@@ -138,6 +140,31 @@ class DavCalCalendar {
         calendar: await this.getCalendar(),
         filename: new Date().getTime() + ".ics",
         iCalString: calendarEventData
+      });
+    } catch (error) {
+      result = {
+        ok: false,
+        message: error
+      };
+    }
+    if (storeDefaultIgnoreSSL !== null) {
+      process.env.NODE_TLS_REJECT_UNAUTHORIZED = storeDefaultIgnoreSSL;
+    }
+    return result;
+  }
+  async deleteEvent(id) {
+    let storeDefaultIgnoreSSL = null;
+    if (this.ignoreSSL && process.env.NODE_TLS_REJECT_UNAUTHORIZED != "0") {
+      storeDefaultIgnoreSSL = process.env.NODE_TLS_REJECT_UNAUTHORIZED;
+      process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+    }
+    let result;
+    try {
+      result = await this.client.deleteCalendarObject({
+        calendarObject: {
+          url: (await this.getCalendar()).url + id + ".ics",
+          etag: ""
+        }
       });
     } catch (error) {
       result = {

@@ -119,6 +119,41 @@ if `calendar` not given, defaultCalender will used
 
 on `event` field `end` and `description` is optional 
 
+**delete Event**
+possible via Script:
+```
+sendTo("webcal.0", "deleteEvents", {
+    calendar: "smarthome",
+    events: [
+      {
+        id: "e3fcbf3b-651c-470f-b307-9d20be5902eb"
+      },	  
+      {
+        id: "failed test"
+      }
+    ]
+  },function(events){
+    /* callback function 
+	   object events will be repeat from input, 
+	   with additional status or error field,   
+	*/
+	log(events);	
+  })
+```
+output from log will be:
+```
+[
+  {
+    "id": "e3fcbf3b-651c-470f-b307-9d20be5902eb
+    "status": "successfully deleted"
+  },
+  {
+    "id": "failed test",
+    "error": "not found"
+  }
+]
+```
+
 ### Visualization 
 if you want to use iobroker [vis-material-design](https://github.com/Scrounger/ioBroker.vis-materialdesign#calendar), you can use [this](doc/vis-material-design.js) script
 
@@ -141,6 +176,7 @@ This project uses the following components:
 * (dirkhe) add choose calendar for events
 * (dirkhe) add example script for vis-material-designmaterial
 * (dirkhe) add event id to JSON data
+* (dirkhe) add event delete function
 
 ### 1.2.0 (2023-08-15)	
 * (dirkhe) add description for sendTo-addEvent

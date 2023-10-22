@@ -184,6 +184,25 @@ class GoogleCalendar {
     }
     return result;
   }
+  async deleteEvent(id) {
+    let result;
+    try {
+      const res = await this.client.events.delete({
+        calendarId: await this.getCalendar(),
+        eventId: id
+      });
+      result = {
+        ok: res.status >= 200 && res.status < 300,
+        message: res.statusText
+      };
+    } catch (error) {
+      result = {
+        ok: false,
+        message: error.message
+      };
+    }
+    return result;
+  }
 }
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {

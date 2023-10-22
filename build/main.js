@@ -296,7 +296,38 @@ class Webcal extends utils.Adapter {
               if (result.ok) {
                 event.status = i18n.successfullyAdded;
               } else {
-                event.error = result.message;
+                event.error = result.message || result.statusText || "undefined error";
+              }
+            }
+          }
+          this.fetchCalendars();
+          this.sendTo(obj.from, obj.command, obj.message.events, obj.callback);
+        } else {
+          return this.sendTo(obj.from, obj.command, { error: "found no events" }, obj.callback);
+        }
+      } else if (obj.command === "deleteEvents") {
+        if (typeof obj.message == "object" && obj.message.events) {
+          const calendar = obj.message.calendar ? this.calendarManager.calendars[obj.message.calendar] : null;
+          if (!calendar) {
+            return this.sendTo(
+              obj.from,
+              obj.command,
+              { error: i18n.couldNotFoundCalendar + " name: " + obj.message.calendar },
+              obj.callback
+            );
+          }
+          adapter.log.debug("delete Events from " + calendar.name);
+          for (const i in obj.message.events) {
+            const event = obj.message.events[i];
+            if (!event.id) {
+              event.error = "id missing";
+            }
+            if (!event.error) {
+              const result = await calendar.deleteEvent(event.id);
+              if (result.ok) {
+                event.status = "successfully deleted";
+              } else {
+                event.error = result.message || result.statusText || "undefined error";
               }
             }
           }

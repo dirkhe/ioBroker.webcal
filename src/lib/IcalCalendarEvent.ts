@@ -60,7 +60,6 @@ export class IcalCalendarEvent extends CalendarEvent {
 	static fromData(
 		calendarEventData: string,
 		calendarName: string,
-		etag: string,
 		startDate: Date,
 		endDate: Date,
 	): IcalCalendarEvent | null {
@@ -76,7 +75,6 @@ export class IcalCalendarEvent extends CalendarEvent {
 				calendarName,
 				startDate,
 				endDate,
-				etag,
 			);
 		} catch (error) {
 			adapter.log.error("could not read calendar Event: " + error);
@@ -91,14 +89,14 @@ export class IcalCalendarEvent extends CalendarEvent {
 		calendarName: string,
 		startDate: Date,
 		endDate: Date,
-		id?: string,
 	) {
-		super(endDate, calendarName, id || null);
+		super(endDate, calendarName, null);
 		this.timezone = calTimezone;
 		try {
 			this.icalEvent = new ICAL.Event(eventComp);
 			this.summary = this.icalEvent.summary || "";
 			this.description = this.icalEvent.description || "";
+			this.id = this.icalEvent.uid;
 
 			if (this.icalEvent.isRecurring()) {
 				if (!["HOURLY", "SECONDLY", "MINUTELY"].includes(this.icalEvent.getRecurrenceTypes())) {

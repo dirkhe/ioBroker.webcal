@@ -14,7 +14,7 @@ export function initLib(adapterInstance: AdapterInstance, adapterLocalTimeZone: 
 export class GoogleCalendarEvent extends CalendarEvent {
 	googleEvent: calendar_v3.Schema$Event | null;
 	constructor(googleEvent: calendar_v3.Schema$Event, calendarName: string, endDate: Date) {
-		super(endDate, calendarName);
+		super(endDate, calendarName, googleEvent.id || null);
 		this.googleEvent = googleEvent;
 		try {
 			this.summary = googleEvent.summary || "";

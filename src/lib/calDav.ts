@@ -145,6 +145,7 @@ export class DavCalCalendar implements webcal.ICalendarBase {
 						const ev: IcalCalendarEvent | null = IcalCalendarEvent.fromData(
 							calendarObjects[i].data,
 							this.name,
+							calendarObjects[i].etag,
 							startDate,
 							endDate,
 						);

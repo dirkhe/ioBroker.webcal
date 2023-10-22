@@ -40,9 +40,10 @@ import_dayjs.default.tz.setDefault(localTimeZone);
 let adapter;
 let i18n = {};
 class jsonEvent {
-  constructor(calendarName, date, summary, startTime, endTime) {
-    this.calendarName = calendarName;
-    this.summary = summary;
+  constructor(event, date, startTime, endTime) {
+    this.id = event.id;
+    this.calendarName = event.calendarName;
+    this.summary = event.summary;
     this.date = date;
     this.startTime = startTime;
     this.endTime = endTime;
@@ -55,7 +56,8 @@ class jsonEvent {
   }
 }
 const _CalendarEvent = class {
-  constructor(endDate, calendarName) {
+  constructor(endDate, calendarName, id) {
+    this.id = id;
     this.calendarName = calendarName;
     this.maxUnixTime = (0, import_dayjs.default)(endDate).unix();
   }
@@ -103,7 +105,7 @@ const _CalendarEvent = class {
         if (firstDay < -_CalendarEvent.daysPast) {
           d = -_CalendarEvent.daysPast;
         } else if (time != "00:00") {
-          days[firstDay] = new jsonEvent(this.calendarName, timeObj.start.toDate(), this.summary, time);
+          days[firstDay] = new jsonEvent(this, timeObj.start.toDate(), time);
           d++;
         }
         time = timeObj.end.format("HH:mm");
@@ -112,11 +114,7 @@ const _CalendarEvent = class {
           time = "23:59";
         }
         for (; d <= lastDay; d++) {
-          days[d] = new jsonEvent(
-            this.calendarName,
-            timeObj.start.add(d - firstDay, "d").toDate(),
-            this.summary
-          );
+          days[d] = new jsonEvent(this, timeObj.start.add(d - firstDay, "d").toDate());
         }
         if (time != "23:59") {
           if (days[lastDay]) {
@@ -124,12 +122,7 @@ const _CalendarEvent = class {
           }
         }
       } else if (firstDay >= -_CalendarEvent.daysPast) {
-        days[firstDay] = new jsonEvent(
-          this.calendarName,
-          timeObj.start.toDate(),
-          this.summary,
-          time != "00:00" ? time : void 0
-        );
+        days[firstDay] = new jsonEvent(this, timeObj.start.toDate(), time != "00:00" ? time : void 0);
         time = timeObj.end.format("HH:mm");
         if (time != "23:59" && time != days[firstDay].startTime) {
           days[firstDay].endTime = time;

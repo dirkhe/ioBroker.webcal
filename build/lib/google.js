@@ -34,7 +34,7 @@ function initLib(adapterInstance, adapterLocalTimeZone) {
 }
 class GoogleCalendarEvent extends import_calendarManager.CalendarEvent {
   constructor(googleEvent, calendarName, endDate) {
-    super(endDate, calendarName);
+    super(endDate, calendarName, googleEvent.id || null);
     this.googleEvent = googleEvent;
     try {
       this.summary = googleEvent.summary || "";

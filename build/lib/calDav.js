@@ -113,6 +113,7 @@ class DavCalCalendar {
           const ev = import_IcalCalendarEvent.IcalCalendarEvent.fromData(
             calendarObjects[i].data,
             this.name,
+            calendarObjects[i].etag,
             startDate,
             endDate
           );

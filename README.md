@@ -140,6 +140,7 @@ This project uses the following components:
 ### **WORK IN PROGRESS**	
 * (dirkhe) add choose calendar for events
 * (dirkhe) add example script for vis-material-designmaterial
+* (dirkhe) add event id to JSON data
 
 ### 1.2.0 (2023-08-15)	
 * (dirkhe) add description for sendTo-addEvent

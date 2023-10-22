@@ -69,8 +69,8 @@ function getAllIcalCalendarEvents(calendarEventData, calendarName, startDate, en
   return result;
 }
 class IcalCalendarEvent extends import_calendarManager.CalendarEvent {
-  constructor(eventComp, calTimezone, calendarName, startDate, endDate) {
-    super(endDate, calendarName);
+  constructor(eventComp, calTimezone, calendarName, startDate, endDate, id) {
+    super(endDate, calendarName, id || null);
     this.timezone = calTimezone;
     try {
       this.icalEvent = new import_ical.default.Event(eventComp);
@@ -99,7 +99,7 @@ class IcalCalendarEvent extends import_calendarManager.CalendarEvent {
       this.icalEvent = null;
     }
   }
-  static fromData(calendarEventData, calendarName, startDate, endDate) {
+  static fromData(calendarEventData, calendarName, etag, startDate, endDate) {
     try {
       adapter.log.debug("parse calendar data:\n" + calendarEventData.replace(/\s*([:;=])\s*/gm, "$1"));
       const jcalData = import_ical.default.parse(calendarEventData);
@@ -110,7 +110,8 @@ class IcalCalendarEvent extends import_calendarManager.CalendarEvent {
         calTimezone ? new import_ical.default.Timezone(calTimezone) : null,
         calendarName,
         startDate,
-        endDate
+        endDate,
+        etag
       );
     } catch (error) {
       adapter.log.error("could not read calendar Event: " + error);

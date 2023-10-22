@@ -18,15 +18,17 @@ export interface ICalendarTimeRangObj {
 }
 
 export class jsonEvent {
+	id: string | null;
 	date: Date;
 	startTime?: string;
 	endTime?: string;
 	calendarName: string;
 	summary?: string;
 
-	constructor(calendarName: string, date: Date, summary?: string, startTime?: string, endTime?: string) {
-		this.calendarName = calendarName;
-		this.summary = summary;
+	constructor(event: CalendarEvent, date: Date, startTime?: string, endTime?: string) {
+		this.id = event.id;
+		this.calendarName = event.calendarName;
+		this.summary = event.summary;
 		this.date = date;
 		this.startTime = startTime;
 		this.endTime = endTime;
@@ -47,11 +49,13 @@ export abstract class CalendarEvent implements webcal.ICalendarEventBase {
 	static daysPast = 0;
 	static todayMidnight: Dayjs = dayjs().startOf("d");
 	calendarName: string;
+	id: string | null;
 	maxUnixTime: number;
 	summary?: string;
 	description?: string;
 
-	constructor(endDate: Date, calendarName: string) {
+	constructor(endDate: Date, calendarName: string, id: string | null) {
+		this.id = id;
 		this.calendarName = calendarName;
 		this.maxUnixTime = dayjs(endDate).unix();
 	}
@@ -111,7 +115,7 @@ export abstract class CalendarEvent implements webcal.ICalendarEventBase {
 					d = -CalendarEvent.daysPast;
 				} else if (time != "00:00") {
 					// Event start in timerange
-					days[firstDay] = new jsonEvent(this.calendarName, timeObj.start.toDate(), this.summary, time);
+					days[firstDay] = new jsonEvent(this, timeObj.start.toDate(), time);
 					d++;
 				}
 				time = timeObj.end.format("HH:mm");
@@ -121,11 +125,7 @@ export abstract class CalendarEvent implements webcal.ICalendarEventBase {
 					time = "23:59";
 				}
 				for (; d <= lastDay; d++) {
-					days[d] = new jsonEvent(
-						this.calendarName,
-						timeObj.start.add(d - firstDay, "d").toDate(),
-						this.summary,
-					);
+					days[d] = new jsonEvent(this, timeObj.start.add(d - firstDay, "d").toDate());
 				}
 				if (time != "23:59") {
 					if (days[lastDay]) {
@@ -133,12 +133,7 @@ export abstract class CalendarEvent implements webcal.ICalendarEventBase {
 					}
 				}
 			} else if (firstDay >= -CalendarEvent.daysPast) {
-				days[firstDay] = new jsonEvent(
-					this.calendarName,
-					timeObj.start.toDate(),
-					this.summary,
-					time != "00:00" ? time : undefined,
-				);
+				days[firstDay] = new jsonEvent(this, timeObj.start.toDate(), time != "00:00" ? time : undefined);
 				time = timeObj.end.format("HH:mm");
 				if (time != "23:59" && time != days[firstDay].startTime) {
 					days[firstDay].endTime = time;

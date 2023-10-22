@@ -115,9 +115,12 @@ output from log will be:
 ]
 ```
 
-if `calendar` not given, defaulktCalender will used
+if `calendar` not given, defaultCalender will used
 
 on `event` field `end` and `description` is optional 
+
+### Visualization 
+if you want to use iobroker [vis-material-design](https://github.com/Scrounger/ioBroker.vis-materialdesign#calendar), you can use [this](doc/vis-material-design.js) script
 
 ### known errors
 breaking (exception) a serie of events will be ignored 
@@ -136,6 +139,8 @@ This project uses the following components:
 -->
 ### **WORK IN PROGRESS**	
 * (dirkhe) add choose calendar for events
+* (dirkhe) add example script for vis-material-designmaterial
+
 ### 1.2.0 (2023-08-15)	
 * (dirkhe) add description for sendTo-addEvent
 * (dirkhe) fix calculating events

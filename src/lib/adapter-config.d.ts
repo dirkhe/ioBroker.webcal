@@ -33,10 +33,10 @@ declare global {
 			year: number;
 			month: number;
 			day: number;
-			hour: number = 0;
-			minute: number = 0;
-			second: number = 0;
-			isDate: boolean = false;
+			hour: number;
+			minute: number;
+			second: number;
+			isDate: boolean;
 		}
 		interface ICalendarEventData {
 			summary: string;

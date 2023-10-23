@@ -33,32 +33,36 @@
 
 				if (webCalObj && webCalObj.val) {
 					const data = JSON.parse(webCalObj.val);
+					data.sort((a, b) => a.id.localeCompare(b.id));
+					let event = {};
 					for (var i = 0; i <= data.length - 1; i++) {
 						const item = data[i];
-						const colors = calendarColors[item.calendarName] || { bg: "", text: "" };
-
 						let start = item.date.substring(0, 10);
-						let end = start;
+						if (item.id != event.id) {
+							const colors = calendarColors[item.calendarName] || { bg: "", text: "" };
+							event = {
+								id: item.id,
+								name: item.summary,
+								color: colors.bg,
+								colorText: colors.text,
+								start: start,
+								end: start,
+							};
+							if (item.startTime) {
+								event.start += " " + item.startTime;
+							}
 
-						if (item.startTime) {
-							start += " " + item.startTime;
+							calList.push(event);
+						} else {
+							event.end = start;
 						}
 						if (item.endTime) {
-							end += " " + item.endTime;
+							event.end += " " + item.endTime;
+							event = {};
 						}
-
-						// create object for calendar widget
-						calList.push({
-							name: item.summary,
-							color: colors.bg,
-							colorText: colors.text,
-							start: start,
-							end: end,
-						});
 					}
+					setState(visTargetDP, JSON.stringify(calList), true);
 				}
-
-				setState(visTargetDP, JSON.stringify(calList), true);
 			}
 		} catch (e) {
 			console.error(`webCal2MaterialDesignCalendarWidget: message: ${e.message}, stack: ${e.stack}`);

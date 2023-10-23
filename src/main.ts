@@ -28,7 +28,10 @@ const i18n: Record<string, string> = {
 	createNewEvent: "create new Event in calendar, see Readme",
 	couldNotFoundCalendar: "could not found calendar for",
 	invalidDate: "invalid date",
+	invalidId: "invalid id",
+	undefinedError: "undefined error",
 	successfullyAdded: "successfully added",
+	successfullyDeleted: "successfully deleted",
 	Tomorrow: "Tomorrow",
 	Yesterday: "Yesterday",
 	xDaysAgo: "%d days ago",
@@ -372,7 +375,7 @@ class Webcal extends utils.Adapter {
 							if (result.ok) {
 								event.status = i18n.successfullyAdded;
 							} else {
-								event.error = result.message || result.statusText || "undefined error";
+								event.error = result.message || result.statusText || i18n.undefinedError;
 							}
 						}
 					}
@@ -404,14 +407,14 @@ class Webcal extends utils.Adapter {
 					for (const i in obj.message.events) {
 						const event = obj.message.events[i];
 						if (!event.id) {
-							event.error = "id missing";
+							event.error = i18n.invalidId;
 						}
 						if (!event.error) {
 							const result = await calendar.deleteEvent(event.id);
 							if (result.ok) {
-								event.status = "successfully deleted";
+								event.status = i18n.successfullyDeleted;
 							} else {
-								event.error = result.message || result.statusText || "undefined error";
+								event.error = result.message || result.statusText || i18n.undefinedError;
 							}
 						}
 					}

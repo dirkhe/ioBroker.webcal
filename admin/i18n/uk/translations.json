@@ -44,5 +44,8 @@
     "Friday": "П'ятниця",
     "Saturday": "Субота",
     "use only calendars": "використовувати тільки календарі",
-    "use default calendar on addEvent": "використовувати календар за замовчуванням у addEvent"
+    "use default calendar on addEvent": "використовувати календар за замовчуванням у addEvent",
+    "invalid id": "недійсний ідентифікатор",
+    "successfully deleted": "успішно видалено",
+    "undefined error": "невизначена помилка"
 }

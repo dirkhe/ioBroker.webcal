@@ -44,5 +44,8 @@
     "Friday": "Vrijdag",
     "Saturday": "Zaterdag",
     "use only calendars": "gebruik alleen kalenders",
-    "use default calendar on addEvent": "gebruik de standaardkalender op addEvent"
+    "use default calendar on addEvent": "gebruik de standaardkalender op addEvent",
+    "invalid id": "ongeldig identiteitsbewijs",
+    "successfully deleted": "succesvol verwijderd",
+    "undefined error": "ongedefinieerde fout"
 }

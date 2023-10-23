@@ -44,5 +44,8 @@
     "Friday": "Vendredi",
     "Saturday": "Samedi",
     "use only calendars": "utiliser uniquement des calendriers",
-    "use default calendar on addEvent": "utiliser le calendrier par défaut sur addEvent"
+    "use default calendar on addEvent": "utiliser le calendrier par défaut sur addEvent",
+    "invalid id": "ID invalide",
+    "successfully deleted": "supprimé avec succès",
+    "undefined error": "erreur non définie"
 }

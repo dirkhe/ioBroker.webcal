@@ -25,8 +25,8 @@
     "node": ">= 14"
   },
   "dependencies": {
-    "@googleapis/calendar": "^9.3.1",
-    "@googleapis/oauth2": "^1.0.0",
+    "@googleapis/calendar": "^9.3.2",
+    "@googleapis/oauth2": "^1.0.5",
     "@iobroker/adapter-core": "^2.6.7",
     "axios": "^1.4.0",
     "dayjs": "^1.11.7",

@@ -124,7 +124,7 @@ const _CalendarEvent = class {
       } else if (firstDay >= -_CalendarEvent.daysPast) {
         days[firstDay] = new jsonEvent(this, timeObj.start.toDate(), time != "00:00" ? time : void 0);
         time = timeObj.end.format("HH:mm");
-        if (time != "23:59" && time != days[firstDay].startTime) {
+        if (time != "23:59") {
           days[firstDay].endTime = time;
         }
       }

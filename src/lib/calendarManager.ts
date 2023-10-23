@@ -135,7 +135,8 @@ export abstract class CalendarEvent implements webcal.ICalendarEventBase {
 			} else if (firstDay >= -CalendarEvent.daysPast) {
 				days[firstDay] = new jsonEvent(this, timeObj.start.toDate(), time != "00:00" ? time : undefined);
 				time = timeObj.end.format("HH:mm");
-				if (time != "23:59" && time != days[firstDay].startTime) {
+				if (time != "23:59") {
+					//&& time != days[firstDay].startTime) {
 					days[firstDay].endTime = time;
 				}
 			}

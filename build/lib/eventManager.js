@@ -333,7 +333,7 @@ class EventManager {
     if (this.iQontrolTimerID) {
       clearTimeout(this.iQontrolTimerID);
     }
-    adapter.log.debug("update addEvent-states");
+    adapter.log.info("update addEvent-states");
     const iqontrolStates = {
       "0": i18n.today,
       "1": i18n.Tomorrow
@@ -366,9 +366,6 @@ class EventManager {
     }
   }
   resetAll() {
-    if (this.iQontrolTimerID) {
-      clearTimeout(this.iQontrolTimerID);
-    }
     for (const evID in this.events) {
       this.events[evID].reset();
     }

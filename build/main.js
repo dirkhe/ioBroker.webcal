@@ -188,6 +188,7 @@ class Webcal extends utils.Adapter {
     try {
       this.updateCalenderIntervall && this.clearInterval(this.updateCalenderIntervall);
       this.eventManager.resetAll();
+      this.eventManager.iQontrolTimerID && this.clearTimeout(this.eventManager.iQontrolTimerID);
       for (let i = 0; i < this.actionEvents.length; i++) {
         this.clearTimeout(this.actionEvents[i]);
       }

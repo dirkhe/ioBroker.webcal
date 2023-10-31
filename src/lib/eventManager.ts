@@ -235,7 +235,7 @@ export class Event {
 
 export class EventManager {
 	events: Record<string, Event>;
-	iQontrolTimerID?: NodeJS.Timeout;
+	iQontrolTimerID?: ioBroker.Timeout;
 
 	constructor(adapterInstance: AdapterInstance, i18nInstance: any) {
 		adapter = adapterInstance;
@@ -366,7 +366,7 @@ export class EventManager {
 
 	syncIQontrolStates(): void {
 		if (this.iQontrolTimerID) {
-			clearTimeout(this.iQontrolTimerID);
+			adapter.clearTimeout(this.iQontrolTimerID);
 		}
 		adapter.log.info("update addEvent-states");
 		const iqontrolStates: Record<string, string> = {
@@ -394,7 +394,7 @@ export class EventManager {
 		const midNight = new Date();
 		midNight.setDate(midNight.getDate() + 1);
 		midNight.setHours(0, 10, 0);
-		this.iQontrolTimerID = setTimeout(
+		this.iQontrolTimerID = adapter.setTimeout(
 			this.syncIQontrolStates.bind(this),
 			midNight.getTime() - new Date().getTime(),
 		);

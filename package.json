@@ -28,7 +28,7 @@
     "@googleapis/calendar": "^9.3.2",
     "@googleapis/oauth2": "^1.0.5",
     "@iobroker/adapter-core": "^2.6.7",
-    "axios": "^1.4.0",
+    "axios": "^1.6.3",
     "dayjs": "^1.11.7",
     "ical.js": "^1.5.0",
     "regex-escape": "^3.4.10",

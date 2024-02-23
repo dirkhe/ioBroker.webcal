@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "webcal",
-    "version": "1.3.0",
+    "version": "1.3.1",
     "news": {
+      "1.3.1": {
+        "en": "update dependecies",
+        "de": "aktualisierung der abhängigkeiten",
+        "ru": "обновление",
+        "pt": "atualizações",
+        "nl": "afhankelijkheden bijwerken",
+        "fr": "mettre à jour les dépendances",
+        "it": "dipendenze dell'aggiornamento",
+        "es": "dependencias de actualización",
+        "pl": "uaktualnianie zależności",
+        "uk": "оновлення залежності",
+        "zh-cn": "更新依赖关系"
+      },
       "1.3.0": {
         "en": "add choose calendar for events\nadd example script for vis-material-designmaterial\nadd event id to JSON data\nadd event delete function\nfix endtime\nfix missing upate of iQontrol States",
         "de": "wählen sie kalender für veranstaltungen\nbeispielskript für vis-material-designmaterial hinzufügen\njSON-Daten hinzufügen\nevent löschen funktion hinzufügen\nfixe endzeit\nbeheben fehlender Upate von iQontrol Staaten",
@@ -80,19 +93,6 @@
         "pl": "adaptacja dodarzyła się o 0:10\noprogramowanie JSON\nulepszenie konfiguracji",
         "uk": "встановити оновлення addEvent-states до 00:10\nфіксувати часові рамки для даних JSON\nфіксувати макет для налаштування",
         "zh-cn": "为00年增建新国家:10\nf 联合办数据的固定时间框架\nf 混凝土"
-      },
-      "1.0.4": {
-        "en": "fix environment setup",
-        "de": "einstellung der umgebung",
-        "ru": "исправление установки среды",
-        "pt": "configuração do ambiente de correção",
-        "nl": "de omgeving opgezet",
-        "fr": "fixation de l ' environnement",
-        "it": "impostazione ambiente",
-        "es": "configuración del entorno",
-        "pl": "seta środowiskowa",
-        "uk": "налаштування середовища",
-        "zh-cn": "固定环境"
       }
     },
     "titleLang": {

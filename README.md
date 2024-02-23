@@ -172,8 +172,9 @@ This project uses the following components:
 	### **WORK IN PROGRESS**	* ()
 
 -->
-### **WORK IN PROGRESS**	
+### 1.3.1 (2024-02-23)	
 * (dirkhe) update dependecies
+
 ### 1.3.0 (2023-10-31)	
 * (dirkhe) add choose calendar for events
 * (dirkhe) add example script for vis-material-designmaterial

@@ -151,14 +151,14 @@ export class Event {
 				dInt < -1
 					? i18n.xDaysAgo.replace("%d", Math.abs(dInt).toString())
 					: dInt == -1
-					? i18n.yesterday
-					: dInt == 0
-					? i18n.today
-					: dInt == 1
-					? i18n.Tomorrow
-					: dInt > 1
-					? i18n.inXDays.replace("%d", d)
-					: "";
+						? i18n.yesterday
+						: dInt == 0
+							? i18n.today
+							: dInt == 1
+								? i18n.Tomorrow
+								: dInt > 1
+									? i18n.inXDays.replace("%d", d)
+									: "";
 			const times = this.stateValues[d];
 			for (const i in times) {
 				const time = {

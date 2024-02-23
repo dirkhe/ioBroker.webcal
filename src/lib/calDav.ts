@@ -36,7 +36,7 @@ export class DavCalCalendar implements webcal.ICalendarBase {
 						},
 						authMethod: calConfig.authMethod,
 						defaultAccountType: "caldav",
-				  }
+					}
 				: {
 						serverUrl: calConfig.serverUrl,
 						credentials: {
@@ -45,7 +45,7 @@ export class DavCalCalendar implements webcal.ICalendarBase {
 						},
 						authMethod: "Basic",
 						defaultAccountType: "caldav",
-				  };
+					};
 		if (!params.serverUrl.endsWith("/")) {
 			params.serverUrl += "/";
 		}

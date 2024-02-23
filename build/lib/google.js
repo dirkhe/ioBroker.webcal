@@ -53,21 +53,21 @@ class GoogleCalendarEvent extends import_calendarManager.CalendarEvent {
     let end;
     if (this.googleEvent.start) {
       if (this.googleEvent.start.date) {
-        start = new Date(this.googleEvent.start.date + "T00:00");
+        start = /* @__PURE__ */ new Date(this.googleEvent.start.date + "T00:00");
       } else {
         start = new Date(this.googleEvent.start.dateTime || "");
       }
     } else {
-      start = new Date();
+      start = /* @__PURE__ */ new Date();
     }
     if (this.googleEvent.end) {
       if (this.googleEvent.end.date) {
-        end = new Date(this.googleEvent.end.date + "T23:59");
+        end = /* @__PURE__ */ new Date(this.googleEvent.end.date + "T23:59");
       } else {
         end = new Date(this.googleEvent.end.dateTime || "");
       }
     } else {
-      end = new Date();
+      end = /* @__PURE__ */ new Date();
     }
     return {
       startDate: start,
@@ -87,6 +87,11 @@ class GoogleCalendar {
       auth: this.auth
     });
   }
+  /**
+   * load Calendars from Server
+   * @param displayName if set, try to return Calendar with this name
+   * @returns Calender by displaName or primary Calendar
+   */
   async getCalendar(displayName) {
     var _a, _b;
     if (!this.calendarId) {
@@ -117,6 +122,12 @@ class GoogleCalendar {
     }
     return this.calendarId || "";
   }
+  /**
+   * fetch Events form Calendar
+   * @param startDate as date object
+   * @param endDate as date object
+   * @returns Array of Calenderobjects
+   */
   async getCalendarObjects(startDateISOString, endDateISOString) {
     const searchParams = {
       calendarId: await this.getCalendar(),
@@ -184,6 +195,11 @@ class GoogleCalendar {
     }
     return result;
   }
+  /**
+   * delte Event from Calendar
+   * @param id event id
+   * @returns Server response, like {ok:boolen}
+   */
   async deleteEvent(id) {
     let result;
     try {

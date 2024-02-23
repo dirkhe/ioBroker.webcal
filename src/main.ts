@@ -49,7 +49,7 @@ const i18n: Record<string, string> = {
 class Webcal extends utils.Adapter {
 	eventManager: EventManager;
 	calendarManager: CalendarManager;
-	private updateCalenderIntervall: ioBroker.Interval | null = null;
+	private updateCalenderIntervall: ioBroker.Interval | undefined = undefined;
 	private actionEvents: Array<ioBroker.Timeout> = []; // we save this for internal housekeeping to fullfill PR addintg to iobroker repository
 
 	public constructor(options: Partial<utils.AdapterOptions> = {}) {
@@ -267,10 +267,10 @@ class Webcal extends utils.Adapter {
 						this.addEvent(state.val as string, obj?.common.name as string).then((result) => {
 							this.setStateAsync(id, result.statusText, true);
 							this.fetchCalendars();
-							const timerID: ioBroker.Timeout = this.addTimer(
+							const timerID: ioBroker.Timeout | undefined = this.addTimer(
 								adapter.setTimeout(() => {
 									this.setStateAsync(id, "", true);
-									this.clearTimer(timerID);
+									timerID && this.clearTimer(timerID);
 								}, 60000),
 							);
 						});
@@ -281,8 +281,10 @@ class Webcal extends utils.Adapter {
 		}
 	}
 
-	addTimer(timerID: ioBroker.Timeout): ioBroker.Timeout {
-		this.actionEvents.push(timerID);
+	addTimer(timerID: ioBroker.Timeout | undefined): ioBroker.Timeout | undefined {
+		if (timerID) {
+			this.actionEvents.push(timerID);
+		}
 		return timerID;
 	}
 

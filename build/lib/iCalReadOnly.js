@@ -18,6 +18,10 @@ var __copyProps = (to, from, except, desc) => {
   return to;
 };
 var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
   isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
   mod
 ));
@@ -50,6 +54,13 @@ class ICalReadOnlyClient {
       };
     }
   }
+  /**
+   * fetch Events form Calendar and pushed them to calEvents Array
+   * @param calEvents target Array of ICalendarEventBase
+   * @param startDate as date object
+   * @param endDate as date object
+   * @returns null or errorstring
+   */
   loadEvents(calEvents, startDate, endDate) {
     let storeDefaultIgnoreSSL = null;
     if (this.ignoreSSL && process.env.NODE_TLS_REJECT_UNAUTHORIZED != "0") {
@@ -82,12 +93,19 @@ class ICalReadOnlyClient {
       }
     });
   }
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async addEvent(calEvent) {
     return {
       ok: false,
       message: "calender is readonly (" + this.name + ")"
     };
   }
+  /**
+   * delte Event from Calendar
+   * @param id event id
+   * @returns Server response, like {ok:boolen}
+   */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async deleteEvent(id) {
     return {
       ok: false,

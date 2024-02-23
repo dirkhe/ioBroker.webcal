@@ -14,6 +14,10 @@ var __copyProps = (to, from, except, desc) => {
   return to;
 };
 var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
   isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
   mod
 ));
@@ -57,12 +61,13 @@ const i18n = {
   weekDaysFull6: "Saturday"
 };
 class Webcal extends utils.Adapter {
+  // we save this for internal housekeeping to fullfill PR addintg to iobroker repository
   constructor(options = {}) {
     super({
       ...options,
       name: "webcal"
     });
-    this.updateCalenderIntervall = null;
+    this.updateCalenderIntervall = void 0;
     this.actionEvents = [];
     this.on("ready", this.onReady.bind(this));
     this.on("stateChange", this.onStateChange.bind(this));
@@ -71,6 +76,9 @@ class Webcal extends utils.Adapter {
     this.eventManager = new import_eventManager.EventManager(this, i18n);
     this.calendarManager = new import_calendarManager.CalendarManager(this, i18n);
   }
+  /**
+   * Is called when databases are connected and adapter received configuration.
+   */
   async onReady() {
     await this.initLocales();
     this.eventManager.init(this.config);
@@ -101,6 +109,9 @@ class Webcal extends utils.Adapter {
     this.subscribeStates("fetchCal");
     this.subscribeStates("events.*.addEvent");
   }
+  /**
+   * get data from all calendars and update Eventstates
+   */
   fetchCalendars() {
     this.eventManager.resetAll();
     this.calendarManager.fetchCalendars().then((calEvents) => {
@@ -122,6 +133,14 @@ class Webcal extends utils.Adapter {
     }
     return null;
   }
+  /**
+   * create new Event in calendar
+   * @param expression Syntax relDays[@calendar] | date|datetime[ - date|datetime][@calendar]
+   * relDays - number of days after today
+   * date/datetime must be parsable date
+   * \@calendar is the name of the calendar, if not use default (first defined calendar)
+   * @returns {msg:string, errNo:number}
+   */
   async addEvent(expression, summary) {
     var _a;
     adapter.log.debug("add event to calender: " + expression);
@@ -135,7 +154,7 @@ class Webcal extends utils.Adapter {
     if (terms[0].length < 4) {
       const days = parseInt(terms[0], 10);
       if (!isNaN(days)) {
-        eventData.startDate = new Date(new Date().setDate(new Date().getDate() + days)).toISOString().substring(0, 10);
+        eventData.startDate = new Date((/* @__PURE__ */ new Date()).setDate((/* @__PURE__ */ new Date()).getDate() + days)).toISOString().substring(0, 10);
       } else {
         return { statusText: i18n.invalidDate + expression, errNo: 4 };
       }
@@ -161,6 +180,9 @@ class Webcal extends utils.Adapter {
       return { statusText: result.message + " " + expression, errNo: 5 };
     }
   }
+  /**
+   * try to locale all internal used text
+   */
   async initLocales() {
     const systemConfig = await this.getForeignObjectAsync("system.config");
     if (systemConfig) {
@@ -184,6 +206,9 @@ class Webcal extends utils.Adapter {
       }
     }
   }
+  /**
+   * Is called when adapter shuts down - callback has to be called under any circumstances!
+   */
   onUnload(callback) {
     try {
       this.updateCalenderIntervall && this.clearInterval(this.updateCalenderIntervall);
@@ -197,6 +222,23 @@ class Webcal extends utils.Adapter {
       callback();
     }
   }
+  // If you need to react to object changes, uncomment the following block and the corresponding line in the constructor.
+  // You also need to subscribe to the objects with `this.subscribeObjects`, similar to `this.subscribeStates`.
+  // /**
+  //  * Is called if a subscribed object changes
+  //  */
+  // private onObjectChange(id: string, obj: ioBroker.Object | null | undefined): void {
+  // 	if (obj) {
+  // 		// The object was changed
+  // 		this.log.info(`object ${id} changed: ${JSON.stringify(obj)}`);
+  // 	} else {
+  // 		// The object was deleted
+  // 		this.log.info(`object ${id} deleted`);
+  // 	}
+  // }
+  /**
+   * Is called if a subscribed state changes
+   */
   onStateChange(id, state) {
     if (!state || state.ack) {
       return;
@@ -219,7 +261,7 @@ class Webcal extends utils.Adapter {
               const timerID = this.addTimer(
                 adapter.setTimeout(() => {
                   this.setStateAsync(id, "", true);
-                  this.clearTimer(timerID);
+                  timerID && this.clearTimer(timerID);
                 }, 6e4)
               );
             });
@@ -229,7 +271,9 @@ class Webcal extends utils.Adapter {
     }
   }
   addTimer(timerID) {
-    this.actionEvents.push(timerID);
+    if (timerID) {
+      this.actionEvents.push(timerID);
+    }
     return timerID;
   }
   clearTimer(timerID) {
@@ -239,6 +283,11 @@ class Webcal extends utils.Adapter {
       }
     }
   }
+  // If you need to accept messages in your adapter, uncomment the following block and the corresponding line in the constructor.
+  // /**
+  //  * Some message was sent to this instance over message box. Used by email, pushover, text2speech, ...
+  //  * Using this method requires "common.messagebox" property to be set to true in io-package.json
+  //  */
   async onMessage(obj) {
     this.log.debug(JSON.stringify(obj));
     if (typeof obj === "object") {
@@ -248,8 +297,8 @@ class Webcal extends utils.Adapter {
           if (calObj) {
             const error = calObj.loadEvents(
               [],
-              new Date(),
-              new Date(new Date().setDate(new Date().getDate() + 15))
+              /* @__PURE__ */ new Date(),
+              new Date((/* @__PURE__ */ new Date()).setDate((/* @__PURE__ */ new Date()).getDate() + 15))
             );
             if (error) {
               this.sendTo(obj.from, obj.command, { result: error }, obj.callback);

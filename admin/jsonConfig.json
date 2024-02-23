@@ -109,8 +109,7 @@
 							"filter": false,
 							"sort": false,
 							"multiple": true,
-							"default": null,
-							"showAllValues": false
+							"default": null
 						},
 						{
 							"type": "selectSendTo",

@@ -18,6 +18,10 @@ var __copyProps = (to, from, except, desc) => {
   return to;
 };
 var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
   isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
   mod
 ));
@@ -69,6 +73,25 @@ function getAllIcalCalendarEvents(calendarEventData, calendarName, startDate, en
   return result;
 }
 class IcalCalendarEvent extends import_calendarManager.CalendarEvent {
+  static fromData(calendarEventData, calendarName, startDate, endDate) {
+    try {
+      adapter.log.debug("parse calendar data:\n" + calendarEventData.replace(/\s*([:;=])\s*/gm, "$1"));
+      const jcalData = import_ical.default.parse(calendarEventData);
+      const comp = new import_ical.default.Component(jcalData);
+      const calTimezone = comp.getFirstSubcomponent("vtimezone");
+      return new IcalCalendarEvent(
+        comp.getFirstSubcomponent("vevent"),
+        calTimezone ? new import_ical.default.Timezone(calTimezone) : null,
+        calendarName,
+        startDate,
+        endDate
+      );
+    } catch (error) {
+      adapter.log.error("could not read calendar Event: " + error);
+      adapter.log.debug(calendarEventData);
+      return null;
+    }
+  }
   constructor(eventComp, calTimezone, calendarName, startDate, endDate) {
     super(endDate, calendarName, null);
     this.timezone = calTimezone;
@@ -98,25 +121,6 @@ class IcalCalendarEvent extends import_calendarManager.CalendarEvent {
     } catch (error) {
       adapter.log.error("could not read calendar Event: " + error);
       this.icalEvent = null;
-    }
-  }
-  static fromData(calendarEventData, calendarName, startDate, endDate) {
-    try {
-      adapter.log.debug("parse calendar data:\n" + calendarEventData.replace(/\s*([:;=])\s*/gm, "$1"));
-      const jcalData = import_ical.default.parse(calendarEventData);
-      const comp = new import_ical.default.Component(jcalData);
-      const calTimezone = comp.getFirstSubcomponent("vtimezone");
-      return new IcalCalendarEvent(
-        comp.getFirstSubcomponent("vevent"),
-        calTimezone ? new import_ical.default.Timezone(calTimezone) : null,
-        calendarName,
-        startDate,
-        endDate
-      );
-    } catch (error) {
-      adapter.log.error("could not read calendar Event: " + error);
-      adapter.log.debug(calendarEventData);
-      return null;
     }
   }
   getNextTimeObj(isFirstCall) {
@@ -153,7 +157,9 @@ class IcalCalendarEvent extends import_calendarManager.CalendarEvent {
     }
     return {
       startDate: start.toJSDate(),
+      //.local();
       endDate: end.toJSDate()
+      //.local();
     };
   }
   static createIcalEventString(data) {
@@ -163,7 +169,7 @@ class IcalCalendarEvent extends import_calendarManager.CalendarEvent {
     const event = new import_ical.default.Event(vevent);
     event.summary = data.summary;
     event.description = data.description || "ioBroker webCal";
-    event.uid = new Date().getTime().toString();
+    event.uid = (/* @__PURE__ */ new Date()).getTime().toString();
     event.startDate = typeof data.startDate == "string" ? import_ical.default.Time.fromString(data.startDate) : import_ical.default.Time.fromData(data.startDate);
     if (data.endDate) {
       event.endDate = typeof data.endDate == "string" ? import_ical.default.Time.fromString(data.endDate) : import_ical.default.Time.fromData(data.endDate);

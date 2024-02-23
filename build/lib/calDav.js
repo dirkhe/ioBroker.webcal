@@ -59,6 +59,11 @@ class DavCalCalendar {
     this.client = new import_tsdav.DAVClient(params);
     this.ignoreSSL = !!calConfig.ignoreSSL;
   }
+  /**
+   * load Calendars from Server
+   * @param displayName if set, try to return Calendar with this name
+   * @returns Calender by displaName or last part of initial ServerUrl or first found Calendar
+   */
   async getCalendar(displayName) {
     if (!this.calendar) {
       if (!this.client.account) {
@@ -87,6 +92,12 @@ class DavCalCalendar {
     }
     return this.calendar;
   }
+  /**
+   * fetch Events form Calendar
+   * @param startDate as date object
+   * @param endDate as date object
+   * @returns Array of Calenderobjects
+   */
   async getCalendarObjects(startDateISOString, endDateISOString) {
     let storeDefaultIgnoreSSL = null;
     if (this.ignoreSSL && process.env.NODE_TLS_REJECT_UNAUTHORIZED != "0") {
@@ -108,6 +119,13 @@ class DavCalCalendar {
       }
     });
   }
+  /**
+   * fetch Events form Calendar and pushed them to calEvents Array
+   * @param calEvents target Array of ICalendarEventBase
+   * @param startDate as date object
+   * @param endDate as date object
+   * @returns null or errorstring
+   */
   loadEvents(calEvents, startDate, endDate) {
     return this.getCalendarObjects(startDate.toISOString(), endDate.toISOString()).then((calendarObjects) => {
       if (calendarObjects) {
@@ -127,6 +145,11 @@ class DavCalCalendar {
       return reason.message;
     });
   }
+  /**
+   * add Event to Calendar
+   * @param data event data
+   * @returns Server response, like {ok:boolen}
+   */
   async addEvent(data) {
     let storeDefaultIgnoreSSL = null;
     if (this.ignoreSSL && process.env.NODE_TLS_REJECT_UNAUTHORIZED != "0") {
@@ -138,7 +161,7 @@ class DavCalCalendar {
       const calendarEventData = import_IcalCalendarEvent.IcalCalendarEvent.createIcalEventString(data);
       result = await this.client.createCalendarObject({
         calendar: await this.getCalendar(),
-        filename: new Date().getTime() + ".ics",
+        filename: (/* @__PURE__ */ new Date()).getTime() + ".ics",
         iCalString: calendarEventData
       });
     } catch (error) {
@@ -152,6 +175,11 @@ class DavCalCalendar {
     }
     return result;
   }
+  /**
+   * delte Event from Calendar
+   * @param id event id
+   * @returns Server response, like {ok:boolen}
+   */
   async deleteEvent(id) {
     let storeDefaultIgnoreSSL = null;
     if (this.ignoreSSL && process.env.NODE_TLS_REJECT_UNAUTHORIZED != "0") {

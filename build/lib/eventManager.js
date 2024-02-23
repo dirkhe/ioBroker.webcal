@@ -18,6 +18,10 @@ var __copyProps = (to, from, except, desc) => {
   return to;
 };
 var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
   isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
   mod
 ));
@@ -32,7 +36,7 @@ var import_dayjs = __toESM(require("dayjs"));
 var import_regex_escape = __toESM(require("regex-escape"));
 let adapter;
 let i18n = {};
-const _Event = class {
+const _Event = class _Event {
   constructor(config) {
     this.stateValues = {};
     this.nowFlag = null;
@@ -140,8 +144,8 @@ const _Event = class {
       }
     });
     const jsonData = [];
-    let next = new Date("9999-12-31");
-    const now = new Date();
+    let next = /* @__PURE__ */ new Date("9999-12-31");
+    const now = /* @__PURE__ */ new Date();
     for (const d in this.stateValues) {
       const dInt = parseInt(d, 10);
       const dateText = dInt < -1 ? i18n.xDaysAgo.replace("%d", Math.abs(dInt).toString()) : dInt == -1 ? i18n.yesterday : dInt == 0 ? i18n.today : dInt == 1 ? i18n.Tomorrow : dInt > 1 ? i18n.inXDays.replace("%d", d) : "";
@@ -209,10 +213,10 @@ const _Event = class {
     adapter.setStateChangedAsync(_Event.namespace + this.id + ".now", stateText, true);
   }
 };
+_Event.namespace = "events.";
+_Event.daysFuture = 3;
+_Event.daysPast = 0;
 let Event = _Event;
-Event.namespace = "events.";
-Event.daysFuture = 3;
-Event.daysPast = 0;
 class EventManager {
   constructor(adapterInstance, i18nInstance) {
     adapter = adapterInstance;
@@ -230,6 +234,9 @@ class EventManager {
     }
     this.syncEventStateObjects();
   }
+  /**
+   * create/update/delete all Event State objects based on config
+   */
   syncEventStateObjects() {
     const allEventIDs = {};
     for (const evID in this.events) {
@@ -338,7 +345,7 @@ class EventManager {
       "0": i18n.today,
       "1": i18n.Tomorrow
     };
-    const d = new Date().getDay();
+    const d = (/* @__PURE__ */ new Date()).getDay();
     for (let i = 2; i < 7; i++) {
       iqontrolStates[i.toString()] = i18n["weekDaysFull" + new String((d + i) % 7)] + " " + i18n.inXDays.replace("%d", i.toString());
     }
@@ -352,12 +359,12 @@ class EventManager {
         });
       }
     }
-    const midNight = new Date();
+    const midNight = /* @__PURE__ */ new Date();
     midNight.setDate(midNight.getDate() + 1);
     midNight.setHours(0, 10, 0);
     this.iQontrolTimerID = adapter.setTimeout(
       this.syncIQontrolStates.bind(this),
-      midNight.getTime() - new Date().getTime()
+      midNight.getTime() - (/* @__PURE__ */ new Date()).getTime()
     );
   }
   syncFlags() {

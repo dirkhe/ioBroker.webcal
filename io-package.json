@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "webcal",
-    "version": "1.3.1",
+    "version": "1.3.2",
     "news": {
+      "1.3.2": {
+        "en": "update dependecies\nlinting",
+        "de": "aktualisierung der abhängigkeiten\nlining",
+        "ru": "обновление\nlinting",
+        "pt": "atualizações\nforro",
+        "nl": "afhankelijkheden bijwerken\nlinting",
+        "fr": "mettre à jour les dépendances\nlintage",
+        "it": "dipendenze dell'aggiornamento\ni",
+        "es": "dependencias de actualización\nrevestimiento",
+        "pl": "uaktualnianie zależności\nlinting",
+        "uk": "оновлення залежності\nлипкі",
+        "zh-cn": "更新依赖关系\n线性"
+      },
       "1.3.1": {
         "en": "update dependecies",
         "de": "aktualisierung der abhängigkeiten",
@@ -80,19 +93,6 @@
         "pl": "dodać obraz Dokumentacja Google\nwłasność przycisku\ndodać do domu Interval/setTimeout\nuaktualnienie interwaluacji za minimum 10 minut",
         "uk": "додати зображення Документація Google API\nфіксувати властивість кнопки\nдодати прибирання будинку для набору Інтервал/setTimeout\nперевірити оновленнявстановити мінімум 10 хвилин",
         "zh-cn": "增加图像 谷歌协会文件\nfix 但顿的财产\n增加住房 B. 间隔/制度\n至少10分钟的检查"
-      },
-      "1.0.5": {
-        "en": "set update addEvent-states to 00:10\nfix timeframe for JSON data\nfix layout for config",
-        "de": "set update addEvent-states to 00:10\nzeitrahmen für JSON-Daten festlegen\nfixlayout für config",
-        "ru": "установить обновление addEvent-states до 00:10\nисправить таймфрейм для данных JSON\nfix макет для config",
-        "pt": "set update addEvent-states to 00:10\ntempo de correção para dados JSON\nlayout de correção para configuração",
-        "nl": "vertaling:\nvertaling:\nvertaling:",
-        "fr": "set update addEvent-states to 00:10\nfix timeframe pour les données JSON\ncorrection de la configuration",
-        "it": "set update addEvent-states a 00:10\nfissare il tempo per i dati JSON\nfix layout per config",
-        "es": "set update addEvent-states to 00:10\nfijar el plazo para los datos JSON\ndiseño de fijación para configuración",
-        "pl": "adaptacja dodarzyła się o 0:10\noprogramowanie JSON\nulepszenie konfiguracji",
-        "uk": "встановити оновлення addEvent-states до 00:10\nфіксувати часові рамки для даних JSON\nфіксувати макет для налаштування",
-        "zh-cn": "为00年增建新国家:10\nf 联合办数据的固定时间框架\nf 混凝土"
       }
     },
     "titleLang": {

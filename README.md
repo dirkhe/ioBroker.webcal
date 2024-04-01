@@ -175,6 +175,7 @@ This project uses the following components:
 -->
 ### **WORK IN PROGRESS**	
 * (dirkhe) update dependecies
+* (dirkhe) update year for copyright #56
 
 ### 1.3.2 (2024-02-23)
 * (dirkhe) update dependecies
@@ -244,7 +245,7 @@ This project uses the following components:
 ## License
 MIT License
 
-Copyright (c) 2023 dirkhe 
+Copyright (c) 2024 dirkhe 
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

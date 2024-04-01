@@ -176,6 +176,7 @@ This project uses the following components:
 ### **WORK IN PROGRESS**	
 * (dirkhe) update dependecies
 * (dirkhe) update year for copyright #56
+* (dirkhe) increase to node 18 for CI Pipeline
 
 ### 1.3.2 (2024-02-23)
 * (dirkhe) update dependecies

@@ -169,9 +169,13 @@ This project uses the following components:
 ## Changelog
 <!--
 	Placeholder for the next version (at the beginning of the line):
-	### **WORK IN PROGRESS**	* ()
+	### **WORK IN PROGRESS**
+  * ()
 
 -->
+### **WORK IN PROGRESS**	
+* (dirkhe) update dependecies
+
 ### 1.3.2 (2024-02-23)
 * (dirkhe) update dependecies
 * (dirkhe) linting

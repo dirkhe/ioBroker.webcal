@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "webcal",
-    "version": "1.3.2",
+    "version": "1.3.3",
     "news": {
+      "1.3.3": {
+        "en": "fix config validation\nupdate dependecies\nupdate year for copyright #56\nincrease to node 18 for CI Pipeline",
+        "de": "fix config validierung\naktualisierung der abhängigkeiten\nupdatejahr für copyright #56\nerhöhung des Knotens 18 für CI Pipeline",
+        "ru": "проверка конфигурации\nобновление\n#56\nувеличение до узла 18 для трубопровода CI",
+        "pt": "corrigir validação de configuração\natualizações\nano de atualização para direitos autorais #56\naumento no nó 18 para CI Pipeline",
+        "nl": "fix config validatie\nafhankelijkheden bijwerken\nupdatejaar voor copyright #56\nverhoging tot knooppunt 18 voor CI Pipeline",
+        "fr": "corriger la validation de configuration\nmettre à jour les dépendances\nmise à jour année pour copyright #56\naugmentation au nœud 18 pour CI Pipeline",
+        "it": "correzione della convalida di configurazione\ndipendenze dell'aggiornamento\naggiornamento anno per copyright #56\naumento al nodo 18 per CI Pipeline",
+        "es": "fija la validación de config\ndependencias de actualización\naño de actualización para copyright #56\naumentar al nodo 18 para CI Pipeline",
+        "pl": "fix config walidacja\nuaktualnianie zależności\naktualizacja roku dla praw autorskich # 56\nzwiększenie do węzła 18 dla CI Pipeline",
+        "uk": "виправити перевірку\nоновлення залежності\nрік оновлення для авторського права #56\nзбільшення вузла 18 для CI Pipeline",
+        "zh-cn": "修复配置验证\n更新依赖关系\n版权更新年份56\ncI管道增加为节点18"
+      },
       "1.3.2": {
         "en": "update dependecies\nlinting",
         "de": "aktualisierung der abhängigkeiten\nlining",
@@ -80,19 +93,6 @@
         "pl": "zmiana stanu z grupy do folderzy",
         "uk": "змінити тип стану події з групи в папку",
         "zh-cn": "b. 改变事件的类别"
-      },
-      "1.0.6": {
-        "en": "add pictured Google API documentation\nfix property of button\nadd housekeeping for setInterval/setTimeout\ncheck updateinterval for minimum of 10 minutes",
-        "de": "bild hinzugefügt Google API Dokumentation\neigenschaften der schaltfläche beheben\nhousekeeping für Set hinzufügen Interval / SetTimeout\nkontroll-update-interval für mindestens 10 minuten",
-        "ru": "добавить фото Документация Google API\nисправить свойство кнопки\nдобавить домохозяйку для набора Интервал/setTimeout\nпроверить обновлениеинтервал минимум на 10 минут",
-        "pt": "adicionar imagem Documentação do Google API\ncorrigir a propriedade do botão\nadicionar limpeza para conjunto Interval/setTimeout\ncheck updateinterval para mínimo de 10 minutos",
-        "nl": "vertaling: Google API documentatie\nvertaling:\nvoeg huishoudster toe Interval\ncontrole update over minimaal 10 minuten",
-        "fr": "ajouter photo Google API documentation\nréparer la propriété de bouton\najouter la tenue de maison pour set Intervalle/temps\nvérifier l'intervale de mise à jour pendant au moins 10 minutes",
-        "it": "aggiungere foto Documentazione API di Google\nfissare la proprietà del pulsante\naggiungere pulizia per set Intervallo/setTimeout\ncontrollare l'aggiornamentointerval per minimo 10 minuti",
-        "es": "añadir pictured Documentación de Google API\narreglar propiedad de botón\nañadir limpieza para el set Interval/setTimeout\ncheck updateinterval por mínimo 10 minutos",
-        "pl": "dodać obraz Dokumentacja Google\nwłasność przycisku\ndodać do domu Interval/setTimeout\nuaktualnienie interwaluacji za minimum 10 minut",
-        "uk": "додати зображення Документація Google API\nфіксувати властивість кнопки\nдодати прибирання будинку для набору Інтервал/setTimeout\nперевірити оновленнявстановити мінімум 10 хвилин",
-        "zh-cn": "增加图像 谷歌协会文件\nfix 但顿的财产\n增加住房 B. 间隔/制度\n至少10分钟的检查"
       }
     },
     "titleLang": {

@@ -173,7 +173,7 @@ This project uses the following components:
   * ()
 
 -->
-### **WORK IN PROGRESS**	
+### 1.3.3 (2024-04-07)	
 * (dirkhe) fix config validation
 * (dirkhe) update dependecies
 * (dirkhe) update year for copyright #56

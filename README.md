@@ -174,6 +174,7 @@ This project uses the following components:
 
 -->
 ### **WORK IN PROGRESS**	
+* (dirkhe) fix config validation
 * (dirkhe) update dependecies
 * (dirkhe) update year for copyright #56
 * (dirkhe) increase to node 18 for CI Pipeline

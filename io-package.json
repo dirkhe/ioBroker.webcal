@@ -130,7 +130,8 @@
       "CALDAV",
       "Google Calendar"
     ],
-    "license": "MIT",
+    "licenseInformation": "Free",
+    "tier": 2,
     "platform": "Javascript/Node.js",
     "main": "build/main.js",
     "icon": "webcal.png",

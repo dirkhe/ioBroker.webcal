@@ -34,8 +34,8 @@ __export(iCalReadOnly_exports, {
 module.exports = __toCommonJS(iCalReadOnly_exports);
 var import_axios = __toESM(require("axios"));
 var import_IcalCalendarEvent = require("./IcalCalendarEvent");
-function initLib(adapterInstance, localTimeZone) {
-  (0, import_IcalCalendarEvent.initLib)(adapterInstance, localTimeZone);
+function initLib(adapterInstance) {
+  (0, import_IcalCalendarEvent.initLib)(adapterInstance);
 }
 class ICalReadOnlyClient {
   constructor(calConfig) {

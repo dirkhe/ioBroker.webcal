@@ -6,9 +6,9 @@ import { initLib as IcalInit, getAllIcalCalendarEvents } from "./IcalCalendarEve
 
 //let adapter: AdapterInstance;
 
-export function initLib(adapterInstance: AdapterInstance, localTimeZone: string): void {
+export function initLib(adapterInstance: AdapterInstance): void {
 	//adapter = adapterInstance;
-	IcalInit(adapterInstance, localTimeZone);
+	IcalInit(adapterInstance);
 }
 
 export class ICalReadOnlyClient implements webcal.ICalendarBase {

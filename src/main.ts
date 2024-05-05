@@ -74,9 +74,9 @@ class Webcal extends utils.Adapter {
 		await this.initLocales();
 		this.eventManager.init(this.config);
 		this.calendarManager.init(this.config);
-		calDavInit(this, localTimeZone);
+		calDavInit(this);
 		googleInit(this, localTimeZone);
-		icalROInit(this, localTimeZone);
+		icalROInit(this);
 		if (this.config.calendars) {
 			for (let c = 0; c < this.config.calendars.length; c++) {
 				this.calendarManager.addCalendar(

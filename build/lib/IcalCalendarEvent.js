@@ -36,7 +36,7 @@ module.exports = __toCommonJS(IcalCalendarEvent_exports);
 var import_ical = __toESM(require("ical.js"));
 var import_calendarManager = require("./calendarManager");
 let adapter;
-function initLib(adapterInstance, localTimeZone) {
+function initLib(adapterInstance) {
   adapter = adapterInstance;
 }
 function getAllIcalCalendarEvents(calendarEventData, calendarName, startDate, endDate, checkDateRange) {

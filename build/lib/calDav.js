@@ -25,9 +25,9 @@ module.exports = __toCommonJS(calDav_exports);
 var import_tsdav = require("tsdav");
 var import_IcalCalendarEvent = require("./IcalCalendarEvent");
 let adapter;
-function initLib(adapterInstance, localTimeZone) {
+function initLib(adapterInstance) {
   adapter = adapterInstance;
-  (0, import_IcalCalendarEvent.initLib)(adapterInstance, localTimeZone);
+  (0, import_IcalCalendarEvent.initLib)(adapterInstance);
 }
 class DavCalCalendar {
   constructor(calConfig) {

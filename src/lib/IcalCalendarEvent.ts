@@ -7,7 +7,7 @@ import { CalendarEvent, ICalendarTimeRangObj } from "./calendarManager";
 import { AdapterInstance } from "@iobroker/adapter-core";
 let adapter: AdapterInstance;
 
-export function initLib(adapterInstance: AdapterInstance, localTimeZone: string): void {
+export function initLib(adapterInstance: AdapterInstance): void {
 	adapter = adapterInstance;
 	//ICAL.Timezone.localTimezone = new ICAL.Timezone({ tzID: localTimeZone });
 }

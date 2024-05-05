@@ -6,9 +6,9 @@ import { IcalCalendarEvent, initLib as IcalInit } from "./IcalCalendarEvent";
 
 let adapter: AdapterInstance;
 
-export function initLib(adapterInstance: AdapterInstance, localTimeZone: string): void {
+export function initLib(adapterInstance: AdapterInstance): void {
 	adapter = adapterInstance;
-	IcalInit(adapterInstance, localTimeZone);
+	IcalInit(adapterInstance);
 }
 export class DavCalCalendar implements webcal.ICalendarBase {
 	name: string;

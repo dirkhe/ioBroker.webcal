@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "webcal",
-    "version": "1.3.3",
+    "version": "1.3.4",
     "news": {
+      "1.3.4": {
+        "en": "increase dependecy adapter-core\nfix json config\nupdate dependecies",
+        "de": "erhöhen abhängigkeit adapter-kern\njson config\naktualisierung der abhängigkeiten",
+        "ru": "повышение зависимочности адаптер\nисправить настройку json\nобновление",
+        "pt": "aumentar o núcleo do adaptador de dependência\ncorrigir json config\natualizações",
+        "nl": "verhoging afhankelijkheid adapter-core\nfix json config\nafhankelijkheden bijwerken",
+        "fr": "augmenter adaptateur-core de dépendance\nréparer la configuration de json\nmettre à jour les dépendances",
+        "it": "aumento dipendenza adattatore-core\nfix json config\ndipendenze dell'aggiornamento",
+        "es": "aumentar la dependencia adaptador-core\njson config\ndependencias de actualización",
+        "pl": "zwiększenie zależności adapter-rdzeń\nfix json config\nuaktualnianie zależności",
+        "uk": "збільшення залежності\nвиправлено json config\nоновлення залежності",
+        "zh-cn": "增加依赖性适配器核心\n修复 json 配置\n更新依赖关系"
+      },
       "1.3.3": {
         "en": "fix config validation\nupdate dependecies\nupdate year for copyright #56\nincrease to node 18 for CI Pipeline",
         "de": "fix config validierung\naktualisierung der abhängigkeiten\nupdatejahr für copyright #56\nerhöhung des Knotens 18 für CI Pipeline",
@@ -80,19 +93,6 @@
         "pl": "dodać Komendanta dodawania Aby to zrobić\nustalenie daty, jeśli dzień będzie tylko jedną cyfrą\naktualizacja",
         "uk": "addEvent-command для відправки до\nфіксувати дату парсингу, якщо день тільки один цифра\nоновлення залежності",
         "zh-cn": "增 发 导 言\nf 固定日期,只有一天数字\na. 最新依赖情况"
-      },
-      "1.0.7": {
-        "en": "change event state type from group to folder",
-        "de": "änderung von ereigniszustandstyp von gruppe zu ordner",
-        "ru": "изменить тип события из группы в папку",
-        "pt": "alterar o tipo de estado do evento de grupo para pasta",
-        "nl": "veranderingstype van de groep",
-        "fr": "changement de type d'état d'événement de groupe à dossier",
-        "it": "cambiare tipo di stato evento da gruppo a cartella",
-        "es": "cambiar el tipo de estado del evento de grupo a carpeta",
-        "pl": "zmiana stanu z grupy do folderzy",
-        "uk": "змінити тип стану події з групи в папку",
-        "zh-cn": "b. 改变事件的类别"
       }
     },
     "titleLang": {

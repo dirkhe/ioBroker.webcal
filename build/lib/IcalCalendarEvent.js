@@ -38,7 +38,6 @@ var import_calendarManager = require("./calendarManager");
 let adapter;
 function initLib(adapterInstance, localTimeZone) {
   adapter = adapterInstance;
-  import_ical.default.Timezone.localTimezone = new import_ical.default.Timezone({ tzID: localTimeZone });
 }
 function getAllIcalCalendarEvents(calendarEventData, calendarName, startDate, endDate, checkDateRange) {
   const result = [];

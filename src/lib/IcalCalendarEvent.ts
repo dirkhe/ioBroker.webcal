@@ -9,7 +9,7 @@ let adapter: AdapterInstance;
 
 export function initLib(adapterInstance: AdapterInstance, localTimeZone: string): void {
 	adapter = adapterInstance;
-	ICAL.Timezone.localTimezone = new ICAL.Timezone({ tzID: localTimeZone });
+	//ICAL.Timezone.localTimezone = new ICAL.Timezone({ tzID: localTimeZone });
 }
 
 export function getAllIcalCalendarEvents(

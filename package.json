@@ -30,7 +30,7 @@
     "@iobroker/adapter-core": "^3.1.4",
     "axios": "^1.6.8",
     "dayjs": "^1.11.10",
-    "ical.js": "^1.5.0",
+    "ical.js": "^2.0.1",
     "regex-escape": "^3.4.10",
     "tsdav": "^2.0.9"
   },
@@ -64,7 +64,7 @@
     "sinon-chai": "^3.7.0",
     "source-map-support": "^0.5.21",
     "ts-node": "^10.9.2",
-    "typescript": "~5.3.3"
+    "typescript": "~5.4.5"
   },
   "main": "build/main.js",
   "files": [

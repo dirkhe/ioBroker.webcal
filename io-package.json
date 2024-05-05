@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "webcal",
-    "version": "1.3.4",
+    "version": "1.3.5",
     "news": {
+      "1.3.5": {
+        "en": "increase dependecy adapter-core\nfix json config\nupdate dependecies",
+        "de": "erhöhen abhängigkeit adapter-kern\njson config\naktualisierung der abhängigkeiten",
+        "ru": "повышение зависимочности адаптер\nисправить настройку json\nобновление",
+        "pt": "aumentar o núcleo do adaptador de dependência\ncorrigir json config\natualizações",
+        "nl": "verhoging afhankelijkheid adapter-core\nfix json config\nafhankelijkheden bijwerken",
+        "fr": "augmenter adaptateur-core de dépendance\nréparer la configuration de json\nmettre à jour les dépendances",
+        "it": "aumento dipendenza adattatore-core\nfix json config\ndipendenze dell'aggiornamento",
+        "es": "aumentar la dependencia adaptador-core\njson config\ndependencias de actualización",
+        "pl": "zwiększenie zależności adapter-rdzeń\nfix json config\nuaktualnianie zależności",
+        "uk": "збільшення залежності\nвиправлено json config\nоновлення залежності",
+        "zh-cn": "增加依赖性适配器核心\n修复 json 配置\n更新依赖关系"
+      },
       "1.3.4": {
         "en": "increase dependecy adapter-core\nfix json config\nupdate dependecies",
         "de": "erhöhen abhängigkeit adapter-kern\njson config\naktualisierung der abhängigkeiten",
@@ -80,19 +93,6 @@
         "pl": "opis dodawania To-addEvent\nustalenie\ndodać do logowania, który jest używany kalendarz google\ndodać\ndodać czytelnikowi klientowi dodają do icalowego klienta",
         "uk": "додати опис для sendTo-addEvent\nфіксувати події\nдодати журнал, який використовується google календар\nдодати датафільтр для читання\nдодавати клієнту читаванню",
         "zh-cn": "发 发 明\nf 计算事件\n用来衡量日历的附加逻辑\n增 日\n读者"
-      },
-      "1.1.0": {
-        "en": "add addEvent-command to sendTo\nfix date parsing, if day only one digit\nupdate dependecies",
-        "de": "addEvent-command to send Zu\nfix date parsing, wenn tag nur eine ziffer\naktualisierung der abhängigkeiten",
-        "ru": "добавить addEvent-command для отправки В\nисправить дату parsing, если день только одна цифра\nобновление зависимостей",
-        "pt": "addEvent-command para enviar Para\ncorreção parsing data, se o dia só um dígito\natualizações",
-        "nl": "vertaling: ♪\nals de dag maar één cijfer is\nvertaling:",
-        "fr": "ajouter addEvent-command pour envoyer To\nfixer la date parsing, si le jour seulement un chiffre\nmettre à jour les dépendances",
-        "it": "aggiungere addEvent-comand per inviare A\nfissare la data parsing, se solo giorno una cifra\ndipendenze di aggiornamento",
-        "es": "añadir addEvent-command para enviar A\nfijar fecha paresing, si día sólo un dígito\ndependencias de actualización",
-        "pl": "dodać Komendanta dodawania Aby to zrobić\nustalenie daty, jeśli dzień będzie tylko jedną cyfrą\naktualizacja",
-        "uk": "addEvent-command для відправки до\nфіксувати дату парсингу, якщо день тільки один цифра\nоновлення залежності",
-        "zh-cn": "增 发 导 言\nf 固定日期,只有一天数字\na. 最新依赖情况"
       }
     },
     "titleLang": {

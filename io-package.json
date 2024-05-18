@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "webcal",
-    "version": "1.3.5",
+    "version": "1.3.6",
     "news": {
+      "1.3.6": {
+        "en": "fix bug in repeated events",
+        "de": "fehler in wiederholten ereignissen beheben",
+        "ru": "исправление ошибки в повторяющихся событиях",
+        "pt": "corrigir o erro em eventos repetidos",
+        "nl": "fout herstellen in herhaalde gebeurtenissen",
+        "fr": "correction du bug dans les événements répétés",
+        "it": "correggere bug in eventi ripetuti",
+        "es": "solucionar fallos en eventos repetidos",
+        "pl": "naprawić błąd w powtarzanych zdarzeniach",
+        "uk": "виправлення помилок в повторних подіях",
+        "zh-cn": "在重复发生的事件中修正错误"
+      },
       "1.3.5": {
         "en": "increase dependecy adapter-core\nfix json config\nupdate dependecies",
         "de": "erhöhen abhängigkeit adapter-kern\njson config\naktualisierung der abhängigkeiten",
@@ -80,19 +93,6 @@
         "pl": "dodać kalendarz do wydarzeń\nprzykładem może być wizualizacja\ndostarcza się do danych JSON\nfunkcja dodać\nnaprawa\nnieustannienie granic państwa iQontrol",
         "uk": "додати календар на події\nadd example скрипт для vis-material-designmaterial\nдодати ідентифікатор заходу до даних JSON\nдодати функцію видалення подій\nфіксація endtime\nвиправити відсутній upate iQontrol держави",
         "zh-cn": "增加活动日历\n补充说明\n补充活动\n删除职能\nf 终止时间\nf 失踪的国名"
-      },
-      "1.2.0": {
-        "en": "add description for sendTo-addEvent\nfix calculating events\nadd log which google calendar is used \nadd datefilter for readonly \nadd readonly client for ical",
-        "de": "beschreibung hinzufügen für sendTo-addEvent\nberechnen von ereignissen\nlog hinzufügen, der google kalender verwendet wird\ndatumsfilter für readonly hinzufügen\nadd readonly client for ical",
-        "ru": "добавить описание для sendTo-addEvent\nисправить расчетные события\nдобавить лог, который используется google calendar\nдобавить datefilter для readonly\nдобавить читательского клиента для ical",
-        "pt": "adicionar descrição para sendTo-addEvent\ncorrigir eventos de cálculo\nadicionar log que o calendário do google é usado\nadicionar datafilter para somente leitura\nadicionar cliente somente leitura para ical",
-        "nl": "vertaling:\nvertaling:\nvoeg het logboek dat google kalender gebruikt\nvoeg datumfilter toe\nvoeg de lezers toe",
-        "fr": "ajouter la description pour sendTo-addEvent\ncalcul des événements\najouter log quel calendrier google est utilisé\najouter datefilter pour readonly\najouter le client lisible pour ical",
-        "it": "aggiungere la descrizione per sendTo-addEvent\nfissare gli eventi di calcolo\naggiungere il registro che il calendario di google viene utilizzato\naggiungere datafilter per sola lettura\naggiungere client di sola lettura per ical",
-        "es": "añadir descripción para sendTo-addEvent\narreglar eventos de cálculo\nañadir log que google calendario se utiliza\nañadir fechafiltro para sólo lectura\nañadir leonly cliente para ical",
-        "pl": "opis dodawania To-addEvent\nustalenie\ndodać do logowania, który jest używany kalendarz google\ndodać\ndodać czytelnikowi klientowi dodają do icalowego klienta",
-        "uk": "додати опис для sendTo-addEvent\nфіксувати події\nдодати журнал, який використовується google календар\nдодати датафільтр для читання\nдодавати клієнту читаванню",
-        "zh-cn": "发 发 明\nf 计算事件\n用来衡量日历的附加逻辑\n增 日\n读者"
       }
     },
     "titleLang": {

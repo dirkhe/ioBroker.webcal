@@ -113,7 +113,7 @@ export class IcalCalendarEvent extends CalendarEvent {
 								minute: timeObj.startDate.getMinutes(),
 							},
 							this.timezone,
-						);						
+						);
 						this.recurIterator = this.icalEvent.iterator();
 						this.recurIterator.next(startTime);
 					}

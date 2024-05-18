@@ -99,6 +99,8 @@ export class IcalCalendarEvent extends CalendarEvent {
 			this.id = this.icalEvent.uid;
 
 			if (this.icalEvent.isRecurring()) {
+				this.recurIterator = this.icalEvent.iterator();
+				/*
 				if (!["HOURLY", "SECONDLY", "MINUTELY"].includes(this.icalEvent.getRecurrenceTypes())) {
 					const timeObj = this.getNextTimeObj(true);
 					if (timeObj) {
@@ -106,15 +108,17 @@ export class IcalCalendarEvent extends CalendarEvent {
 							{
 								year: startDate.getFullYear(),
 								month: startDate.getMonth() + 1,
-								day: startDate.getDate(),
+								day: startDate.getDate() - 1,
 								hour: timeObj.startDate.getHours(),
 								minute: timeObj.startDate.getMinutes(),
 							},
 							this.timezone,
-						);
-						this.recurIterator = this.icalEvent.iterator(startTime);
+						);						
+						this.recurIterator = this.icalEvent.iterator();
+						this.recurIterator.next(startTime);
 					}
 				}
+				*/
 			}
 		} catch (error) {
 			adapter.log.error("could not read calendar Event: " + error);

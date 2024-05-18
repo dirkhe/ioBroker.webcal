@@ -173,6 +173,8 @@ This project uses the following components:
   * ()
 
 -->
+### **WORK IN PROGRESS**
+  * (dirkhe) fix bug in repeated events
 ### 1.3.5 (2024-05-05)
 * (dirkhe) increase dependecy adapter-core
 * (dirkhe) fix json config

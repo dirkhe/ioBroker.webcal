@@ -74,7 +74,7 @@ const _Event = class _Event {
       }
       values.push(days[day]);
     }
-    adapter.log.debug("days for event " + this.name + ": " + JSON.stringify(this.stateValues));
+    adapter.log.silly("days for event '" + this.name + "': " + JSON.stringify(this.stateValues));
     const today = days[0];
     if (today) {
       const startTime = today.startTime || "00:00";

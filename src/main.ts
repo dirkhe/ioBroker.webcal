@@ -115,15 +115,25 @@ class Webcal extends utils.Adapter {
 	}
 
 	createCalendarFromConfig(calConfig: webcal.IConfigCalendar): webcal.ICalendarBase | null {
-		if (calConfig.password && !calConfig.inactive) {
-			if (calConfig.authMethod == "google") {
-				return new GoogleCalendar(calConfig);
-			} else if (calConfig.authMethod == "Download") {
-				return new ICalReadOnlyClient(calConfig);
+		if (!calConfig.inactive) {
+			if (calConfig.password) {
+				if (calConfig.authMethod == "google") {
+					this.log.info("create google calendar: " + calConfig.name);
+					return new GoogleCalendar(calConfig);
+				} else if (calConfig.authMethod == "Download") {
+					this.log.info("create Download calendar: " + calConfig.name);
+					return new ICalReadOnlyClient(calConfig);
+				} else {
+					this.log.info("create DAV calendar: " + calConfig.name);
+					return new DavCalCalendar(calConfig);
+				}
 			} else {
-				return new DavCalCalendar(calConfig);
+				this.log.warn("calendar " + calConfig.name + " has no password set");
 			}
+		} else {
+			this.log.info("calendar " + calConfig.name + " is inactive");
 		}
+
 		return null;
 	}
 	/**

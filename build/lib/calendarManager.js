@@ -69,13 +69,13 @@ const _CalendarEvent = class _CalendarEvent {
     const content = (this.summary || "") + (this.description || "");
     if (content.length) {
       adapter.log.debug(
-        "check calendar(" + this.calendarName + ") event " + (this.summary || "") + " " + (this.description || "")
+        "check calendar(" + this.calendarName + ") event '" + (this.summary || "") + "' " + (this.description || "")
       );
       const eventHits = [];
       for (const evID in events) {
         const event = events[evID];
         if (event.checkCalendarContent(content, this.calendarName)) {
-          adapter.log.debug("  found event '" + event.name + "' in calendar event ");
+          adapter.log.debug("  found event '" + event.name + "' in calendar-event ");
           eventHits.push(event);
         }
       }
@@ -132,7 +132,12 @@ const _CalendarEvent = class _CalendarEvent {
           days[firstDay].endTime = time;
         }
       }
-      adapter.log.debug("days for calendar event(" + JSON.stringify(timeObj) + "): " + JSON.stringify(days));
+      const days_string = JSON.stringify(days);
+      if (days_string.length > 2) {
+        adapter.log.debug("days for calendar-event(" + JSON.stringify(timeObj) + "): " + days_string);
+      } else {
+        adapter.log.silly("no days for calendar-event(" + JSON.stringify(timeObj) + ") found ");
+      }
     }
     return days;
   }
@@ -225,6 +230,7 @@ class CalendarManager {
     const startDate = CalendarEvent.todayMidnight.add(-CalendarEvent.daysPast, "d").toDate();
     const endDate = CalendarEvent.todayMidnight.add(CalendarEvent.daysFuture, "d").endOf("D").toDate();
     for (const c in this.calendars) {
+      adapter.log.debug("fetching Calendar " + c);
       const error = await this.calendars[c].loadEvents(calEvents, startDate, endDate);
       if (error) {
         adapter.log.error("could not fetch Calendar " + c + ": " + error);

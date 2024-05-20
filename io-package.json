@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "webcal",
-    "version": "1.3.6",
+    "version": "1.3.7",
     "news": {
+      "1.3.7": {
+        "en": "improve logging\nfix passort was not stored",
+        "de": "verbesserung der protokollierung\nfix passort wurde nicht gespeichert",
+        "ru": "улучшение лесозаготовок\nне хранился",
+        "pt": "melhorar o registro\ncorrigir a páscoa não foi armazenada",
+        "nl": "verbeteren van het loggen\nfix passort is niet bewaard",
+        "fr": "améliorer l'exploitation\nfix passort n'a pas été stocké",
+        "it": "migliorare la registrazione\ncorrezione pasquart non è stato memorizzato",
+        "es": "mejorar el registro\npasillo de fijación no fue almacenado",
+        "pl": "poprawić wylogowanie\npassort fix nie został zapisany",
+        "uk": "покращити залогу\nфіксований пасорт не зберігався",
+        "zh-cn": "改进伐木\n固定传感器没有存储"
+      },
       "1.3.6": {
         "en": "fix bug in repeated events",
         "de": "fehler in wiederholten ereignissen beheben",
@@ -80,19 +93,6 @@
         "pl": "uaktualnianie zależności",
         "uk": "оновлення залежності",
         "zh-cn": "更新依赖关系"
-      },
-      "1.3.0": {
-        "en": "add choose calendar for events\nadd example script for vis-material-designmaterial\nadd event id to JSON data\nadd event delete function\nfix endtime\nfix missing upate of iQontrol States",
-        "de": "wählen sie kalender für veranstaltungen\nbeispielskript für vis-material-designmaterial hinzufügen\njSON-Daten hinzufügen\nevent löschen funktion hinzufügen\nfixe endzeit\nbeheben fehlender Upate von iQontrol Staaten",
-        "ru": "добавить выберите календарь для событий\nдобавить пример скрипт для vis-material-designmaterial\nдобавить событие id в данные JSON\nдобавить функцию удаления события\nисправить endtime\nисправить недостающие upate из стран iQontrol",
-        "pt": "adicionar calendário de escolha para eventos\nadicionar script de exemplo para vis-material-designmaterial\nadicionar identificação de eventos aos dados JSON\nadicionar função de exclusão de evento\ncorrigir o fim\ncorrigir o upate ausente dos Estados iQontrol",
-        "nl": "kies kalender voor evenementen\nvoeg voorbeeld voor vis-material-designmaterial\nvoeg de gebeurtenis toe aan JSON data\nvoeg evenement delete functie toe\nvertaling:\nvermiste up",
-        "fr": "ajouter le calendrier des événements\najouter un exemple de script pour vis-material-designmaterial\najouter event id to JSON data\nadd event delete function\ncorrection\ncorriger les disparitions dans les États d ' iQontrol",
-        "it": "aggiungi il calendario per gli eventi\naggiungere script esempio per vis-material-designmaterial\naggiungere id eventi ai dati JSON\naggiungere la funzione cancella eventi\nrisolvere il tempo\nfix upate mancante di iQontrol Stati",
-        "es": "añadir calendario de elección para eventos\nañadir script de ejemplo para vis-material-designmaterial\nañadir datos de evento id a JSON\nañadir función de eliminación del evento\narreglar el tiempo final\nsolución desaparecido de iQontrol States",
-        "pl": "dodać kalendarz do wydarzeń\nprzykładem może być wizualizacja\ndostarcza się do danych JSON\nfunkcja dodać\nnaprawa\nnieustannienie granic państwa iQontrol",
-        "uk": "додати календар на події\nadd example скрипт для vis-material-designmaterial\nдодати ідентифікатор заходу до даних JSON\nдодати функцію видалення подій\nфіксація endtime\nвиправити відсутній upate iQontrol держави",
-        "zh-cn": "增加活动日历\n补充说明\n补充活动\n删除职能\nf 终止时间\nf 失踪的国名"
       }
     },
     "titleLang": {

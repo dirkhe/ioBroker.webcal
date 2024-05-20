@@ -206,6 +206,7 @@
 						},
 						{
 							"type": "password",
+							"attr": "password",
 							"repeat": false,
 							"visible": false,
 							"title": "Password/ Secret",

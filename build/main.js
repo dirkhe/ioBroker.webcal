@@ -123,13 +123,13 @@ class Webcal extends utils.Adapter {
   }
   createCalendarFromConfig(calConfig) {
     if (!calConfig.inactive) {
-      if (calConfig.password) {
+      if (calConfig.authMethod == "Download") {
+        this.log.info("create Download calendar: " + calConfig.name);
+        return new import_iCalReadOnly.ICalReadOnlyClient(calConfig);
+      } else if (calConfig.password) {
         if (calConfig.authMethod == "google") {
           this.log.info("create google calendar: " + calConfig.name);
           return new import_google.GoogleCalendar(calConfig);
-        } else if (calConfig.authMethod == "Download") {
-          this.log.info("create Download calendar: " + calConfig.name);
-          return new import_iCalReadOnly.ICalReadOnlyClient(calConfig);
         } else {
           this.log.info("create DAV calendar: " + calConfig.name);
           return new import_calDav.DavCalCalendar(calConfig);

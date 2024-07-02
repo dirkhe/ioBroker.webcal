@@ -173,6 +173,9 @@ This project uses the following components:
   * ()
 
 -->
+### **WORK IN PROGRESS**
+  * (dirkhe) update dependecies
+  
 ### 1.3.7 (2024-05-20)
   * (dirkhe) improve logging
   * (dirkhe) fix passort was not stored

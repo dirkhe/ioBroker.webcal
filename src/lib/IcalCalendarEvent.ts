@@ -130,6 +130,9 @@ export class IcalCalendarEvent extends CalendarEvent {
 		let start: ICAL.Time;
 		let end: ICAL.Time;
 		if (this.recurIterator) {
+			if (isFirstCall) {
+				this.recurIterator = this.icalEvent.iterator();
+			}
 			start = this.recurIterator.next();
 			if (start) {
 				if (this.timezone) {

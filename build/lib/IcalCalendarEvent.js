@@ -111,6 +111,9 @@ class IcalCalendarEvent extends import_calendarManager.CalendarEvent {
     let start;
     let end;
     if (this.recurIterator) {
+      if (isFirstCall) {
+        this.recurIterator = this.icalEvent.iterator();
+      }
       start = this.recurIterator.next();
       if (start) {
         if (this.timezone) {

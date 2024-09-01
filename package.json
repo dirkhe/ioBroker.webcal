@@ -29,7 +29,7 @@
     "@googleapis/oauth2": "^1.0.5",
     "@iobroker/adapter-core": "^3.1.4",
     "axios": "^1.7.2",
-    "dayjs": "^1.11.10",
+    "dayjs": "^1.11.13",
     "ical.js": "^2.0.1",
     "regex-escape": "^3.4.10",
     "tsdav": "^2.0.9"

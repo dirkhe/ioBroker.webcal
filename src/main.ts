@@ -319,7 +319,7 @@ class Webcal extends utils.Adapter {
 				if (obj.callback && obj.message) {
 					const calObj = this.createCalendarFromConfig((obj.message as any).calData);
 					if (calObj) {
-						const error = calObj.loadEvents(
+						const error = await calObj.loadEvents(
 							[],
 							new Date(),
 							new Date(new Date().setDate(new Date().getDate() + 15)),

@@ -138,10 +138,6 @@
 			"type": "panel",
 			"label": "Calendars",
 			"items": {
-				"_txt": {
-					"type": "staticText",
-					"text": "test is currently not working, because fix in admin needed, see https://github.com/ioBroker/adapter-react-v5/issues/98"
-				},
 				"calendars": {
 					"type": "table",
 					"sm": 12,

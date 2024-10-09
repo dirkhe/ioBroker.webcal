@@ -137,7 +137,9 @@ class DavCalCalendar {
             startDate,
             endDate
           );
-          ev && calEvents.push(ev);
+          if (ev) {
+            calEvents.push(ev);
+          }
         }
       }
       return null;

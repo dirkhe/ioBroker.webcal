@@ -15,20 +15,7 @@
 				"pl": "uaktualnianie zależności\nnaprawić funkcjonalność testu kalendarza",
 				"uk": "оновлення залежності\nфункція перевірки календарів",
 				"zh-cn": "更新依赖关系\n固定日历测试功能"
-			},
-			"1.3.9": {
-				"en": "update dependecies",
-				"de": "aktualisierung der abhängigkeiten",
-				"ru": "обновление",
-				"pt": "atualizações",
-				"nl": "afhankelijkheden bijwerken",
-				"fr": "mettre à jour les dépendances",
-				"it": "dipendenze dell'aggiornamento",
-				"es": "dependencias de actualización",
-				"pl": "uaktualnianie zależności",
-				"uk": "оновлення залежності",
-				"zh-cn": "更新依赖关系"
-			},
+			},0
 			"1.3.8": {
 				"en": "update dependecies\nallow download calendar without passwort\nfix missing monthly/yearly recurring",
 				"de": "aktualisierung der abhängigkeiten\nkalender ohne passwort herunterladen\nfehlerbehebung monatlich/jährlich wiederkehrend",
@@ -80,20 +67,7 @@
 				"pl": "zwiększenie zależności adapter-rdzeń\nfix json config\nuaktualnianie zależności",
 				"uk": "збільшення залежності\nвиправлено json config\nоновлення залежності",
 				"zh-cn": "增加依赖性适配器核心\n修复 json 配置\n更新依赖关系"
-			},
-			"1.3.4": {
-				"en": "increase dependecy adapter-core\nfix json config\nupdate dependecies",
-				"de": "erhöhen abhängigkeit adapter-kern\njson config\naktualisierung der abhängigkeiten",
-				"ru": "повышение зависимочности адаптер\nисправить настройку json\nобновление",
-				"pt": "aumentar o núcleo do adaptador de dependência\ncorrigir json config\natualizações",
-				"nl": "verhoging afhankelijkheid adapter-core\nfix json config\nafhankelijkheden bijwerken",
-				"fr": "augmenter adaptateur-core de dépendance\nréparer la configuration de json\nmettre à jour les dépendances",
-				"it": "aumento dipendenza adattatore-core\nfix json config\ndipendenze dell'aggiornamento",
-				"es": "aumentar la dependencia adaptador-core\njson config\ndependencias de actualización",
-				"pl": "zwiększenie zależności adapter-rdzeń\nfix json config\nuaktualnianie zależności",
-				"uk": "збільшення залежності\nвиправлено json config\nоновлення залежності",
-				"zh-cn": "增加依赖性适配器核心\n修复 json 配置\n更新依赖关系"
-			}
+			}'
 		},
 		"titleLang": {
 			"en": "fetch events from WEBDAV, CALDAV, CARDDAV Calendar or Google Calendar",
@@ -145,7 +119,7 @@
 		},
 		"dependencies": [
 			{
-				"js-controller": ">=4.0.24"
+				"js-controller": ">=5.0.19"
 			}
 		],
 		"globalDependencies": [

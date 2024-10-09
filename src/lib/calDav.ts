@@ -151,7 +151,9 @@ export class DavCalCalendar implements webcal.ICalendarBase {
 							startDate,
 							endDate,
 						);
-						ev && calEvents.push(ev);
+						if (ev) {
+							calEvents.push(ev);
+						}
 					}
 				}
 				return null;

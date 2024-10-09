@@ -87,7 +87,7 @@
     "test:integration": "mocha test/integration --exit",
     "test": "npm run test:ts && npm run test:package",
     "check": "tsc --noEmit",
-    "lint": "eslint --ext .ts src/",
+    "lint": "ESLINT_USE_FLAT_CONFIG=false eslint --ext .ts src/",
     "translate": "translate-adapter",
     "release": "release-script"
   },

@@ -224,14 +224,19 @@ class Webcal extends utils.Adapter {
 	private onUnload(callback: () => void): void {
 		try {
 			// Here you must clear all timeouts or intervals that may still be active
-			this.updateCalenderIntervall && this.clearInterval(this.updateCalenderIntervall);
+			if (this.updateCalenderIntervall) {
+				this.clearInterval(this.updateCalenderIntervall);
+			}
 			this.eventManager.resetAll();
-			this.eventManager.iQontrolTimerID && this.clearTimeout(this.eventManager.iQontrolTimerID);
+			if (this.eventManager.iQontrolTimerID) {
+				this.clearTimeout(this.eventManager.iQontrolTimerID);
+			}
 			for (let i = 0; i < this.actionEvents.length; i++) {
 				this.clearTimeout(this.actionEvents[i]);
 			}
 			callback();
 		} catch (e) {
+			this.log.warn("could n ot unload " + e);
 			callback();
 		}
 	}
@@ -267,7 +272,7 @@ class Webcal extends utils.Adapter {
 			case "fetchCal":
 				if (state.val) {
 					this.fetchCalendars();
-					this.setStateAsync(id, false, true);
+					this.setState(id, false, true);
 				}
 				break;
 
@@ -275,12 +280,14 @@ class Webcal extends utils.Adapter {
 				if (state.val) {
 					this.getObjectAsync(id.substring(0, id.lastIndexOf("."))).then((obj) => {
 						this.addEvent(state.val as string, obj?.common.name as string).then((result) => {
-							this.setStateAsync(id, result.statusText, true);
+							this.setState(id, result.statusText, true);
 							this.fetchCalendars();
 							const timerID: ioBroker.Timeout | undefined = this.addTimer(
 								adapter.setTimeout(() => {
-									this.setStateAsync(id, "", true);
-									timerID && this.clearTimer(timerID);
+									this.setState(id, "", true);
+									if (timerID) {
+										this.clearTimer(timerID);
+									}
 								}, 60000),
 							);
 						});

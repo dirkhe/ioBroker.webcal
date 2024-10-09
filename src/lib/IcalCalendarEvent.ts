@@ -147,6 +147,7 @@ export class IcalCalendarEvent extends CalendarEvent {
 				try {
 					end = this.icalEvent.getOccurrenceDetails(start).endDate;
 				} catch (error) {
+					adapter.log.error("could not get next Time Object: " + error);
 					return null;
 				}
 			} else {

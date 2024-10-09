@@ -173,6 +173,8 @@ This project uses the following components:
   * ()
 
 -->
+### **WORK IN PROGRESS**
+* (dirkhe) update dependecies
 ### 1.3.8 (2024-07-02)
   * (dirkhe) update dependecies
   * (dirkhe) allow download calendar without passwort

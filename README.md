@@ -173,7 +173,7 @@ This project uses the following components:
   * ()
 
 -->
-### 1.3.9 (2024-10-09)
+### **WORK IN PROGRESS**
 * (dirkhe) update dependecies
 * (dirkhe) fix calendar test functionality
 

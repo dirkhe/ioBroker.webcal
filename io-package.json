@@ -1,219 +1,210 @@
 {
-  "common": {
-    "name": "webcal",
-    "version": "1.3.10",
-    "news": {
-      "1.3.10": {
-        "en": "update dependecies\nfix calendar test functionality",
-        "de": "aktualisierung der abhängigkeiten\nkalendertest-funktionalität",
-        "ru": "обновление\nфункциональность календаря",
-        "pt": "atualizações\ncorrigir a funcionalidade de teste do calendário",
-        "nl": "afhankelijkheden bijwerken\nfix agenda test functionaliteit",
-        "fr": "mettre à jour les dépendances\ncorrection de la fonctionnalité de test de calendrier",
-        "it": "dipendenze dell'aggiornamento\ncorrezione della funzionalità di test del calendario",
-        "es": "dependencias de actualización\nfunción de prueba de calendario",
-        "pl": "uaktualnianie zależności\nnaprawić funkcjonalność testu kalendarza",
-        "uk": "оновлення залежності\nфункція перевірки календарів",
-        "zh-cn": "更新依赖关系\n固定日历测试功能"
-      },
-      "1.3.9": {
-        "en": "update dependecies",
-        "de": "aktualisierung der abhängigkeiten",
-        "ru": "обновление",
-        "pt": "atualizações",
-        "nl": "afhankelijkheden bijwerken",
-        "fr": "mettre à jour les dépendances",
-        "it": "dipendenze dell'aggiornamento",
-        "es": "dependencias de actualización",
-        "pl": "uaktualnianie zależności",
-        "uk": "оновлення залежності",
-        "zh-cn": "更新依赖关系"
-      },
-      "1.3.8": {
-        "en": "update dependecies\nallow download calendar without passwort\nfix missing monthly/yearly recurring",
-        "de": "aktualisierung der abhängigkeiten\nkalender ohne passwort herunterladen\nfehlerbehebung monatlich/jährlich wiederkehrend",
-        "ru": "обновление\nпозволить скачать календарь без переборка\nисправление недостающих месячных/годовых повторяющихся",
-        "pt": "atualizações\npermitir o download do calendário sem passwort\ncorrigir faltando mensal / ano recorrente",
-        "nl": "afhankelijkheden bijwerken\ndownloadagenda zonder wachtwoord toestaan\nvast te stellen ontbrekende maandelijks/jaarlijks terugkerende",
-        "fr": "mettre à jour les dépendances\npermettre le calendrier de téléchargement sans passwort\ncorrection manquante mensuelle/annuelle récurrente",
-        "it": "dipendenze dell'aggiornamento\nconsentire il calendario di download senza passwort\ncorrezione mancante mensile/anno ricorrente",
-        "es": "dependencias de actualización\npermitir calendario de descarga sin passwort\nfijación falta mensual/anual recurrente",
-        "pl": "uaktualnianie zależności\numożliwia pobieranie kalendarza bez hasła\nfix brakujące miesięczne / roczne powtarzające się",
-        "uk": "оновлення залежності\nможливість завантаження календаря без пасту\nфіксувати відсутні щомісячні / річні повторювані",
-        "zh-cn": "更新依赖关系\n允许不带密码的下载日历\n每月/每年重复弥补缺失"
-      },
-      "1.3.7": {
-        "en": "improve logging\nfix passort was not stored",
-        "de": "verbesserung der protokollierung\nfix passort wurde nicht gespeichert",
-        "ru": "улучшение лесозаготовок\nне хранился",
-        "pt": "melhorar o registro\ncorrigir a páscoa não foi armazenada",
-        "nl": "verbeteren van het loggen\nfix passort is niet bewaard",
-        "fr": "améliorer l'exploitation\nfix passort n'a pas été stocké",
-        "it": "migliorare la registrazione\ncorrezione pasquart non è stato memorizzato",
-        "es": "mejorar el registro\npasillo de fijación no fue almacenado",
-        "pl": "poprawić wylogowanie\npassort fix nie został zapisany",
-        "uk": "покращити залогу\nфіксований пасорт не зберігався",
-        "zh-cn": "改进伐木\n固定传感器没有存储"
-      },
-      "1.3.6": {
-        "en": "fix bug in repeated events",
-        "de": "fehler in wiederholten ereignissen beheben",
-        "ru": "исправление ошибки в повторяющихся событиях",
-        "pt": "corrigir o erro em eventos repetidos",
-        "nl": "fout herstellen in herhaalde gebeurtenissen",
-        "fr": "correction du bug dans les événements répétés",
-        "it": "correggere bug in eventi ripetuti",
-        "es": "solucionar fallos en eventos repetidos",
-        "pl": "naprawić błąd w powtarzanych zdarzeniach",
-        "uk": "виправлення помилок в повторних подіях",
-        "zh-cn": "在重复发生的事件中修正错误"
-      },
-      "1.3.5": {
-        "en": "increase dependecy adapter-core\nfix json config\nupdate dependecies",
-        "de": "erhöhen abhängigkeit adapter-kern\njson config\naktualisierung der abhängigkeiten",
-        "ru": "повышение зависимочности адаптер\nисправить настройку json\nобновление",
-        "pt": "aumentar o núcleo do adaptador de dependência\ncorrigir json config\natualizações",
-        "nl": "verhoging afhankelijkheid adapter-core\nfix json config\nafhankelijkheden bijwerken",
-        "fr": "augmenter adaptateur-core de dépendance\nréparer la configuration de json\nmettre à jour les dépendances",
-        "it": "aumento dipendenza adattatore-core\nfix json config\ndipendenze dell'aggiornamento",
-        "es": "aumentar la dependencia adaptador-core\njson config\ndependencias de actualización",
-        "pl": "zwiększenie zależności adapter-rdzeń\nfix json config\nuaktualnianie zależności",
-        "uk": "збільшення залежності\nвиправлено json config\nоновлення залежності",
-        "zh-cn": "增加依赖性适配器核心\n修复 json 配置\n更新依赖关系"
-      },
-      "1.3.4": {
-        "en": "increase dependecy adapter-core\nfix json config\nupdate dependecies",
-        "de": "erhöhen abhängigkeit adapter-kern\njson config\naktualisierung der abhängigkeiten",
-        "ru": "повышение зависимочности адаптер\nисправить настройку json\nобновление",
-        "pt": "aumentar o núcleo do adaptador de dependência\ncorrigir json config\natualizações",
-        "nl": "verhoging afhankelijkheid adapter-core\nfix json config\nafhankelijkheden bijwerken",
-        "fr": "augmenter adaptateur-core de dépendance\nréparer la configuration de json\nmettre à jour les dépendances",
-        "it": "aumento dipendenza adattatore-core\nfix json config\ndipendenze dell'aggiornamento",
-        "es": "aumentar la dependencia adaptador-core\njson config\ndependencias de actualización",
-        "pl": "zwiększenie zależności adapter-rdzeń\nfix json config\nuaktualnianie zależności",
-        "uk": "збільшення залежності\nвиправлено json config\nоновлення залежності",
-        "zh-cn": "增加依赖性适配器核心\n修复 json 配置\n更新依赖关系"
-      }
-    },
-    "titleLang": {
-      "en": "fetch events from WEBDAV, CALDAV, CARDDAV Calendar or Google Calendar",
-      "de": "Abrufen von Ereignissen aus WEBDAV, CALDAV, CARDDAV Calendar oder Google Calendar",
-      "ru": "получать события из календаря WEBDAV, CALDAV, CARDDAV или Google Calendar",
-      "pt": "buscar eventos do WEBDAV, CALDAV, CARDDAV Calendar ou Google Calendar",
-      "nl": "evenementen ophalen van WEBDAV, CALDAV, CARDDAV Calendar of Google Calendar",
-      "fr": "récupérer des événements depuis WEBDAV, CALDAV, CARDDAV Calendar ou Google Calendar",
-      "it": "recuperare eventi da WEBDAV, CALDAV, CARDDAV Calendar o Google Calendar",
-      "es": "obtener eventos de WEBDAV, CALDAV, CARDDAV Calendar o Google Calendar",
-      "pl": "pobierać wydarzenia z WEBDAV, CALDAV, CARDDAV Calendar lub Google Calendar",
-      "uk": "отримувати події з календаря WEBDAV, CALDAV, CARDDAV або календаря Google",
-      "zh-cn": "从 WEBDAV、CALDAV、CARDDAV 日历或 Google 日历中获取事件"
-    },
-    "desc": {
-      "en": "webcal",
-      "de": "webcal",
-      "ru": "вебкаль",
-      "pt": "webcal",
-      "nl": "webcal",
-      "fr": "webcal",
-      "it": "webcal",
-      "es": "webcal",
-      "pl": "webcal",
-      "zh-cn": "网络电话",
-      "uk": "webcal"
-    },
-    "authors": [
-      "dirkhe"
-    ],
-    "keywords": [
-      "Calendar",
-      "WEBDAV",
-      "CALDAV",
-      "Google Calendar"
-    ],
-    "licenseInformation": {
-      "license": "MIT",
-      "type": "free"
-    },
-    "tier": 2,
-    "platform": "Javascript/Node.js",
-    "main": "build/main.js",
-    "icon": "webcal.png",
-    "enabled": true,
-    "extIcon": "https://raw.githubusercontent.com/dirkhe/ioBroker.webcal/master/admin/webcal.png",
-    "readme": "https://github.com/dirkhe/ioBroker.webcal/blob/master/README.md",
-    "loglevel": "info",
-    "mode": "daemon",
-    "type": "date-and-time",
-    "compact": true,
-    "connectionType": "cloud",
-    "dataSource": "poll",
-    "messagebox": true,
-    "subscribe": "messagebox",
-    "adminUI": {
-      "config": "json"
-    },
-    "dependencies": [
-      {
-        "js-controller": ">=3.3.22"
-      }
-    ],
-    "globalDependencies": [
-      {
-        "admin": ">=5.1.13"
-      }
-    ]
-  },
-  "native": {
-    "daysEventFuture": 2,
-    "daysJSONFuture": 10,
-    "daysEventPast": 0,
-    "daysJSONPast": 0,
-    "intervall": 60,
-    "calendars": [],
-    "events": []
-  },
-  "objects": [],
-  "instanceObjects": [
-    {
-      "_id": "",
-      "type": "meta",
-      "common": {
-        "name": {
-          "en": "user files and images for background",
-          "de": "Benutzerdateien und Bilder für den Hintergrund",
-          "ru": "пользовательские файлы и изображения для фона",
-          "pt": "arquivos e imagens do usuário para plano de fundo",
-          "nl": "gebruikersbestanden en afbeeldingen voor achtergrond",
-          "fr": "fichiers utilisateur et images pour l'arrière-plan",
-          "it": "file utente e immagini per lo sfondo",
-          "es": "archivos de usuario e imágenes para el fondo",
-          "pl": "pliki użytkownika i obrazy w tle",
-          "zh-cn": "背景的用户文件和图像"
-        },
-        "type": "meta.user"
-      },
-      "native": {}
-    },
-    {
-      "_id": "fetchCal",
-      "type": "state",
-      "common": {
-        "role": "button",
-        "name": "Fetch calendar data",
-        "def": false,
-        "type": "boolean",
-        "read": false,
-        "write": true
-      },
-      "native": {}
-    },
-    {
-      "_id": "events",
-      "type": "folder",
-      "common": {
-        "name": "fetched events from calendar"
-      },
-      "native": {}
-    }
-  ]
+	"common": {
+		"name": "webcal",
+		"version": "1.3.10",
+		"news": {
+			"1.3.10": {
+				"en": "update dependecies\nfix calendar test functionality",
+				"de": "aktualisierung der abhängigkeiten\nkalendertest-funktionalität",
+				"ru": "обновление\nфункциональность календаря",
+				"pt": "atualizações\ncorrigir a funcionalidade de teste do calendário",
+				"nl": "afhankelijkheden bijwerken\nfix agenda test functionaliteit",
+				"fr": "mettre à jour les dépendances\ncorrection de la fonctionnalité de test de calendrier",
+				"it": "dipendenze dell'aggiornamento\ncorrezione della funzionalità di test del calendario",
+				"es": "dependencias de actualización\nfunción de prueba de calendario",
+				"pl": "uaktualnianie zależności\nnaprawić funkcjonalność testu kalendarza",
+				"uk": "оновлення залежності\nфункція перевірки календарів",
+				"zh-cn": "更新依赖关系\n固定日历测试功能"
+			},
+			"1.3.9": {
+				"en": "update dependecies",
+				"de": "aktualisierung der abhängigkeiten",
+				"ru": "обновление",
+				"pt": "atualizações",
+				"nl": "afhankelijkheden bijwerken",
+				"fr": "mettre à jour les dépendances",
+				"it": "dipendenze dell'aggiornamento",
+				"es": "dependencias de actualización",
+				"pl": "uaktualnianie zależności",
+				"uk": "оновлення залежності",
+				"zh-cn": "更新依赖关系"
+			},
+			"1.3.8": {
+				"en": "update dependecies\nallow download calendar without passwort\nfix missing monthly/yearly recurring",
+				"de": "aktualisierung der abhängigkeiten\nkalender ohne passwort herunterladen\nfehlerbehebung monatlich/jährlich wiederkehrend",
+				"ru": "обновление\nпозволить скачать календарь без переборка\nисправление недостающих месячных/годовых повторяющихся",
+				"pt": "atualizações\npermitir o download do calendário sem passwort\ncorrigir faltando mensal / ano recorrente",
+				"nl": "afhankelijkheden bijwerken\ndownloadagenda zonder wachtwoord toestaan\nvast te stellen ontbrekende maandelijks/jaarlijks terugkerende",
+				"fr": "mettre à jour les dépendances\npermettre le calendrier de téléchargement sans passwort\ncorrection manquante mensuelle/annuelle récurrente",
+				"it": "dipendenze dell'aggiornamento\nconsentire il calendario di download senza passwort\ncorrezione mancante mensile/anno ricorrente",
+				"es": "dependencias de actualización\npermitir calendario de descarga sin passwort\nfijación falta mensual/anual recurrente",
+				"pl": "uaktualnianie zależności\numożliwia pobieranie kalendarza bez hasła\nfix brakujące miesięczne / roczne powtarzające się",
+				"uk": "оновлення залежності\nможливість завантаження календаря без пасту\nфіксувати відсутні щомісячні / річні повторювані",
+				"zh-cn": "更新依赖关系\n允许不带密码的下载日历\n每月/每年重复弥补缺失"
+			},
+			"1.3.7": {
+				"en": "improve logging\nfix passort was not stored",
+				"de": "verbesserung der protokollierung\nfix passort wurde nicht gespeichert",
+				"ru": "улучшение лесозаготовок\nне хранился",
+				"pt": "melhorar o registro\ncorrigir a páscoa não foi armazenada",
+				"nl": "verbeteren van het loggen\nfix passort is niet bewaard",
+				"fr": "améliorer l'exploitation\nfix passort n'a pas été stocké",
+				"it": "migliorare la registrazione\ncorrezione pasquart non è stato memorizzato",
+				"es": "mejorar el registro\npasillo de fijación no fue almacenado",
+				"pl": "poprawić wylogowanie\npassort fix nie został zapisany",
+				"uk": "покращити залогу\nфіксований пасорт не зберігався",
+				"zh-cn": "改进伐木\n固定传感器没有存储"
+			},
+			"1.3.6": {
+				"en": "fix bug in repeated events",
+				"de": "fehler in wiederholten ereignissen beheben",
+				"ru": "исправление ошибки в повторяющихся событиях",
+				"pt": "corrigir o erro em eventos repetidos",
+				"nl": "fout herstellen in herhaalde gebeurtenissen",
+				"fr": "correction du bug dans les événements répétés",
+				"it": "correggere bug in eventi ripetuti",
+				"es": "solucionar fallos en eventos repetidos",
+				"pl": "naprawić błąd w powtarzanych zdarzeniach",
+				"uk": "виправлення помилок в повторних подіях",
+				"zh-cn": "在重复发生的事件中修正错误"
+			},
+			"1.3.5": {
+				"en": "increase dependecy adapter-core\nfix json config\nupdate dependecies",
+				"de": "erhöhen abhängigkeit adapter-kern\njson config\naktualisierung der abhängigkeiten",
+				"ru": "повышение зависимочности адаптер\nисправить настройку json\nобновление",
+				"pt": "aumentar o núcleo do adaptador de dependência\ncorrigir json config\natualizações",
+				"nl": "verhoging afhankelijkheid adapter-core\nfix json config\nafhankelijkheden bijwerken",
+				"fr": "augmenter adaptateur-core de dépendance\nréparer la configuration de json\nmettre à jour les dépendances",
+				"it": "aumento dipendenza adattatore-core\nfix json config\ndipendenze dell'aggiornamento",
+				"es": "aumentar la dependencia adaptador-core\njson config\ndependencias de actualización",
+				"pl": "zwiększenie zależności adapter-rdzeń\nfix json config\nuaktualnianie zależności",
+				"uk": "збільшення залежності\nвиправлено json config\nоновлення залежності",
+				"zh-cn": "增加依赖性适配器核心\n修复 json 配置\n更新依赖关系"
+			},
+			"1.3.4": {
+				"en": "increase dependecy adapter-core\nfix json config\nupdate dependecies",
+				"de": "erhöhen abhängigkeit adapter-kern\njson config\naktualisierung der abhängigkeiten",
+				"ru": "повышение зависимочности адаптер\nисправить настройку json\nобновление",
+				"pt": "aumentar o núcleo do adaptador de dependência\ncorrigir json config\natualizações",
+				"nl": "verhoging afhankelijkheid adapter-core\nfix json config\nafhankelijkheden bijwerken",
+				"fr": "augmenter adaptateur-core de dépendance\nréparer la configuration de json\nmettre à jour les dépendances",
+				"it": "aumento dipendenza adattatore-core\nfix json config\ndipendenze dell'aggiornamento",
+				"es": "aumentar la dependencia adaptador-core\njson config\ndependencias de actualización",
+				"pl": "zwiększenie zależności adapter-rdzeń\nfix json config\nuaktualnianie zależności",
+				"uk": "збільшення залежності\nвиправлено json config\nоновлення залежності",
+				"zh-cn": "增加依赖性适配器核心\n修复 json 配置\n更新依赖关系"
+			}
+		},
+		"titleLang": {
+			"en": "fetch events from WEBDAV, CALDAV, CARDDAV Calendar or Google Calendar",
+			"de": "Abrufen von Ereignissen aus WEBDAV, CALDAV, CARDDAV Calendar oder Google Calendar",
+			"ru": "получать события из календаря WEBDAV, CALDAV, CARDDAV или Google Calendar",
+			"pt": "buscar eventos do WEBDAV, CALDAV, CARDDAV Calendar ou Google Calendar",
+			"nl": "evenementen ophalen van WEBDAV, CALDAV, CARDDAV Calendar of Google Calendar",
+			"fr": "récupérer des événements depuis WEBDAV, CALDAV, CARDDAV Calendar ou Google Calendar",
+			"it": "recuperare eventi da WEBDAV, CALDAV, CARDDAV Calendar o Google Calendar",
+			"es": "obtener eventos de WEBDAV, CALDAV, CARDDAV Calendar o Google Calendar",
+			"pl": "pobierać wydarzenia z WEBDAV, CALDAV, CARDDAV Calendar lub Google Calendar",
+			"uk": "отримувати події з календаря WEBDAV, CALDAV, CARDDAV або календаря Google",
+			"zh-cn": "从 WEBDAV、CALDAV、CARDDAV 日历或 Google 日历中获取事件"
+		},
+		"desc": {
+			"en": "webcal",
+			"de": "webcal",
+			"ru": "вебкаль",
+			"pt": "webcal",
+			"nl": "webcal",
+			"fr": "webcal",
+			"it": "webcal",
+			"es": "webcal",
+			"pl": "webcal",
+			"zh-cn": "网络电话",
+			"uk": "webcal"
+		},
+		"authors": ["dirkhe"],
+		"keywords": ["Calendar", "WEBDAV", "CALDAV", "Google Calendar"],
+		"licenseInformation": {
+			"license": "MIT",
+			"type": "free"
+		},
+		"tier": 2,
+		"platform": "Javascript/Node.js",
+		"icon": "webcal.png",
+		"enabled": true,
+		"extIcon": "https://raw.githubusercontent.com/dirkhe/ioBroker.webcal/master/admin/webcal.png",
+		"readme": "https://github.com/dirkhe/ioBroker.webcal/blob/master/README.md",
+		"loglevel": "info",
+		"mode": "daemon",
+		"type": "date-and-time",
+		"compact": true,
+		"connectionType": "cloud",
+		"dataSource": "poll",
+		"messagebox": true,
+		"adminUI": {
+			"config": "json"
+		},
+		"dependencies": [
+			{
+				"js-controller": ">=4.0.24"
+			}
+		],
+		"globalDependencies": [
+			{
+				"admin": ">=5.1.13"
+			}
+		]
+	},
+	"native": {
+		"daysEventFuture": 2,
+		"daysJSONFuture": 10,
+		"daysEventPast": 0,
+		"daysJSONPast": 0,
+		"intervall": 60,
+		"calendars": [],
+		"events": []
+	},
+	"objects": [],
+	"instanceObjects": [
+		{
+			"_id": "",
+			"type": "meta",
+			"common": {
+				"name": {
+					"en": "user files and images for background",
+					"de": "Benutzerdateien und Bilder für den Hintergrund",
+					"ru": "пользовательские файлы и изображения для фона",
+					"pt": "arquivos e imagens do usuário para plano de fundo",
+					"nl": "gebruikersbestanden en afbeeldingen voor achtergrond",
+					"fr": "fichiers utilisateur et images pour l'arrière-plan",
+					"it": "file utente e immagini per lo sfondo",
+					"es": "archivos de usuario e imágenes para el fondo",
+					"pl": "pliki użytkownika i obrazy w tle",
+					"zh-cn": "背景的用户文件和图像"
+				},
+				"type": "meta.user"
+			},
+			"native": {}
+		},
+		{
+			"_id": "fetchCal",
+			"type": "state",
+			"common": {
+				"role": "button",
+				"name": "Fetch calendar data",
+				"def": false,
+				"type": "boolean",
+				"read": false,
+				"write": true
+			},
+			"native": {}
+		},
+		{
+			"_id": "events",
+			"type": "folder",
+			"common": {
+				"name": "fetched events from calendar"
+			},
+			"native": {}
+		}
+	]
 }

@@ -67,7 +67,7 @@
 				"pl": "zwiększenie zależności adapter-rdzeń\nfix json config\nuaktualnianie zależności",
 				"uk": "збільшення залежності\nвиправлено json config\nоновлення залежності",
 				"zh-cn": "增加依赖性适配器核心\n修复 json 配置\n更新依赖关系"
-			}'
+			}
 		},
 		"titleLang": {
 			"en": "fetch events from WEBDAV, CALDAV, CARDDAV Calendar or Google Calendar",

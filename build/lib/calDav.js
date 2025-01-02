@@ -61,6 +61,7 @@ class DavCalCalendar {
   }
   /**
    * load Calendars from Server
+   *
    * @param displayName if set, try to return Calendar with this name
    * @returns Calender by displaName or last part of initial ServerUrl or first found Calendar
    */
@@ -94,8 +95,9 @@ class DavCalCalendar {
   }
   /**
    * fetch Events form Calendar
-   * @param startDate as date object
-   * @param endDate as date object
+   *
+   * @param startDateISOString as date object
+   * @param endDateISOString as date object
    * @returns Array of Calenderobjects
    */
   async getCalendarObjects(startDateISOString, endDateISOString) {
@@ -121,6 +123,7 @@ class DavCalCalendar {
   }
   /**
    * fetch Events form Calendar and pushed them to calEvents Array
+   *
    * @param calEvents target Array of ICalendarEventBase
    * @param startDate as date object
    * @param endDate as date object
@@ -129,10 +132,10 @@ class DavCalCalendar {
   loadEvents(calEvents, startDate, endDate) {
     return this.getCalendarObjects(startDate.toISOString(), endDate.toISOString()).then((calendarObjects) => {
       if (calendarObjects) {
-        adapter.log.info("found " + calendarObjects.length + " calendar objects");
-        for (const i in calendarObjects) {
+        adapter.log.info(`found ${calendarObjects.length} calendar objects`);
+        for (const calObj of calendarObjects) {
           const ev = import_IcalCalendarEvent.IcalCalendarEvent.fromData(
-            calendarObjects[i].data,
+            calObj.data,
             this.name,
             startDate,
             endDate
@@ -149,6 +152,7 @@ class DavCalCalendar {
   }
   /**
    * add Event to Calendar
+   *
    * @param data event data
    * @returns Server response, like {ok:boolen}
    */
@@ -163,7 +167,7 @@ class DavCalCalendar {
       const calendarEventData = import_IcalCalendarEvent.IcalCalendarEvent.createIcalEventString(data);
       result = await this.client.createCalendarObject({
         calendar: await this.getCalendar(),
-        filename: (/* @__PURE__ */ new Date()).getTime() + ".ics",
+        filename: `${(/* @__PURE__ */ new Date()).getTime()}.ics`,
         iCalString: calendarEventData
       });
     } catch (error) {
@@ -179,6 +183,7 @@ class DavCalCalendar {
   }
   /**
    * delte Event from Calendar
+   *
    * @param id event id
    * @returns Server response, like {ok:boolen}
    */
@@ -192,7 +197,7 @@ class DavCalCalendar {
     try {
       result = await this.client.deleteCalendarObject({
         calendarObject: {
-          url: (await this.getCalendar()).url + id + ".ics",
+          url: `${(await this.getCalendar()).url + id}.ics`,
           etag: ""
         }
       });

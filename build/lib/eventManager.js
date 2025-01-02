@@ -46,9 +46,9 @@ const _Event = class _Event {
     this.regEx = new RegExp(config.regEx || (0, import_regex_escape.default)(config.name), "i");
     if (config.calendars) {
       this.calendars = [];
-      for (const i in config.calendars) {
-        if (config.calendars[i]) {
-          this.calendars.push(config.calendars[i]);
+      for (const calObj of config.calendars) {
+        if (calObj) {
+          this.calendars.push(calObj);
         }
       }
       if (!((_a = this.calendars) == null ? void 0 : _a.length)) {
@@ -74,7 +74,7 @@ const _Event = class _Event {
       }
       values.push(days[day]);
     }
-    adapter.log.silly("days for event '" + this.name + "': " + JSON.stringify(this.stateValues));
+    adapter.log.silly(`days for event '${this.name}': ${JSON.stringify(this.stateValues)}`);
     const today = days[0];
     if (today) {
       const startTime = today.startTime || "00:00";
@@ -133,7 +133,7 @@ const _Event = class _Event {
     this.nowFlag = null;
   }
   syncFlags() {
-    adapter.getStatesAsync(_Event.namespace + this.id + ".*").then((states) => {
+    adapter.getStatesAsync(`${_Event.namespace + this.id}.*`).then((states) => {
       if (states) {
         for (const stateId in states) {
           const evID = parseInt(stateId.split(".").pop() || "0", 10);
@@ -150,7 +150,7 @@ const _Event = class _Event {
       const dInt = parseInt(d, 10);
       const dateText = dInt < -1 ? i18n.xDaysAgo.replace("%d", Math.abs(dInt).toString()) : dInt == -1 ? i18n.yesterday : dInt == 0 ? i18n.today : dInt == 1 ? i18n.Tomorrow : dInt > 1 ? i18n.inXDays.replace("%d", d) : "";
       const times = this.stateValues[d];
-      for (const i in times) {
+      for (let i = 0; i < times.length; i++) {
         const time = {
           ...times[i],
           timeText: times[i].toString(),
@@ -162,9 +162,9 @@ const _Event = class _Event {
         }
       }
     }
-    adapter.setStateChangedAsync(_Event.namespace + this.id + ".data", JSON.stringify(jsonData), true);
+    adapter.setStateChangedAsync(`${_Event.namespace + this.id}.data`, JSON.stringify(jsonData), true);
     adapter.setStateChangedAsync(
-      _Event.namespace + this.id + ".next",
+      `${_Event.namespace + this.id}.next`,
       next.getFullYear() < 9999 ? next.toISOString() : "",
       true
     );
@@ -185,8 +185,8 @@ const _Event = class _Event {
           const timeUntilStart = (0, import_dayjs.default)(todayStr + this.nowFlag.times[i].start).diff();
           const timerUntilStop = (0, import_dayjs.default)(todayStr + this.nowFlag.times[i].end).diff();
           if (timeUntilStart <= 0 && timerUntilStop > 0) {
-            stateText = this.nowFlag.times[i].start != "00:00" ? i18n["from"] + " " + this.nowFlag.times[i].start : "";
-            stateText += this.nowFlag.times[i].end != "23:59" ? (stateText ? " " : "") + i18n["until"] + " " + this.nowFlag.times[i].end : "";
+            stateText = this.nowFlag.times[i].start != "00:00" ? `${i18n.from} ${this.nowFlag.times[i].start}` : "";
+            stateText += this.nowFlag.times[i].end != "23:59" ? `${(stateText ? " " : "") + i18n.until} ${this.nowFlag.times[i].end}` : "";
             this.nowFlag.timerID = setTimeout(
               function(event) {
                 event.updateNowFlag();
@@ -210,7 +210,7 @@ const _Event = class _Event {
         }
       }
     }
-    adapter.setStateChangedAsync(_Event.namespace + this.id + ".now", stateText, true);
+    adapter.setStateChangedAsync(`${_Event.namespace + this.id}.now`, stateText, true);
   }
 };
 _Event.namespace = "events.";
@@ -222,7 +222,7 @@ class EventManager {
     adapter = adapterInstance;
     i18n = i18nInstance;
     this.events = {};
-    Event.namespace = adapter.namespace + "." + Event.namespace;
+    Event.namespace = `${adapter.namespace}.${Event.namespace}`;
   }
   init(config) {
     adapter.log.info("init events");
@@ -243,17 +243,17 @@ class EventManager {
       allEventIDs[evID] = true;
     }
     const eventFlags = {
-      now: i18n["now"],
+      now: i18n.now,
       addEvent: i18n.addEvent,
       next: i18n.nextEvent,
       data: "data",
-      "0": i18n["today"]
+      0: i18n.today
     };
     for (let d = 1; d <= Event.daysPast; d++) {
-      eventFlags[-d] = i18n["today"] + " - " + d + " " + (d == 1 ? i18n["day"] : i18n["days"]);
+      eventFlags[-d] = `${i18n.today} - ${d} ${d == 1 ? i18n.day : i18n.days}`;
     }
     for (let d = 1; d <= Event.daysFuture; d++) {
-      eventFlags[d] = i18n["today"] + " + " + d + " " + (d == 1 ? i18n["day"] : i18n["days"]);
+      eventFlags[d] = `${i18n.today} + ${d} ${d == 1 ? i18n.day : i18n.days}`;
     }
     adapter.getChannelsOf("events", (_err, eventObjs) => {
       if (eventObjs) {
@@ -262,27 +262,27 @@ class EventManager {
           const evID = eventObj._id.split(".").pop() || "";
           if (this.events[evID]) {
             delete allEventIDs[evID];
-            adapter.getStatesAsync(eventObj._id + ".*").then((states) => {
+            adapter.getStatesAsync(`${eventObj._id}.*`).then((states) => {
               if (states) {
                 for (const stateId in states) {
                   if (!eventFlags[stateId.split(".").pop() || ""]) {
-                    adapter.log.info("delete flag " + stateId);
+                    adapter.log.info(`delete flag ${stateId}`);
                     adapter.delObjectAsync(stateId);
                   }
                 }
               }
             });
             for (const id in eventFlags) {
-              this.addEventFlagObject(eventObj._id + "." + id, eventFlags[id]);
+              this.addEventFlagObject(`${eventObj._id}.${id}`, eventFlags[id]);
             }
           } else {
-            adapter.log.info("delete event state " + eventObj._id);
+            adapter.log.info(`delete event state ${eventObj._id}`);
             adapter.delObjectAsync(eventObj._id, { recursive: true });
           }
         }
       }
       for (const evID in allEventIDs) {
-        adapter.log.info("create event " + this.events[evID].name);
+        adapter.log.info(`create event ${this.events[evID].name}`);
         adapter.createChannel("events", evID, (_err2, eventObj) => {
           if (eventObj) {
             adapter.extendObjectAsync(eventObj.id, {
@@ -291,7 +291,7 @@ class EventManager {
               }
             });
             for (const id in eventFlags) {
-              this.addEventFlagObject(eventObj.id + "." + id, eventFlags[id]);
+              this.addEventFlagObject(`${eventObj.id}.${id}`, eventFlags[id]);
             }
           }
         });
@@ -309,7 +309,7 @@ class EventManager {
         read: true,
         write: false,
         def: "",
-        desc: i18n["starttime"]
+        desc: i18n.starttime
       },
       native: {},
       _id: id
@@ -342,18 +342,18 @@ class EventManager {
     }
     adapter.log.info("update addEvent-states");
     const iqontrolStates = {
-      "0": i18n.today,
-      "1": i18n.Tomorrow
+      0: i18n.today,
+      1: i18n.Tomorrow
     };
     const d = (/* @__PURE__ */ new Date()).getDay();
     for (let i = 2; i < 7; i++) {
-      iqontrolStates[i.toString()] = i18n["weekDaysFull" + new String((d + i) % 7)] + " " + i18n.inXDays.replace("%d", i.toString());
+      iqontrolStates[i.toString()] = `${i18n[`weekDaysFull${(d + i) % 7}`]} ${i18n.inXDays.replace("%d", i.toString())}`;
     }
     for (const id in this.events) {
       if (this.events[id].useIQontrol) {
-        adapter.getObjectAsync(Event.namespace + id + ".addEvent").then((eventObj) => {
+        adapter.getObjectAsync(`${Event.namespace + id}.addEvent`).then((eventObj) => {
           if (eventObj && eventObj.common.custom && eventObj.common.custom["iqontrol.0"]) {
-            eventObj.common.custom["iqontrol.0"]["states"] = iqontrolStates;
+            eventObj.common.custom["iqontrol.0"].states = iqontrolStates;
             adapter.setObject(eventObj._id, eventObj);
           }
         });

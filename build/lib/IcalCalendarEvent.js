@@ -42,20 +42,15 @@ function initLib(adapterInstance) {
 function getAllIcalCalendarEvents(calendarEventData, calendarName, startDate, endDate, checkDateRange) {
   const result = [];
   try {
-    adapter.log.silly("parse calendar data:\n" + calendarEventData.replace(/\s*([:;=])\s*/gm, "$1"));
+    adapter.log.silly(`parse calendar data:
+${calendarEventData.replace(/\s*([:;=])\s*/gm, "$1")}`);
     const jcalData = import_ical.default.parse(calendarEventData);
     const comp = new import_ical.default.Component(jcalData);
     const calTimezoneComp = comp.getFirstSubcomponent("vtimezone");
     const calTimezone = calTimezoneComp ? new import_ical.default.Timezone(calTimezoneComp) : null;
     const allEvents = comp.getAllSubcomponents("vevent");
-    for (const i in allEvents) {
-      const ev = new IcalCalendarEvent(
-        allEvents[i],
-        calTimezone,
-        calendarName,
-        startDate,
-        endDate
-      );
+    for (const event of allEvents) {
+      const ev = new IcalCalendarEvent(event, calTimezone, calendarName, startDate, endDate);
       if (ev) {
         if (checkDateRange) {
           const timeObj = ev.getNextTimeObj(true);
@@ -67,14 +62,15 @@ function getAllIcalCalendarEvents(calendarEventData, calendarName, startDate, en
       }
     }
   } catch (error) {
-    adapter.log.error("could not read calendar Event: " + error);
+    adapter.log.error(`could not read calendar Event: ${error}`);
   }
   return result;
 }
 class IcalCalendarEvent extends import_calendarManager.CalendarEvent {
   static fromData(calendarEventData, calendarName, startDate, endDate) {
     try {
-      adapter.log.debug("parse calendar data:\n" + calendarEventData.replace(/\s*([:;=])\s*/gm, "$1"));
+      adapter.log.debug(`parse calendar data:
+${calendarEventData.replace(/\s*([:;=])\s*/gm, "$1")}`);
       const jcalData = import_ical.default.parse(calendarEventData);
       const comp = new import_ical.default.Component(jcalData);
       const calTimezone = comp.getFirstSubcomponent("vtimezone");
@@ -86,7 +82,7 @@ class IcalCalendarEvent extends import_calendarManager.CalendarEvent {
         endDate
       );
     } catch (error) {
-      adapter.log.error("could not read calendar Event: " + error);
+      adapter.log.error(`could not read calendar Event: ${error}`);
       adapter.log.debug(calendarEventData);
       return null;
     }
@@ -103,7 +99,7 @@ class IcalCalendarEvent extends import_calendarManager.CalendarEvent {
         this.recurIterator = this.icalEvent.iterator();
       }
     } catch (error) {
-      adapter.log.error("could not read calendar Event: " + error);
+      adapter.log.error(`could not read calendar Event: ${error}`);
       this.icalEvent = void 0;
     }
   }
@@ -128,7 +124,7 @@ class IcalCalendarEvent extends import_calendarManager.CalendarEvent {
         try {
           end = this.icalEvent.getOccurrenceDetails(start).endDate;
         } catch (error) {
-          adapter.log.error("could not get next Time Object: " + error);
+          adapter.log.error(`could not get next Time Object: ${error}`);
           return null;
         }
       } else {

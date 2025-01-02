@@ -56,6 +56,7 @@ class ICalReadOnlyClient {
   }
   /**
    * fetch Events form Calendar and pushed them to calEvents Array
+   *
    * @param calEvents target Array of ICalendarEventBase
    * @param startDate as date object
    * @param endDate as date object
@@ -70,21 +71,19 @@ class ICalReadOnlyClient {
     return (0, import_axios.default)(this.axiosOptions).then((response) => {
       if (response.data) {
         const allEvents = (0, import_IcalCalendarEvent.getAllIcalCalendarEvents)(response.data, this.name, startDate, endDate, true);
-        for (const i in allEvents) {
-          calEvents.push(allEvents[i]);
+        for (const ev of allEvents) {
+          calEvents.push(ev);
         }
         return null;
-      } else {
-        throw "Error while reading from URL " + this.axiosOptions.url + ": Received no data";
       }
+      return `Error reading from URL "${this.axiosOptions.url}": Received no data`;
     }).catch((error) => {
       if (error.response) {
         return `Error reading from URL "${this.axiosOptions.url}": ${error.response.status}`;
       } else if (error.request) {
         return `Error reading from URL "${this.axiosOptions.url}"`;
-      } else {
-        return `Error reading from URL "${this.axiosOptions.url}": ${error.message}`;
       }
+      return `Error reading from URL "${this.axiosOptions.url}": ${error.message}`;
     }).catch((reason) => {
       return reason.message;
     }).finally(() => {
@@ -95,22 +94,23 @@ class ICalReadOnlyClient {
   }
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async addEvent(calEvent) {
-    return {
+    return Promise.resolve({
       ok: false,
-      message: "calender is readonly (" + this.name + ")"
-    };
+      message: `calender is readonly (${this.name})`
+    });
   }
   /**
    * delte Event from Calendar
+   *
    * @param id event id
    * @returns Server response, like {ok:boolen}
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async deleteEvent(id) {
-    return {
+    return Promise.resolve({
       ok: false,
-      message: "calender is readonly (" + this.name + ")"
-    };
+      message: `calender is readonly (${this.name})`
+    });
   }
 }
 // Annotate the CommonJS export names for ESM import in node:

@@ -99,7 +99,7 @@ class Webcal extends utils.Adapter {
           this.config.intervall = 10;
           adapter.log.info("minimum fetching time of calendar ar 10 minutes");
         }
-        adapter.log.info("fetch calendar data all " + this.config.intervall + " minutes");
+        adapter.log.info(`fetch calendar data all ${this.config.intervall} minutes`);
         this.updateCalenderIntervall = this.setInterval(
           this.fetchCalendars.bind(this),
           this.config.intervall * 6e4
@@ -112,9 +112,9 @@ class Webcal extends utils.Adapter {
   /**
    * get data from all calendars and update Eventstates
    */
-  fetchCalendars() {
+  async fetchCalendars() {
     this.eventManager.resetAll();
-    this.calendarManager.fetchCalendars().then((calEvents) => {
+    await this.calendarManager.fetchCalendars().then((calEvents) => {
       for (let i = 0; i < calEvents.length; i++) {
         calEvents[i].searchForEvents(this.eventManager.events);
       }
@@ -124,37 +124,37 @@ class Webcal extends utils.Adapter {
   createCalendarFromConfig(calConfig) {
     if (!calConfig.inactive) {
       if (calConfig.authMethod == "Download") {
-        this.log.info("create Download calendar: " + calConfig.name);
+        this.log.info(`create Download calendar: ${calConfig.name}`);
         return new import_iCalReadOnly.ICalReadOnlyClient(calConfig);
       } else if (calConfig.password) {
         if (calConfig.authMethod == "google") {
-          this.log.info("create google calendar: " + calConfig.name);
+          this.log.info(`create google calendar: ${calConfig.name}`);
           return new import_google.GoogleCalendar(calConfig);
-        } else {
-          this.log.info("create DAV calendar: " + calConfig.name);
-          return new import_calDav.DavCalCalendar(calConfig);
         }
-      } else {
-        this.log.warn("calendar " + calConfig.name + " has no password set");
+        this.log.info(`create DAV calendar: ${calConfig.name}`);
+        return new import_calDav.DavCalCalendar(calConfig);
       }
+      this.log.warn(`calendar ${calConfig.name} has no password set`);
     } else {
-      this.log.info("calendar " + calConfig.name + " is inactive");
+      this.log.info(`calendar ${calConfig.name} is inactive`);
     }
     return null;
   }
   /**
    * create new Event in calendar
+   *
    * @param expression Syntax relDays[@calendar] | date|datetime[ - date|datetime][@calendar]
    * relDays - number of days after today
    * date/datetime must be parsable date
    * \@calendar is the name of the calendar, if not use default (first defined calendar)
-   * @returns {msg:string, errNo:number}
+   * @param summary as string
+   * @returns statusObject
    */
   async addEvent(expression, summary) {
     var _a;
-    adapter.log.debug("add event to calender: " + expression);
+    adapter.log.debug(`add event to calender: ${expression}`);
     let terms = expression.split("@", 2);
-    expression = " " + expression;
+    expression = ` ${expression}`;
     const calendarName = terms.length > 1 ? terms[1] : ((_a = this.eventManager.events[summary]) == null ? void 0 : _a.defaultCalendar) || void 0;
     const eventData = {
       summary,
@@ -185,9 +185,8 @@ class Webcal extends utils.Adapter {
     const result = await this.calendarManager.addEvent(eventData, calendarName);
     if (result.ok) {
       return { statusText: i18n.successfullyAdded + expression, errNo: 0 };
-    } else {
-      return { statusText: result.message + " " + expression, errNo: 5 };
     }
+    return { statusText: `${result.message} ${expression}`, errNo: 5 };
   }
   /**
    * try to locale all internal used text
@@ -197,7 +196,7 @@ class Webcal extends utils.Adapter {
     if (systemConfig) {
       const language = systemConfig.common.language;
       if (language) {
-        const data = import_fs.default.readFileSync("./admin/i18n/" + language + "/translations.json");
+        const data = import_fs.default.readFileSync(`./admin/i18n/${language}/translations.json`);
         if (data) {
           try {
             const trans = JSON.parse(data.toString());
@@ -207,7 +206,8 @@ class Webcal extends utils.Adapter {
               }
             }
           } catch (error) {
-            this.log.warn("error on loading translation, use english\n" + error);
+            this.log.warn(`error on loading translation, use english
+${error}`);
           }
         } else {
           this.log.warn("could not load translation, use english");
@@ -217,6 +217,8 @@ class Webcal extends utils.Adapter {
   }
   /**
    * Is called when adapter shuts down - callback has to be called under any circumstances!
+   *
+   * @param callback as function
    */
   onUnload(callback) {
     try {
@@ -232,7 +234,7 @@ class Webcal extends utils.Adapter {
       }
       callback();
     } catch (e) {
-      this.log.warn("could n ot unload " + e);
+      this.log.warn(`could n ot unload ${e}`);
       callback();
     }
   }
@@ -252,6 +254,9 @@ class Webcal extends utils.Adapter {
   // }
   /**
    * Is called if a subscribed state changes
+   *
+   * @param id id
+   * @param state stateObj
    */
   onStateChange(id, state) {
     if (!state || state.ack) {
@@ -295,7 +300,7 @@ class Webcal extends utils.Adapter {
   clearTimer(timerID) {
     for (let i = 0; i < this.actionEvents.length; i++) {
       if (this.actionEvents[i] == timerID) {
-        delete this.actionEvents[i];
+        this.actionEvents.splice(i, 1);
       }
     }
   }
@@ -342,21 +347,21 @@ class Webcal extends utils.Adapter {
             return this.sendTo(
               obj.from,
               obj.command,
-              { error: i18n.couldNotFoundCalendar + " name: " + obj.message.calendar },
+              { error: `${i18n.couldNotFoundCalendar} name: ${obj.message.calendar}` },
               obj.callback
             );
           }
-          adapter.log.debug("add Events to " + calendar.name);
+          adapter.log.debug(`add Events to ${calendar.name}`);
           for (const i in obj.message.events) {
             const event = obj.message.events[i];
             event.startDate = import_calendarManager.CalendarEvent.parseDateTime(event.start);
             if (!event.startDate.year) {
-              event.error = "start: " + i18n.invalidDate;
+              event.error = `start: ${i18n.invalidDate}`;
             } else {
               if (event.end) {
                 event.endDate = import_calendarManager.CalendarEvent.parseDateTime(event.end);
                 if (!event.endDate.year) {
-                  event.error = "end: " + i18n.invalidDate;
+                  event.error = `end: ${i18n.invalidDate}`;
                 }
               }
             }
@@ -381,11 +386,11 @@ class Webcal extends utils.Adapter {
             return this.sendTo(
               obj.from,
               obj.command,
-              { error: i18n.couldNotFoundCalendar + " name: " + obj.message.calendar },
+              { error: `${i18n.couldNotFoundCalendar} name: ${obj.message.calendar}` },
               obj.callback
             );
           }
-          adapter.log.debug("delete Events from " + calendar.name);
+          adapter.log.debug(`delete Events from ${calendar.name}`);
           for (const i in obj.message.events) {
             const event = obj.message.events[i];
             if (!event.id) {

@@ -40,7 +40,7 @@ class GoogleCalendarEvent extends import_calendarManager.CalendarEvent {
       this.summary = googleEvent.summary || "";
       this.description = googleEvent.description || "";
     } catch (error) {
-      adapter.log.error("could not read calendar Event: " + error);
+      adapter.log.error(`could not read calendar Event: ${error}`);
       adapter.log.debug(JSON.stringify(googleEvent));
       this.googleEvent = null;
     }
@@ -53,7 +53,7 @@ class GoogleCalendarEvent extends import_calendarManager.CalendarEvent {
     let end;
     if (this.googleEvent.start) {
       if (this.googleEvent.start.date) {
-        start = /* @__PURE__ */ new Date(this.googleEvent.start.date + "T00:00");
+        start = /* @__PURE__ */ new Date(`${this.googleEvent.start.date}T00:00`);
       } else {
         start = new Date(this.googleEvent.start.dateTime || "");
       }
@@ -62,7 +62,7 @@ class GoogleCalendarEvent extends import_calendarManager.CalendarEvent {
     }
     if (this.googleEvent.end) {
       if (this.googleEvent.end.date) {
-        end = /* @__PURE__ */ new Date(this.googleEvent.end.date + "T23:59");
+        end = /* @__PURE__ */ new Date(`${this.googleEvent.end.date}T23:59`);
       } else {
         end = new Date(this.googleEvent.end.dateTime || "");
       }
@@ -89,6 +89,7 @@ class GoogleCalendar {
   }
   /**
    * load Calendars from Server
+   *
    * @param displayName if set, try to return Calendar with this name
    * @returns Calender by displaName or primary Calendar
    */
@@ -106,7 +107,7 @@ class GoogleCalendar {
           for (let i = 0; i < calendars.length; i++) {
             if (((_a = calendars[i].summary) == null ? void 0 : _a.toLowerCase()) == displayNameLowerCase || ((_b = calendars[i].summaryOverride) == null ? void 0 : _b.toLowerCase()) == displayNameLowerCase) {
               this.calendarId = calendars[i].id || "";
-              adapter.log.info("use google calendar " + this.calendarId);
+              adapter.log.info(`use google calendar ${this.calendarId}`);
               return this.calendarId;
             }
           }
@@ -114,7 +115,7 @@ class GoogleCalendar {
         for (let i = 0; i < calendars.length; i++) {
           if (calendars[i].primary) {
             this.calendarId = calendars[i].id || "";
-            adapter.log.info("use google primary calendar " + this.calendarId);
+            adapter.log.info(`use google primary calendar ${this.calendarId}`);
             break;
           }
         }
@@ -124,8 +125,9 @@ class GoogleCalendar {
   }
   /**
    * fetch Events form Calendar
-   * @param startDate as date object
-   * @param endDate as date object
+   *
+   * @param startDateISOString as date object
+   * @param endDateISOString as date object
    * @returns Array of Calenderobjects
    */
   async getCalendarObjects(startDateISOString, endDateISOString) {
@@ -146,9 +148,9 @@ class GoogleCalendar {
       var _a;
       const calendarObjects = (_a = res == null ? void 0 : res.data) == null ? void 0 : _a.items;
       if (calendarObjects) {
-        adapter.log.info("found " + calendarObjects.length + " calendar objects");
-        for (const i in calendarObjects) {
-          calEvents.push(new GoogleCalendarEvent(calendarObjects[i], this.name, endDate));
+        adapter.log.info(`found ${calendarObjects.length} calendar objects`);
+        for (const calObj of calendarObjects) {
+          calEvents.push(new GoogleCalendarEvent(calObj, this.name, endDate));
         }
       }
       return null;
@@ -197,6 +199,7 @@ class GoogleCalendar {
   }
   /**
    * delte Event from Calendar
+   *
    * @param id event id
    * @returns Server response, like {ok:boolen}
    */

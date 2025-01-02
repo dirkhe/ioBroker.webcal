@@ -1,272 +1,272 @@
 {
-	"i18n": true,
-	"type": "tabs",
-	"items": {
-		"_Settings": {
-			"type": "panel",
-			"label": "common",
-			"xs": 12,
-			"sm": 12,
-			"md": 12,
-			"lg": 12,
-			"xl": 12
-			"items": {
-				"daysEventFuture": {
-					"type": "number",
-					"label": "fetch future days for events",
-					"min": 0,
-					"max": 30,
-					"step": 1,
-					"default": 3,
-					"xs": 12,
-					"sm": 8,
-					"md": 6,
-					"lg": 3,
-					"xl": 3
-					"newLine": true
-				},
-				"daysEventPast": {
-					"type": "number",
-					"label": "fetch days in past for events",
-					"min": 0,
-					"max": 30,
-					"step": 1,
-					"xs": 12,
-					"sm": 8,
-					"md": 6,
-					"lg": 3,
-					"xl": 3,
-					"default": 0
-				},
-				"daysJSONFuture": {
-					"type": "number",
-					"label": "fetch future days for JSON table",
-					"min": 0,
-					"max": 30,
-					"step": 1,
-					"xs": 12,
-					"sm": 8,
-					"md": 6,
-					"lg": 3,
-					"xl": 3,
-					"default": 5,
-					"newLine": true
-				},
-				"daysJSONPast": {
-					"type": "number",
-					"label": "fetch days in past for JSON table",
-					"min": 0,
-					"max": 30,
-					"step": 1,
-					"xs": 12,
-					"sm": 8,
-					"md": 6,
-					"lg": 3,
-					"xl": 3,
-					"default": 0
-				},
-				"intervall": {
-					"type": "number",
-					"label": "update intervall in minutes",
-					"min": 10,
-					"step": 10,
-					"xs": 12,
-					"sm": 8,
-					"md": 6,
-					"lg": 3,
-					"xl": 3,
-					"default": 60,
-					"newLine": true
-				}
-			}
-		},
-		"_events": {
-			"type": "panel",
-			"label": "Events",
-			"items": {
-				"events": {
-					"type": "table",
-					"label": "Eventlist",
-					"items": [
-						{
-							"type": "text",
-							"attr": "name",
-							"title": "name of event",
-							"width": "20%",
-							"filter": false,
-							"sort": false,
-							"default": ""
-						},
-						{
-							"type": "text",
-							"attr": "regEx",
-							"title": "regex search string - will be apply as //i",
-							"width": "20%",
-							"filter": false,
-							"sort": false,
-							"default": ""
-						},
-						{
-							"type": "selectSendTo",
-							"attr": "calendars",
-							"command": "getCalendars",
-							"title": "use only calendars",
-							"width": "20%",
-							"filter": false,
-							"sort": false,
-							"multiple": true,
-							"default": ""
-						},
-						{
-							"type": "selectSendTo",
-							"attr": "defaultCalendar",
-							"command": "getCalendars",
-							"title": "use default calendar on addEvent",
-							"width": "20%",
-							"filter": false,
-							"sort": false,
-							"default": ""
-						},
-						{
-							"type": "checkbox",
-							"attr": "useIQontrol",
-							"title": "add day options for iQontrol to addEvent",
-							"width": "5%",
-							"filter": false,
-							"sort": false,
-							"default": false
-						}
-					]
-				}
-			}
-		},
-		"_calendars": {
-			"type": "panel",
-			"label": "Calendars",
-			"items": {
-				"calendars": {
-					"type": "table",
-					"sm": 12,
-					"md": 12,
-					"lg": 12,
-					"xl": 12,
-					"label": "Calendar list",
-					"help": "Here you can define your calendar accounts",
-					"helpLink": "https://github.com/dirkhe/ioBroker.webcal",
-					"items": [
-						{
-							"type": "checkbox",
-							"attr": "inactive",
-							"width": "2%",
-							"title": "inactive",
-							"filter": false,
-							"sort": false,
-							"default": false
-						},
-						{
-							"type": "text",
-							"attr": "name",
-							"width": "10%",
-							"title": "name",
-							"filter": false,
-							"sort": true,
-							"default": "Calendar 1"
-						},
-						{
-							"type": "select",
-							"attr": "authMethod",
-							"width": "2%",
-							"title": "authorization method",
-							"options": [
-								{ "label": "Basic", "value": "Basic" },
-								{ "label": "Oauth", "value": "Oauth" },
-								{ "label": "google", "value": "google" },
-								{ "label": "Download", "value": "Download" }
-							],
-							"filter": false,
-							"sort": false,
-							"default": "Basic"
-						},
-						{
-							"type": "text",
-							"attr": "serverUrl",
-							"width": "20%",
-							"title": "Calendar URL",
-							"filter": false,
-							"sort": false,
-							"default": "https://",
-							"hidden": "data.authMethod == 'google'"
-						},
-						{
-							"type": "text",
-							"attr": "username",
-							"width": "10%",
-							"title": "User name",
-							"filter": false,
-							"sort": false,
-							"default": "",
-							"hidden": "data.authMethod == 'google'"
-						},
-						{
-							"type": "password",
-							"attr": "password",
-							"repeat": false,
-							"visible": false,
-							"title": "Password/ Secret",
-							"default": false
-						},
-						{
-							"type": "text",
-							"attr": "tokenUrl",
-							"width": "15%",
-							"title": "token Url",
-							"filter": false,
-							"sort": false,
-							"default": "https://",
-							"hidden": "data.authMethod != 'Oauth'"
-						},
-						{
-							"type": "text",
-							"attr": "refreshToken",
-							"width": "8%",
-							"title": "refreshToken width calDav permission",
-							"filter": false,
-							"sort": false,
-							"default": "",
-							"hidden": "data.authMethod == 'Basic' || data.authMethod == 'Download'"
-						},
-						{
-							"type": "text",
-							"attr": "clientId",
-							"width": "10%",
-							"title": "clientId",
-							"filter": false,
-							"sort": false,
-							"default": "",
-							"hidden": "data.authMethod == 'Basic' || data.authMethod == 'Download'"
-						},
-						{
-							"type": "checkbox",
-							"attr": "ignoreSSL",
-							"width": "2%",
-							"title": "Ignore SSL errors",
-							"filter": false,
-							"sort": false,
-							"default": false,
-							"hidden": "data.authMethod == 'google'"
-						},
-						{
-							"type": "sendTo",
-							"command": "testCalendar",
-							"label": "test",
-							"jsonData": "{\"name\":\"${data.name}\",\"calData\":{\"authMethod\":\"${data.authMethod}\",\"serverUrl\":\"${data.serverUrl}\",\"tokenUrl\":\"${data.tokenUrl}\",\"refreshToken\": \"${data.refreshToken}\",\"username\": \"${data.username}\",\"clientId\": \"${data.clientId}\",\"password\": \"${data.password}\",\"ignoreSSL\": ${data.ignoreSSL}}}",
-							"width": "10%",
-							"title": "test settings",
-							"showProcess": true
-						}
-					]
-				}
-			}
-		}
-	}
+    "i18n": true,
+    "type": "tabs",
+    "items": {
+        "_Settings": {
+            "type": "panel",
+            "label": "common",
+            "xs": 12,
+            "sm": 12,
+            "md": 12,
+            "lg": 12,
+            "xl": 12,
+            "items": {
+                "daysEventFuture": {
+                    "type": "number",
+                    "label": "fetch future days for events",
+                    "min": 0,
+                    "max": 30,
+                    "step": 1,
+                    "default": 3,
+                    "xs": 12,
+                    "sm": 8,
+                    "md": 6,
+                    "lg": 3,
+                    "xl": 3,
+                    "newLine": true
+                },
+                "daysEventPast": {
+                    "type": "number",
+                    "label": "fetch days in past for events",
+                    "min": 0,
+                    "max": 30,
+                    "step": 1,
+                    "xs": 12,
+                    "sm": 8,
+                    "md": 6,
+                    "lg": 3,
+                    "xl": 3,
+                    "default": 0
+                },
+                "daysJSONFuture": {
+                    "type": "number",
+                    "label": "fetch future days for JSON table",
+                    "min": 0,
+                    "max": 30,
+                    "step": 1,
+                    "xs": 12,
+                    "sm": 8,
+                    "md": 6,
+                    "lg": 3,
+                    "xl": 3,
+                    "default": 5,
+                    "newLine": true
+                },
+                "daysJSONPast": {
+                    "type": "number",
+                    "label": "fetch days in past for JSON table",
+                    "min": 0,
+                    "max": 30,
+                    "step": 1,
+                    "xs": 12,
+                    "sm": 8,
+                    "md": 6,
+                    "lg": 3,
+                    "xl": 3,
+                    "default": 0
+                },
+                "intervall": {
+                    "type": "number",
+                    "label": "update intervall in minutes",
+                    "min": 10,
+                    "step": 10,
+                    "xs": 12,
+                    "sm": 8,
+                    "md": 6,
+                    "lg": 3,
+                    "xl": 3,
+                    "default": 60,
+                    "newLine": true
+                }
+            }
+        },
+        "_events": {
+            "type": "panel",
+            "label": "Events",
+            "items": {
+                "events": {
+                    "type": "table",
+                    "label": "Eventlist",
+                    "items": [
+                        {
+                            "type": "text",
+                            "attr": "name",
+                            "title": "name of event",
+                            "width": "20%",
+                            "filter": false,
+                            "sort": false,
+                            "default": ""
+                        },
+                        {
+                            "type": "text",
+                            "attr": "regEx",
+                            "title": "regex search string - will be apply as //i",
+                            "width": "20%",
+                            "filter": false,
+                            "sort": false,
+                            "default": ""
+                        },
+                        {
+                            "type": "selectSendTo",
+                            "attr": "calendars",
+                            "command": "getCalendars",
+                            "title": "use only calendars",
+                            "width": "20%",
+                            "filter": false,
+                            "sort": false,
+                            "multiple": true,
+                            "default": ""
+                        },
+                        {
+                            "type": "selectSendTo",
+                            "attr": "defaultCalendar",
+                            "command": "getCalendars",
+                            "title": "use default calendar on addEvent",
+                            "width": "20%",
+                            "filter": false,
+                            "sort": false,
+                            "default": ""
+                        },
+                        {
+                            "type": "checkbox",
+                            "attr": "useIQontrol",
+                            "title": "add day options for iQontrol to addEvent",
+                            "width": "5%",
+                            "filter": false,
+                            "sort": false,
+                            "default": false
+                        }
+                    ]
+                }
+            }
+        },
+        "_calendars": {
+            "type": "panel",
+            "label": "Calendars",
+            "items": {
+                "calendars": {
+                    "type": "table",
+                    "sm": 12,
+                    "md": 12,
+                    "lg": 12,
+                    "xl": 12,
+                    "label": "Calendar list",
+                    "help": "Here you can define your calendar accounts",
+                    "helpLink": "https://github.com/dirkhe/ioBroker.webcal",
+                    "items": [
+                        {
+                            "type": "checkbox",
+                            "attr": "inactive",
+                            "width": "2%",
+                            "title": "inactive",
+                            "filter": false,
+                            "sort": false,
+                            "default": false
+                        },
+                        {
+                            "type": "text",
+                            "attr": "name",
+                            "width": "10%",
+                            "title": "name",
+                            "filter": false,
+                            "sort": true,
+                            "default": "Calendar 1"
+                        },
+                        {
+                            "type": "select",
+                            "attr": "authMethod",
+                            "width": "2%",
+                            "title": "authorization method",
+                            "options": [
+                                { "label": "Basic", "value": "Basic" },
+                                { "label": "Oauth", "value": "Oauth" },
+                                { "label": "google", "value": "google" },
+                                { "label": "Download", "value": "Download" }
+                            ],
+                            "filter": false,
+                            "sort": false,
+                            "default": "Basic"
+                        },
+                        {
+                            "type": "text",
+                            "attr": "serverUrl",
+                            "width": "20%",
+                            "title": "Calendar URL",
+                            "filter": false,
+                            "sort": false,
+                            "default": "https://",
+                            "hidden": "data.authMethod == 'google'"
+                        },
+                        {
+                            "type": "text",
+                            "attr": "username",
+                            "width": "10%",
+                            "title": "User name",
+                            "filter": false,
+                            "sort": false,
+                            "default": "",
+                            "hidden": "data.authMethod == 'google'"
+                        },
+                        {
+                            "type": "password",
+                            "attr": "password",
+                            "repeat": false,
+                            "visible": false,
+                            "title": "Password/ Secret",
+                            "default": false
+                        },
+                        {
+                            "type": "text",
+                            "attr": "tokenUrl",
+                            "width": "15%",
+                            "title": "token Url",
+                            "filter": false,
+                            "sort": false,
+                            "default": "https://",
+                            "hidden": "data.authMethod != 'Oauth'"
+                        },
+                        {
+                            "type": "text",
+                            "attr": "refreshToken",
+                            "width": "8%",
+                            "title": "refreshToken width calDav permission",
+                            "filter": false,
+                            "sort": false,
+                            "default": "",
+                            "hidden": "data.authMethod == 'Basic' || data.authMethod == 'Download'"
+                        },
+                        {
+                            "type": "text",
+                            "attr": "clientId",
+                            "width": "10%",
+                            "title": "clientId",
+                            "filter": false,
+                            "sort": false,
+                            "default": "",
+                            "hidden": "data.authMethod == 'Basic' || data.authMethod == 'Download'"
+                        },
+                        {
+                            "type": "checkbox",
+                            "attr": "ignoreSSL",
+                            "width": "2%",
+                            "title": "Ignore SSL errors",
+                            "filter": false,
+                            "sort": false,
+                            "default": false,
+                            "hidden": "data.authMethod == 'google'"
+                        },
+                        {
+                            "type": "sendTo",
+                            "command": "testCalendar",
+                            "label": "test",
+                            "jsonData": "{\"name\":\"${data.name}\",\"calData\":{\"authMethod\":\"${data.authMethod}\",\"serverUrl\":\"${data.serverUrl}\",\"tokenUrl\":\"${data.tokenUrl}\",\"refreshToken\": \"${data.refreshToken}\",\"username\": \"${data.username}\",\"clientId\": \"${data.clientId}\",\"password\": \"${data.password}\",\"ignoreSSL\": ${data.ignoreSSL}}}",
+                            "width": "10%",
+                            "title": "test settings",
+                            "showProcess": true
+                        }
+                    ]
+                }
+            }
+        }
+    }
 }

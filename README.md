@@ -171,10 +171,10 @@ This project uses the following components:
 	Placeholder for the next version (at the beginning of the line):
 
 
--->	
-### **WORK IN PROGRESS**
+-->
+### 1.3.11 (2025-01-02)
   * (dirkhe) update dependecies
-  
+
 ### 1.3.10 (2024-10-09)
 * (dirkhe) update dependecies
 * (dirkhe) fix calendar test functionality

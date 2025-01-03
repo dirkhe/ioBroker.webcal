@@ -33,6 +33,7 @@ function initLib(adapterInstance, adapterLocalTimeZone) {
   localTimeZone = adapterLocalTimeZone;
 }
 class GoogleCalendarEvent extends import_calendarManager.CalendarEvent {
+  googleEvent;
   constructor(googleEvent, calendarName, endDate) {
     super(endDate, calendarName, googleEvent.id || null);
     this.googleEvent = googleEvent;
@@ -76,6 +77,10 @@ class GoogleCalendarEvent extends import_calendarManager.CalendarEvent {
   }
 }
 class GoogleCalendar {
+  client;
+  auth;
+  calendarId;
+  name;
   constructor(calConfig) {
     this.name = calConfig.name;
     this.auth = new import_oauth2.auth.OAuth2(calConfig.clientId, calConfig.password);

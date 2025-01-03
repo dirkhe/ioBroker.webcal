@@ -36,10 +36,19 @@ var import_dayjs = __toESM(require("dayjs"));
 var import_regex_escape = __toESM(require("regex-escape"));
 let adapter;
 let i18n = {};
-const _Event = class _Event {
+class Event {
+  static namespace = "events.";
+  static daysFuture = 3;
+  static daysPast = 0;
+  id;
+  name;
+  regEx;
+  calendars;
+  defaultCalendar;
+  useIQontrol;
+  stateValues = {};
+  nowFlag = null;
   constructor(config) {
-    this.stateValues = {};
-    this.nowFlag = null;
     var _a;
     this.name = config.name;
     this.id = this.name.replace(/[^a-z0-9_-]/gi, "");
@@ -133,7 +142,7 @@ const _Event = class _Event {
     this.nowFlag = null;
   }
   syncFlags() {
-    adapter.getStatesAsync(`${_Event.namespace + this.id}.*`).then((states) => {
+    adapter.getStatesAsync(`${Event.namespace + this.id}.*`).then((states) => {
       if (states) {
         for (const stateId in states) {
           const evID = parseInt(stateId.split(".").pop() || "0", 10);
@@ -162,9 +171,9 @@ const _Event = class _Event {
         }
       }
     }
-    adapter.setStateChangedAsync(`${_Event.namespace + this.id}.data`, JSON.stringify(jsonData), true);
+    adapter.setStateChangedAsync(`${Event.namespace + this.id}.data`, JSON.stringify(jsonData), true);
     adapter.setStateChangedAsync(
-      `${_Event.namespace + this.id}.next`,
+      `${Event.namespace + this.id}.next`,
       next.getFullYear() < 9999 ? next.toISOString() : "",
       true
     );
@@ -210,14 +219,12 @@ const _Event = class _Event {
         }
       }
     }
-    adapter.setStateChangedAsync(`${_Event.namespace + this.id}.now`, stateText, true);
+    adapter.setStateChangedAsync(`${Event.namespace + this.id}.now`, stateText, true);
   }
-};
-_Event.namespace = "events.";
-_Event.daysFuture = 3;
-_Event.daysPast = 0;
-let Event = _Event;
+}
 class EventManager {
+  events;
+  iQontrolTimerID;
   constructor(adapterInstance, i18nInstance) {
     adapter = adapterInstance;
     i18n = i18nInstance;

@@ -44,6 +44,12 @@ import_dayjs.default.tz.setDefault(localTimeZone);
 let adapter;
 let i18n = {};
 class jsonEvent {
+  id;
+  date;
+  startTime;
+  endTime;
+  calendarName;
+  summary;
   constructor(event, date, startTime, endTime) {
     this.id = event.id;
     this.calendarName = event.calendarName;
@@ -59,7 +65,15 @@ class jsonEvent {
     return !this.startTime && !this.endTime;
   }
 }
-const _CalendarEvent = class _CalendarEvent {
+class CalendarEvent {
+  static daysFuture = 3;
+  static daysPast = 0;
+  static todayMidnight = (0, import_dayjs.default)().startOf("d");
+  calendarName;
+  id;
+  maxUnixTime;
+  summary;
+  description;
   constructor(endDate, calendarName, id) {
     this.id = id;
     this.calendarName = calendarName;
@@ -98,16 +112,16 @@ const _CalendarEvent = class _CalendarEvent {
   calcDays(timeObj) {
     const days = {};
     if (timeObj) {
-      const firstDay = timeObj.start.startOf("D").diff(_CalendarEvent.todayMidnight, "d");
+      const firstDay = timeObj.start.startOf("D").diff(CalendarEvent.todayMidnight, "d");
       let time = timeObj.start.format("HH:mm");
       if (!timeObj.start.isSame(timeObj.end)) {
         let lastDay = Math.min(
-          timeObj.end.startOf("D").diff(_CalendarEvent.todayMidnight, "d"),
-          _CalendarEvent.daysFuture
+          timeObj.end.startOf("D").diff(CalendarEvent.todayMidnight, "d"),
+          CalendarEvent.daysFuture
         );
         let d = firstDay;
-        if (firstDay < -_CalendarEvent.daysPast) {
-          d = -_CalendarEvent.daysPast;
+        if (firstDay < -CalendarEvent.daysPast) {
+          d = -CalendarEvent.daysPast;
         } else if (time != "00:00") {
           days[firstDay] = new jsonEvent(this, timeObj.start.toDate(), time);
           d++;
@@ -125,7 +139,7 @@ const _CalendarEvent = class _CalendarEvent {
             days[lastDay].endTime = time;
           }
         }
-      } else if (firstDay >= -_CalendarEvent.daysPast) {
+      } else if (firstDay >= -CalendarEvent.daysPast) {
         days[firstDay] = new jsonEvent(this, timeObj.start.toDate(), time != "00:00" ? time : void 0);
         time = timeObj.end.format("HH:mm");
         if (time != "23:59") {
@@ -196,14 +210,11 @@ const _CalendarEvent = class _CalendarEvent {
     }
     return new String(`20${date.year}`).slice(-4).concat("-", new String(`0${date.month}`).slice(-2), "-", new String(`0${date.day}`).slice(-2));
   }
-};
-_CalendarEvent.daysFuture = 3;
-_CalendarEvent.daysPast = 0;
-_CalendarEvent.todayMidnight = (0, import_dayjs.default)().startOf("d");
-let CalendarEvent = _CalendarEvent;
+}
 class CalendarManager {
+  calendars;
+  defaultCalendar = null;
   constructor(adapterInstance, i18nInstance) {
-    this.defaultCalendar = null;
     adapter = adapterInstance;
     i18n = i18nInstance;
     this.calendars = {};

@@ -67,6 +67,9 @@ ${calendarEventData.replace(/\s*([:;=])\s*/gm, "$1")}`);
   return result;
 }
 class IcalCalendarEvent extends import_calendarManager.CalendarEvent {
+  icalEvent;
+  timezone;
+  recurIterator;
   static fromData(calendarEventData, calendarName, startDate, endDate) {
     try {
       adapter.log.debug(`parse calendar data:

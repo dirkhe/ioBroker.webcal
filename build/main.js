@@ -61,14 +61,16 @@ const i18n = {
   weekDaysFull6: "Saturday"
 };
 class Webcal extends utils.Adapter {
+  eventManager;
+  calendarManager;
+  updateCalenderIntervall = void 0;
+  actionEvents = [];
   // we save this for internal housekeeping to fullfill PR addintg to iobroker repository
   constructor(options = {}) {
     super({
       ...options,
       name: "webcal"
     });
-    this.updateCalenderIntervall = void 0;
-    this.actionEvents = [];
     this.on("ready", this.onReady.bind(this));
     this.on("stateChange", this.onStateChange.bind(this));
     this.on("message", this.onMessage.bind(this));

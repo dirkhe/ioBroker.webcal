@@ -38,8 +38,10 @@ function initLib(adapterInstance) {
   (0, import_IcalCalendarEvent.initLib)(adapterInstance);
 }
 class ICalReadOnlyClient {
+  name;
+  axiosOptions;
+  ignoreSSL = false;
   constructor(calConfig) {
-    this.ignoreSSL = false;
     this.name = calConfig.name;
     this.ignoreSSL = !!calConfig.ignoreSSL;
     this.axiosOptions = {

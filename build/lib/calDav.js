@@ -30,8 +30,11 @@ function initLib(adapterInstance) {
   (0, import_IcalCalendarEvent.initLib)(adapterInstance);
 }
 class DavCalCalendar {
+  name;
+  client;
+  ignoreSSL = false;
+  calendar;
   constructor(calConfig) {
-    this.ignoreSSL = false;
     this.name = calConfig.name;
     const params = calConfig.authMethod == "Oauth" ? {
       serverUrl: calConfig.serverUrl,

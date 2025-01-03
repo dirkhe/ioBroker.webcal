@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "webcal",
-    "version": "1.3.12",
+    "version": "1.3.13",
     "news": {
+      "1.3.13": {
+        "en": "use internally node20",
+        "de": "intern node20 verwenden",
+        "ru": "использовать внутренний узел20",
+        "pt": "use internamente node20",
+        "nl": "intern gebruik node20",
+        "fr": "utiliser un nœud interne20",
+        "it": "uso interno node20",
+        "es": "uso interno nodo20",
+        "pl": "używać węzła wewnętrznego20",
+        "uk": "використовувати внутрішній вузол20",
+        "zh-cn": "使用内部节点20"
+      },
       "1.3.12": {
         "en": "fixing pagacke with missing admin folder",
         "de": "befestigung pagacke mit fehlendem admin-ordner",
@@ -80,19 +93,6 @@
         "pl": "naprawić błąd w powtarzanych zdarzeniach",
         "uk": "виправлення помилок в повторних подіях",
         "zh-cn": "在重复发生的事件中修正错误"
-      },
-      "1.3.5": {
-        "en": "increase dependecy adapter-core\nfix json config\nupdate dependecies",
-        "de": "erhöhen abhängigkeit adapter-kern\njson config\naktualisierung der abhängigkeiten",
-        "ru": "повышение зависимочности адаптер\nисправить настройку json\nобновление",
-        "pt": "aumentar o núcleo do adaptador de dependência\ncorrigir json config\natualizações",
-        "nl": "verhoging afhankelijkheid adapter-core\nfix json config\nafhankelijkheden bijwerken",
-        "fr": "augmenter adaptateur-core de dépendance\nréparer la configuration de json\nmettre à jour les dépendances",
-        "it": "aumento dipendenza adattatore-core\nfix json config\ndipendenze dell'aggiornamento",
-        "es": "aumentar la dependencia adaptador-core\njson config\ndependencias de actualización",
-        "pl": "zwiększenie zależności adapter-rdzeń\nfix json config\nuaktualnianie zależności",
-        "uk": "збільшення залежності\nвиправлено json config\nоновлення залежності",
-        "zh-cn": "增加依赖性适配器核心\n修复 json 配置\n更新依赖关系"
       }
     },
     "titleLang": {

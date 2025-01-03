@@ -172,8 +172,9 @@ This project uses the following components:
   ### **WORK IN PROGRESS**
   * ()
 -->
-### **WORK IN PROGRESS**
+### 1.3.12 (2025-01-03)
 * (dirkhe) fixing pagacke with missing admin folder
+
 ### 1.3.11 (2025-01-02)
   * (dirkhe) update dependecies
 

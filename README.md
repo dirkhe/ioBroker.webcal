@@ -169,9 +169,11 @@ This project uses the following components:
 ## Changelog
 <!--
 	Placeholder for the next version (at the beginning of the line):
-
-
+### **WORK IN PROGRESS**
+  * ()
 -->
+### **WORK IN PROGRESS**
+* (dirkhe) fixing pagacke with missing admin folder
 ### 1.3.11 (2025-01-02)
   * (dirkhe) update dependecies
 

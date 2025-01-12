@@ -58,8 +58,12 @@ export class IcalCalendarEvent extends CalendarEvent {
         endDate: Date,
     ): IcalCalendarEvent | null {
         try {
-            adapter.log.debug(`parse calendar data:\n${calendarEventData.replace(/\s*([:;=])\s*/gm, '$1')}`);
-            const jcalData = ICAL.parse(calendarEventData);
+            adapter.log.debug(`parse calendar data:\n${calendarEventData}`);
+            const optimizedData = calendarEventData.replace(/X-[\s\S]*?(?=[A-Z-]+:)/gm, '');
+            if (optimizedData.length != calendarEventData.length) {
+                adapter.log.debug(`use corrected data :\n${optimizedData}`);
+            }
+            const jcalData = ICAL.parse(optimizedData);
             const comp = new ICAL.Component(jcalData);
             const calTimezone = comp.getFirstSubcomponent('vtimezone');
 
@@ -72,7 +76,6 @@ export class IcalCalendarEvent extends CalendarEvent {
             );
         } catch (error: any) {
             adapter.log.error(`could not read calendar Event: ${error}`);
-            adapter.log.debug(calendarEventData);
             return null;
         }
     }
@@ -171,6 +174,8 @@ export class IcalCalendarEvent extends CalendarEvent {
         const vevent = new ICAL.Component('vevent');
         const event = new ICAL.Event(vevent);
 
+        event;
+
         event.summary = data.summary;
         event.description = data.description || 'ioBroker webCal';
         event.uid = new Date().getTime().toString();
@@ -183,6 +188,16 @@ export class IcalCalendarEvent extends CalendarEvent {
                 typeof data.endDate == 'string'
                     ? ICAL.Time.fromString(data.endDate, null)
                     : ICAL.Time.fromData(data.endDate);
+        }
+
+        if (data.location) {
+            event.location = data.location;
+        }
+        if (data.organizer) {
+            event.organizer = data.organizer;
+        }
+        if (data.color) {
+            event.color = data.color;
         }
         cal.addSubcomponent(vevent);
         return cal.toString();

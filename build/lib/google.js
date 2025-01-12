@@ -186,6 +186,15 @@ class GoogleCalendar {
       } else {
         data.end = data.start;
       }
+      if (calEvent.location) {
+        data.location = calEvent.location;
+      }
+      if (calEvent.organizer) {
+        data.organizer = { displayName: calEvent.organizer };
+      }
+      if (calEvent.color) {
+        data.colorId = calEvent.color;
+      }
       const res = await this.client.events.insert({
         calendarId: await this.getCalendar(),
         requestBody: data

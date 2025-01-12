@@ -16,32 +16,6 @@
                 "uk": "використовувати внутрішній вузол20",
                 "zh-cn": "使用内部节点20"
             },
-            "1.3.12": {
-                "en": "fixing pagacke with missing admin folder",
-                "de": "befestigung pagacke mit fehlendem admin-ordner",
-                "ru": "фиксация пагака с недостающей папкой администратора",
-                "pt": "fixando pagão com pasta de administração ausente",
-                "nl": "pagacke repareren met ontbrekende admin-map",
-                "fr": "fixer pagacke avec le dossier admin manquant",
-                "it": "fissaggio pagacke con cartella amministratore mancante",
-                "es": "fijación pagacke con carpeta de administración perdida",
-                "pl": "naprawianie pagacke z brakującym folderem administracyjnym",
-                "uk": "фіксація pagacke з відсутністю папки адміністратора",
-                "zh-cn": "用缺失的管理员文件夹修复 pagacke"
-            },
-            "1.3.11": {
-                "en": "update dependecies",
-                "de": "aktualisierung der abhängigkeiten",
-                "ru": "обновление",
-                "pt": "atualizações",
-                "nl": "afhankelijkheden bijwerken",
-                "fr": "mettre à jour les dépendances",
-                "it": "dipendenze dell'aggiornamento",
-                "es": "dependencias de actualización",
-                "pl": "uaktualnianie zależności",
-                "uk": "оновлення залежності",
-                "zh-cn": "更新依赖关系"
-            },
             "1.3.10": {
                 "en": "update dependecies\nfix calendar test functionality",
                 "de": "aktualisierung der abhängigkeiten\nkalendertest-funktionalität",

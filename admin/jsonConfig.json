@@ -87,6 +87,11 @@
                 "events": {
                     "type": "table",
                     "label": "Eventlist",
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 12,
+                    "lg": 12,
+                    "xl": 12,
                     "items": [
                         {
                             "type": "text",
@@ -146,6 +151,7 @@
             "items": {
                 "calendars": {
                     "type": "table",
+                    "xs": 12,
                     "sm": 12,
                     "md": 12,
                     "lg": 12,

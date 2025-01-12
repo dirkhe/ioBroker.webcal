@@ -73,8 +73,13 @@ class IcalCalendarEvent extends import_calendarManager.CalendarEvent {
   static fromData(calendarEventData, calendarName, startDate, endDate) {
     try {
       adapter.log.debug(`parse calendar data:
-${calendarEventData.replace(/\s*([:;=])\s*/gm, "$1")}`);
-      const jcalData = import_ical.default.parse(calendarEventData);
+${calendarEventData}`);
+      const optimizedData = calendarEventData.replace(/X-[\s\S]*?(?=[A-Z-]+:)/gm, "");
+      if (optimizedData.length != calendarEventData.length) {
+        adapter.log.debug(`use corrected data :
+${optimizedData}`);
+      }
+      const jcalData = import_ical.default.parse(optimizedData);
       const comp = new import_ical.default.Component(jcalData);
       const calTimezone = comp.getFirstSubcomponent("vtimezone");
       return new IcalCalendarEvent(
@@ -86,7 +91,6 @@ ${calendarEventData.replace(/\s*([:;=])\s*/gm, "$1")}`);
       );
     } catch (error) {
       adapter.log.error(`could not read calendar Event: ${error}`);
-      adapter.log.debug(calendarEventData);
       return null;
     }
   }
@@ -157,12 +161,22 @@ ${calendarEventData.replace(/\s*([:;=])\s*/gm, "$1")}`);
     cal.updatePropertyWithValue("prodid", "-//ioBroker.webCal");
     const vevent = new import_ical.default.Component("vevent");
     const event = new import_ical.default.Event(vevent);
+    event;
     event.summary = data.summary;
     event.description = data.description || "ioBroker webCal";
     event.uid = (/* @__PURE__ */ new Date()).getTime().toString();
     event.startDate = typeof data.startDate == "string" ? import_ical.default.Time.fromString(data.startDate, null) : import_ical.default.Time.fromData(data.startDate);
     if (data.endDate) {
       event.endDate = typeof data.endDate == "string" ? import_ical.default.Time.fromString(data.endDate, null) : import_ical.default.Time.fromData(data.endDate);
+    }
+    if (data.location) {
+      event.location = data.location;
+    }
+    if (data.organizer) {
+      event.organizer = data.organizer;
+    }
+    if (data.color) {
+      event.color = data.color;
     }
     cal.addSubcomponent(vevent);
     return cal.toString();

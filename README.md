@@ -175,7 +175,7 @@ This project uses the following components:
   ### **WORK IN PROGRESS**
   * ()
 -->
-### **WORK IN PROGRESS**
+### 1.4.0 (2025-01-12)
 * (dirkhe) add color,location and organizer for craeting Event
 * (dirkhe) add fix for invalid apple calender data
 

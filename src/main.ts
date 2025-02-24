@@ -32,6 +32,7 @@ const i18n: Record<string, string> = {
     undefinedError: 'undefined error',
     successfullyAdded: 'successfully added',
     successfullyDeleted: 'successfully deleted',
+    successfullyUpdated: 'successfully updated',
     Tomorrow: 'Tomorrow',
     Yesterday: 'Yesterday',
     xDaysAgo: '%d days ago',
@@ -317,6 +318,26 @@ class Webcal extends utils.Adapter {
         }
     }
 
+    /**
+     * get calendar from Meassge-obj or default calendar. If not found a error to Message sender will send
+     *
+     * @param obj ioBroker Message
+     * @returns Calendar or null
+     */
+    private getCalendarFromMessage(obj: ioBroker.Message): webcal.ICalendarBase | void {
+        const calendar = obj.message.calendar
+            ? this.calendarManager.calendars[obj.message.calendar]
+            : this.calendarManager.defaultCalendar;
+        if (!calendar) {
+            return this.sendTo(
+                obj.from,
+                obj.command,
+                { error: `${i18n.couldNotFoundCalendar} name: ${obj.message.calendar}` },
+                obj.callback,
+            );
+        }
+        return calendar;
+    }
     // If you need to accept messages in your adapter, uncomment the following block and the corresponding line in the constructor.
     // /**
     //  * Some message was sent to this instance over message box. Used by email, pushover, text2speech, ...
@@ -369,44 +390,88 @@ class Webcal extends utils.Adapter {
     ]
   }
                  */
-
                 if (typeof obj.message == 'object' && obj.message.events) {
-                    const calendar = obj.message.calendar
-                        ? this.calendarManager.calendars[obj.message.calendar]
-                        : this.calendarManager.defaultCalendar;
-                    if (!calendar) {
-                        return this.sendTo(
-                            obj.from,
-                            obj.command,
-                            { error: `${i18n.couldNotFoundCalendar} name: ${obj.message.calendar}` },
-                            obj.callback,
-                        );
-                    }
-                    adapter.log.debug(`add Events to ${calendar.name}`);
-                    for (const i in obj.message.events) {
-                        const event = obj.message.events[i];
-                        event.startDate = CalendarEvent.parseDateTime(event.start);
-                        if (!event.startDate.year) {
-                            event.error = `start: ${i18n.invalidDate}`;
-                        } else {
-                            if (event.end) {
-                                event.endDate = CalendarEvent.parseDateTime(event.end);
-                                if (!event.endDate.year) {
-                                    event.error = `end: ${i18n.invalidDate}`;
+                    const calendar = this.getCalendarFromMessage(obj);
+                    if (calendar) {
+                        adapter.log.debug(`add Events to ${calendar.name}`);
+                        for (const i in obj.message.events) {
+                            const event = obj.message.events[i];
+                            event.startDate = CalendarEvent.parseDateTime(event.start);
+                            if (!event.startDate.year) {
+                                event.error = `start: ${i18n.invalidDate}`;
+                            } else {
+                                if (event.end) {
+                                    event.endDate = CalendarEvent.parseDateTime(event.end);
+                                    if (!event.endDate.year) {
+                                        event.error = `end: ${i18n.invalidDate}`;
+                                    }
+                                }
+                            }
+                            if (!event.error) {
+                                const result = await calendar.addEvent(event);
+                                if (result.ok) {
+                                    event.status = i18n.successfullyAdded;
+                                } else {
+                                    event.error = result.message || result.statusText || i18n.undefinedError;
                                 }
                             }
                         }
-                        if (!event.error) {
-                            const result = await calendar.addEvent(event);
-                            if (result.ok) {
-                                event.status = i18n.successfullyAdded;
+                        this.fetchCalendars();
+                        this.sendTo(obj.from, obj.command, obj.message.events, obj.callback);
+                    }
+                } else {
+                    return this.sendTo(obj.from, obj.command, { error: 'found no events' }, obj.callback);
+                }
+            } else if (obj.command === 'updateEvents') {
+                /**
+ {
+    calendar?: "test",
+    events: [
+      {
+        id: string,
+        summary: string;
+		start: string;
+		end?: string;
+      }
+    ]
+  }
+                 */
+
+                if (typeof obj.message == 'object' && obj.message.events) {
+                    const calendar = this.getCalendarFromMessage(obj);
+                    if (calendar) {
+                        adapter.log.debug(`update Events to ${calendar.name}`);
+                        for (const i in obj.message.events) {
+                            const event = obj.message.events[i];
+                            if (!event.id) {
+                                event.error = `id: ${i18n.invalidId}`;
                             } else {
-                                event.error = result.message || result.statusText || i18n.undefinedError;
+                                if (event.start) {
+                                    event.startDate = CalendarEvent.parseDateTime(event.start);
+                                    if (!event.startDate.year) {
+                                        event.error = `start: ${i18n.invalidDate}`;
+                                    }
+                                }
+                                if (event.end) {
+                                    event.endDate = CalendarEvent.parseDateTime(event.end);
+                                    if (!event.endDate.year) {
+                                        event.error = `end: ${i18n.invalidDate}`;
+                                    }
+                                }
+                            }
+
+                            if (!event.error) {
+                                const result = await calendar.updateEvent(event);
+                                if (result.ok) {
+                                    event.status = i18n.successfullyUpdated;
+                                } else {
+                                    event.error = result.message || result.statusText || i18n.undefinedError;
+                                }
                             }
                         }
+                        this.fetchCalendars();
+                        this.sendTo(obj.from, obj.command, obj.message.events, obj.callback);
                     }
-                    this.fetchCalendars();
-                    this.sendTo(obj.from, obj.command, obj.message.events, obj.callback);
                 } else {
                     return this.sendTo(obj.from, obj.command, { error: 'found no events' }, obj.callback);
                 }

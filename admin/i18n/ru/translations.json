@@ -47,5 +47,6 @@
     "use default calendar on addEvent": "использовать календарь по умолчанию в addEvent",
     "invalid id": "Неверный ID",
     "successfully deleted": "успешно удалено",
-    "undefined error": "неопределенная ошибка"
+    "undefined error": "неопределенная ошибка",
+    "successfully updated": "успешно обновляется"
 }

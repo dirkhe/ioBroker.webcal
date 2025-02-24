@@ -161,10 +161,12 @@ ${optimizedData}`);
     cal.updatePropertyWithValue("prodid", "-//ioBroker.webCal");
     const vevent = new import_ical.default.Component("vevent");
     const event = new import_ical.default.Event(vevent);
-    event;
+    if (!data.id) {
+      data.id = `iob_${(/* @__PURE__ */ new Date()).getTime()}`;
+    }
     event.summary = data.summary;
     event.description = data.description || "ioBroker webCal";
-    event.uid = (/* @__PURE__ */ new Date()).getTime().toString();
+    event.uid = data.id;
     event.startDate = typeof data.startDate == "string" ? import_ical.default.Time.fromString(data.startDate, null) : import_ical.default.Time.fromData(data.startDate);
     if (data.endDate) {
       event.endDate = typeof data.endDate == "string" ? import_ical.default.Time.fromString(data.endDate, null) : import_ical.default.Time.fromData(data.endDate);

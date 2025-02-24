@@ -181,7 +181,7 @@ export class DavCalCalendar implements webcal.ICalendarBase {
             const calendarEventData = IcalCalendarEvent.createIcalEventString(data);
             result = await this.client.createCalendarObject({
                 calendar: await this.getCalendar(),
-                filename: `${new Date().getTime()}.ics`,
+                filename: `${data.id}.ics`,
                 iCalString: calendarEventData,
             });
         } catch (error) {
@@ -197,7 +197,35 @@ export class DavCalCalendar implements webcal.ICalendarBase {
         //console.log(result.ok);
         return result;
     }
-
+    async updateEvent(data: webcal.ICalendarEventData): Promise<any> {
+        let storeDefaultIgnoreSSL: string | undefined | null = null;
+        if (this.ignoreSSL && process.env.NODE_TLS_REJECT_UNAUTHORIZED != '0') {
+            storeDefaultIgnoreSSL = process.env.NODE_TLS_REJECT_UNAUTHORIZED;
+            process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+        }
+        let result;
+        try {
+            const calendarEventData = IcalCalendarEvent.createIcalEventString(data);
+            result = await this.client.updateCalendarObject({
+                calendarObject: {
+                    url: `${(await this.getCalendar()).url + data.id}.ics`,
+                    data: calendarEventData,
+                    etag: '',
+                },
+            });
+        } catch (error) {
+            result = {
+                ok: false,
+                message: error,
+            };
+        }
+        if (storeDefaultIgnoreSSL !== null) {
+            process.env.NODE_TLS_REJECT_UNAUTHORIZED = storeDefaultIgnoreSSL;
+        }
+        //console.log(result);
+        //console.log(result.ok);
+        return result;
+    }
     /**
      * delte Event from Calendar
      *

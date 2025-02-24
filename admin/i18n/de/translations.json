@@ -47,5 +47,6 @@
     "use default calendar on addEvent": "Standardkalender für addEvent",
     "invalid id": "Ungültige ID",
     "successfully deleted": "erfolgreich gelöscht",
-    "undefined error": "undefinierter Fehler"
+    "undefined error": "undefinierter Fehler",
+    "successfully updated": "erfolgreich aktualisiert"
 }

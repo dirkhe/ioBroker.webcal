@@ -84,6 +84,14 @@ export class ICalReadOnlyClient implements webcal.ICalendarBase {
             message: `calender is readonly (${this.name})`,
         });
     }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    updateEvent(calEvent: webcal.ICalendarEventData): Promise<any> {
+        return Promise.resolve({
+            ok: false,
+            message: `calender is readonly (${this.name})`,
+        });
+    }
+
     /**
      * delte Event from Calendar
      *

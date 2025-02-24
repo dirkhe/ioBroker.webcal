@@ -211,8 +211,12 @@ class GoogleCalendar {
     }
     return result;
   }
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  updateEvent(calEvent) {
+    throw new Error("Method not implemented.");
+  }
   /**
-   * delte Event from Calendar
+   * delete Event from Calendar
    *
    * @param id event id
    * @returns Server response, like {ok:boolen}

@@ -170,8 +170,35 @@ class DavCalCalendar {
       const calendarEventData = import_IcalCalendarEvent.IcalCalendarEvent.createIcalEventString(data);
       result = await this.client.createCalendarObject({
         calendar: await this.getCalendar(),
-        filename: `${(/* @__PURE__ */ new Date()).getTime()}.ics`,
+        filename: `${data.id}.ics`,
         iCalString: calendarEventData
+      });
+    } catch (error) {
+      result = {
+        ok: false,
+        message: error
+      };
+    }
+    if (storeDefaultIgnoreSSL !== null) {
+      process.env.NODE_TLS_REJECT_UNAUTHORIZED = storeDefaultIgnoreSSL;
+    }
+    return result;
+  }
+  async updateEvent(data) {
+    let storeDefaultIgnoreSSL = null;
+    if (this.ignoreSSL && process.env.NODE_TLS_REJECT_UNAUTHORIZED != "0") {
+      storeDefaultIgnoreSSL = process.env.NODE_TLS_REJECT_UNAUTHORIZED;
+      process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+    }
+    let result;
+    try {
+      const calendarEventData = import_IcalCalendarEvent.IcalCalendarEvent.createIcalEventString(data);
+      result = await this.client.updateCalendarObject({
+        calendarObject: {
+          url: `${(await this.getCalendar()).url + data.id}.ics`,
+          data: calendarEventData,
+          etag: ""
+        }
       });
     } catch (error) {
       result = {

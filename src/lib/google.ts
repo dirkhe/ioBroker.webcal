@@ -216,8 +216,13 @@ export class GoogleCalendar implements webcal.ICalendarBase {
         return result;
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    updateEvent(calEvent: webcal.ICalendarEventData): Promise<any> {
+        throw new Error('Method not implemented.');
+    }
+
     /**
-     * delte Event from Calendar
+     * delete Event from Calendar
      *
      * @param id event id
      * @returns Server response, like {ok:boolen}

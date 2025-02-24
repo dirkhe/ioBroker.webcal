@@ -101,6 +101,13 @@ class ICalReadOnlyClient {
       message: `calender is readonly (${this.name})`
     });
   }
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  updateEvent(calEvent) {
+    return Promise.resolve({
+      ok: false,
+      message: `calender is readonly (${this.name})`
+    });
+  }
   /**
    * delte Event from Calendar
    *

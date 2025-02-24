@@ -47,6 +47,7 @@ declare global {
             location?: string;
             color?: string;
             organizer?: string;
+            id?: string;
         }
 
         interface ICalendarEventBase {
@@ -71,6 +72,12 @@ declare global {
              * @returns Server response, like {ok:boolen}
              */
             addEvent(calEvent: ICalendarEventData): Promise<any>;
+            /**
+             * event Event from Calendar
+             * @param data event data
+             * @returns Server response, like {ok:boolen}
+             */
+            updateEvent(calEvent: ICalendarEventData): Promise<any>;
             /**
              * delte Event from Calendar
              * @param id event id

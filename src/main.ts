@@ -6,7 +6,7 @@
 // you need to create an adapter
 import * as utils from '@iobroker/adapter-core';
 
-import fs from 'fs';
+import fs from 'node:fs';
 import { DavCalCalendar, initLib as calDavInit } from './lib/calDav';
 import { CalendarEvent, CalendarManager, localTimeZone } from './lib/calendarManager';
 import { EventManager } from './lib/eventManager';

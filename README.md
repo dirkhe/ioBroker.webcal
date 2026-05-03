@@ -310,6 +310,8 @@ This project uses the following components:
 * (dirkhe) fix not shown times with daysPast 
 * (dirkhe) complete rework and implement Google
 
+[Older changelogs can be found there](CHANGELOG_OLD.md)
+
 ## License
 MIT License
 

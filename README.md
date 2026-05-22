@@ -203,6 +203,7 @@ This project uses the following components:
   * ()
 -->
 ### **WORK IN PROGRESS**
+- (ioBroker-Bot) Adapter requires js-controller >= 6.0.11 now.
 * (dirkhe) add event-update function for JS
 
 ### 1.4.0 (2025-01-12)

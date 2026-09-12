@@ -203,6 +203,7 @@ This project uses the following components:
   * ()
 -->
 ### **WORK IN PROGRESS**
+- (iobroker-bot) Adapter requires node.js >= 22 now.
 * (dirkhe) add event-update function for JS
 
 ### 1.4.0 (2025-01-12)

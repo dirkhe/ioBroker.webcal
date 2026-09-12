@@ -22,7 +22,7 @@
         "url": "https://github.com/dirkhe/ioBroker.webcal.git"
     },
     "engines": {
-        "node": ">= 18"
+        "node": ">= 22"
     },
     "dependencies": {
         "@googleapis/calendar": "^9.7.0",
